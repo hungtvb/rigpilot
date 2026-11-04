@@ -3,10 +3,10 @@
 This file governs work in this repository. Read the **latest AGENTS.md on the target branch** before every independent repository task (including review, documentation, implementation, testing, PR, and merge). Also read any nested AGENTS.md within the affected paths. Do not rely on a copy from an earlier task.
 
 ## Current phase
-- **Discovery / brainstorming. No approved implementation design or working application yet.**
+- **Approved design baseline; implementation planning. No application code, accepted implementation plan or working application yet.**
 - Product: RigPilot Agentic AI, a local-first conversational PC configuration advisor for customers of a simulated PC parts retailer.
 - Decisions already confirmed by the stakeholder belong in [docs/DECISIONS.md](docs/DECISIONS.md).
-- Active draft specs: [Product & UX](docs/superpowers/specs/2026-11-04-rigpilot-product-design.md) and [AI Architecture & Evaluation](docs/superpowers/specs/2026-11-04-rigpilot-ai-architecture-design.md). A *draft* is not implementation authorization.
+- Approved design specs: [Product & UX](docs/superpowers/specs/2026-11-04-rigpilot-product-design.md) and [AI Architecture & Evaluation](docs/superpowers/specs/2026-11-04-rigpilot-ai-architecture-design.md). Design approval permits planning, **not** coding: each implementation plan needs stakeholder review and sign-off.
 
 ## Development workflow
 1. **Problem first.** Confirm user value, scenarios, boundaries, and acceptance criteria before proposing agents/frameworks.

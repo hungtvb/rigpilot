@@ -65,7 +65,13 @@ def optimize_build(request: BuildRequest, snapshot: CatalogSnapshot, max_evaluat
             group=2
         # Deterministic tie-breakers and no float/unsupported FPS arithmetic.
         cost=rules.total_purchase_vnd if rules.total_purchase_vnd is not None else 10**18
-        rank=(group,-primary,-secondary,cost,tuple(x.product_id for x in combo))
+        # When every feasible purchase exceeds budget, the least overspend is
+        # the nearest non-compliant alternative. Never pay more merely because
+        # unverified qualitative workload tiers claim an advantage.
+        if group == 3:
+            rank=(group,cost,-primary,-secondary,tuple(x.product_id for x in combo))
+        else:
+            rank=(group,-primary,-secondary,cost,tuple(x.product_id for x in combo))
         results.append((rank,selection,compat,rules,citations,fits_sourced))
     if not results:
         return RecommendationResult(status='NO_CANDIDATE',explanation=('No combination could be assessed.',))

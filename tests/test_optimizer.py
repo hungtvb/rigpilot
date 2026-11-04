@@ -111,3 +111,16 @@ def test_unverified_catalog_evidence_ids_do_not_certify_a_build():
     assert result.status == 'PROVISIONAL'
     assert result.evidence_ids == ()
     assert 'unverified' in ' '.join(result.explanation).lower()
+
+
+def test_no_feasible_budget_build_picks_nearest_overspend():
+    # All combinations are over 1M. The lower-priced GPU is 5M;
+    # an unsupported extra fit tier on the 6.5M GPU must not increase overspend.
+    result = optimize_build(
+        BuildRequest(budget_vnd=1_000_000, primary_workload='gaming'),
+        snapshot(),
+    )
+    assert result.status == 'PROVISIONAL'
+    assert result.selected.part_ids['gpu'] == 'gpu-1'
+    assert result.constraints.total_purchase_vnd == 12_000_000
+    assert 'OVER_BUDGET' in {i.code for i in result.constraints.issues}

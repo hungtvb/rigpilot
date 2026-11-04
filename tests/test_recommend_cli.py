@@ -97,3 +97,14 @@ def test_cli_missing_database_is_controlled_error_without_creating_file(tmp_path
     assert 'Traceback' not in out.stderr
     assert 'database' in out.stderr.lower()
     assert not db.exists()
+
+
+def test_cli_uninitialized_database_reports_error_without_traceback(tmp_path):
+    db = tmp_path / 'empty.sqlite'
+    with sqlite3.connect(db):
+        pass
+    out = cli('recommend', '--db', db, '--budget-vnd', '25000000',
+              '--workload', 'gaming', '--json')
+    assert out.returncode == 1
+    assert 'Traceback' not in out.stderr
+    assert 'database' in out.stderr.lower()

@@ -40,7 +40,7 @@ def request(**kwargs):
 def test_primary_workload_beats_secondary_when_constraints_equal():
     result=optimize_build(request(secondary_workloads=('creator',)),snapshot())
     assert result.selected.part_ids['gpu']=='gpu-2'
-    assert result.status=='RECOMMENDED'
+    assert result.status=='PROVISIONAL'
 
 
 def test_same_fit_tier_prefers_lower_price():
@@ -48,7 +48,7 @@ def test_same_fit_tier_prefers_lower_price():
     p=tuple(item.model_copy(update={'workload_fit_tier': {'gaming': 2,'creator':1}}) if item.product_id=='gpu-2' else item for item in data.products)
     result=optimize_build(request(),data.model_copy(update={'products':p}))
     assert result.selected.part_ids['gpu']=='gpu-1'
-    assert result.status=='RECOMMENDED'
+    assert result.status=='PROVISIONAL'
 
 
 def test_owned_gpu_remains_in_candidate():

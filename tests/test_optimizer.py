@@ -37,9 +37,9 @@ def request(**kwargs):
     return BuildRequest(budget_vnd=16000000,primary_workload='gaming',**kwargs)
 
 
-def test_primary_workload_beats_secondary_when_constraints_equal():
+def test_unverified_primary_workload_tier_cannot_override_lower_price():
     result=optimize_build(request(secondary_workloads=('creator',)),snapshot())
-    assert result.selected.part_ids['gpu']=='gpu-2'
+    assert result.selected.part_ids['gpu']=='gpu-1'
     assert result.status=='PROVISIONAL'
 
 

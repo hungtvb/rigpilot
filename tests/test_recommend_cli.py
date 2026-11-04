@@ -87,3 +87,13 @@ def test_cli_output_contains_no_unsourced_fps_claim(tmp_path):
     assert out.returncode==0
     payload=json.loads(out.stdout)
     assert 'fps' not in ' '.join(payload['explanation']).lower()
+
+
+def test_cli_missing_database_is_controlled_error_without_creating_file(tmp_path):
+    db = tmp_path / 'nonexistent.sqlite'
+    out = cli('recommend', '--db', db, '--budget-vnd', '25000000',
+              '--workload', 'gaming', '--json')
+    assert out.returncode == 1
+    assert 'Traceback' not in out.stderr
+    assert 'database' in out.stderr.lower()
+    assert not db.exists()

@@ -87,3 +87,12 @@ def test_matching_exact_substitution_permission_is_accepted():
     result=evaluate_constraints(request,build(),fixture())
     assert not result.approval_required
     assert result.budget_verified
+
+
+def test_removed_previous_product_cannot_be_silently_replaced():
+    # The customer's old GPU is absent from the latest catalog snapshot:
+    # lack of a current offer is not permission to replace their selection.
+    request = req(previous_parts={'gpu': 'previous-gpu-no-longer-listed'})
+    result = evaluate_constraints(request, build(), fixture())
+    assert result.approval_required
+    assert 'STOCKOUT_SUBSTITUTION_APPROVAL_REQUIRED' in issue_codes(result)

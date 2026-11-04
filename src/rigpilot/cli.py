@@ -29,8 +29,9 @@ def main(argv: list[str] | None = None) -> int:
             print(json.dumps({"snapshot_id": sid}))
         else:
             request = BuildRequest(budget_vnd=args.budget_vnd, primary_workload=args.workload)
-            result = recommend_from_db(request, args.db)
-            payload = {"snapshot_id": load_catalog(args.db).snapshot_id, **result.model_dump(mode="json")}
+            snapshot_id = load_catalog(args.db).snapshot_id
+            result = recommend_from_db(request, args.db, snapshot_id)
+            payload = {"snapshot_id": snapshot_id, **result.model_dump(mode="json")}
             if args.json:
                 print(json.dumps(payload, indent=2))
             else:

@@ -77,3 +77,26 @@ def test_cli_output_contains_no_unsourced_fps_claim(tmp_path):
     assert result.returncode==0
     import re
     assert re.search(r'\d+(?:\.\d+)?\s*fps',result.stdout,re.IGNORECASE) is None
+
+
+def test_cli_snapshot_id_matches_result_during_concurrent_import(tmp_path, monkeypatch, capsys):
+    from rigpilot import cli as cli_module
+    from rigpilot.application.recommend import recommend_from_db as real_recommend
+
+    db = tmp_path / "race.db"
+    initial_id = import_catalog(FIXTURE, db)
+    newer_doc = json.loads(FIXTURE.read_text())
+    newer_doc["offers"][1]["price_vnd"] = 9_000_000
+    newer_file = tmp_path / "updated.json"
+    newer_file.write_text(json.dumps(newer_doc))
+
+    def mutate_after_recommend(request, path, snapshot_id=None):
+        result = real_recommend(request, path, snapshot_id)
+        import_catalog(newer_file, path)
+        return result
+
+    monkeypatch.setattr(cli_module, "recommend_from_db", mutate_after_recommend)
+    assert cli_module.main(["recommend", "--db", str(db), "--budget-vnd", "25000000", "--workload", "gaming", "--json"]) == 0
+    answer = json.loads(capsys.readouterr().out)
+    assert answer["snapshot_id"] == initial_id
+    assert answer["constraints"]["total_purchase_vnd"] is None

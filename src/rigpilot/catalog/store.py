@@ -72,6 +72,9 @@ def import_catalog(source_path: Path, db_path: Path) -> str:
 
 
 def load_catalog(db_path: Path, snapshot_id: str | None = None) -> CatalogSnapshot:
+    db_path = Path(db_path)
+    if not db_path.is_file():
+        raise FileNotFoundError(f'catalog database not found: {db_path}')
     with sqlite3.connect(db_path) as conn:
         conn.execute('PRAGMA foreign_keys=ON')
         if snapshot_id is None:

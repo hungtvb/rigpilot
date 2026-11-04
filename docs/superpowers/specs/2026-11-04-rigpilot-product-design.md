@@ -129,6 +129,16 @@ Essential pending UI checks: responsive breakpoints, keyboard/AT navigation, foc
 
 The application may remain local-first while using an external LLM API; authentication, persistence, deployment mechanics, actual graph/agent structure and service boundaries **remain to be designed**.
 
+## 7a. Recommendation engine — confirmed direction, details pending
+
+**Chosen approach: Hybrid Agentic (Decision D-042).** This is a responsibility boundary, **not** a finalized framework, agent-count or graph design.
+
+- **LLM / conversational orchestration:** interpret goals and constraints, identify missing decisive information, ask for customer permission where required, initiate refinement and explain the outcome with evidence.
+- **Structured product and compatibility logic:** source candidate parts from the curated catalog, check available inventory and simulated prices, validate physical/electrical/platform compatibility, budget and known constraints.
+- **Deterministic/explainable optimizer:** choose a single best-fit candidate under user priorities and hard requirements; report when the best achievable build fails some goals.
+- **Evidence and warnings:** a recommendation is never certified solely because an LLM says it is optimal. Missing product specs or benchmark records remain unknown, and user consent is retained for out-of-stock substitution.
+- **Still open:** objective/ranking model, handling close trade-offs, exact tools, agent architecture, sequencing, state/persistence and evaluation criteria.
+
 ## 8. Quality and risk hypotheses
 
 | Risk | Control / evidence needed |
@@ -146,7 +156,7 @@ No ROI, performance gain or accuracy percentage has yet been measured. Later tes
 
 ## 9. Still to decide in brainstorming
 
-1. **Recommendation engine ownership:** how to divide candidate generation/ranking between deterministic logic and LLM agents; how to explain 'best'.
+1. **Optimization objective:** define how the deterministic optimizer ranks candidates when price, performance, upgradeability, preference and stock constraints compete.
 2. Minimal compatibility rule coverage and what happens when required data is unknown.
 3. Precise representation of constraints, use-case importance, customer-owned parts and the selected build in conversation context.
 4. Architecture/infrastructure choice after reviewing reusable ShopMate code.

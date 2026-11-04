@@ -82,7 +82,7 @@ def optimize_build(request: BuildRequest, snapshot: CatalogSnapshot, max_evaluat
     if truncated:
         explanation.append('Candidate search is not exhaustive; evaluation cap reached.')
     if not fits_sourced:
-        explanation.append('Workload evidence IDs have not been independently verified; selection is provisional.')
+        explanation.append('Workload evidence IDs are unverified; selection is provisional.')
     if warnings:
         explanation.append('Unresolved checks: '+', '.join(warnings)+'.')
     if compat.status=='INCOMPATIBLE':

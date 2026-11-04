@@ -100,3 +100,14 @@ def test_over_budget_returns_warned_closest_build():
 def test_no_unsourced_fps_claims_in_explanation():
     result=optimize_build(request(),snapshot())
     assert 'fps' not in ' '.join(result.explanation).lower()
+
+
+def test_unverified_catalog_evidence_ids_do_not_certify_a_build():
+    # Strings in imported JSON are not validated source records.
+    # This fixture has no trusted benchmark/provenance registry.
+    result = optimize_build(request(), snapshot(gpu_alternative=False))
+    assert result.compatibility.status == 'COMPATIBLE'
+    assert result.constraints.budget_verified
+    assert result.status == 'PROVISIONAL'
+    assert result.evidence_ids == ()
+    assert 'unverified' in ' '.join(result.explanation).lower()

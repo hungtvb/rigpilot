@@ -1,8 +1,8 @@
-# RigPilot Agentic AI — Product & UX Design (DRAFT)
+# RigPilot Agentic AI — Product & UX Design (APPROVED DESIGN)
 
 **Draft date:** 2026-11-04  
-**Phase:** Product discovery / brainstorming — **not yet approved as a full implementation specification**  
-**Authority:** Stakeholder-confirmed decisions in [Decision Log](../../DECISIONS.md). Related implementation-facing design: [AI Architecture & Evaluation](2026-11-04-rigpilot-ai-architecture-design.md) (DRAFT).  
+**Phase:** Design approved by stakeholder on 2026-11-04. Separate implementation-plan review is required before coding.  
+**Authority:** Stakeholder-confirmed decisions in [Decision Log](../../DECISIONS.md). Related implementation-facing design: [AI Architecture & Evaluation](2026-11-04-rigpilot-ai-architecture-design.md) (APPROVED DESIGN).  
 **Current repository state:** Documentation initialization only; no RigPilot application, data import, benchmark, tests, or live agent execution verified here.
 
 ## 1. Why RigPilot exists
@@ -138,7 +138,7 @@ The application is local-first and will call OpenAI for LLM/embeddings (D-045). 
 - **Deterministic/explainable optimizer:** choose a single best-fit candidate under user priorities and hard requirements; report when the best achievable build fails some goals.
 - **Confirmed budget objective (D-043, qualified by D-044):** optimize value for the customer's primary workload **within** their budget ceiling, without assuming full budget must be spent. Between feasible builds, favor the cheaper one when the more expensive one offers only a marginal practical gain. The illustrative 25M/100% vs 29M/105% preference **does not create a universal 5% cutoff**, nor is it a real benchmark. Any ranking rule must consider workload-specific evidence and clarify meaningful benefit.
 - **Evidence and warnings:** a recommendation is never certified solely because an LLM says it is optimal. Missing product specs or benchmark records remain unknown, and user consent is retained for out-of-stock substitution.
-- **Technical details:** exact ranking formulas, contracts, agent topology, sequencing, state/persistence implementation and evaluation thresholds are handled in the [AI Architecture & Evaluation design](2026-11-04-rigpilot-ai-architecture-design.md). The stack and quality-assurance directions are already agreed; the full design is still pending approval.
+- **Technical details:** exact ranking formulas, contracts, agent topology, sequencing, state/persistence implementation and evaluation thresholds are handled in the [AI Architecture & Evaluation design](2026-11-04-rigpilot-ai-architecture-design.md). The stack and quality-assurance directions are approved as a design baseline; exact code-level contracts remain implementation-plan decisions.
 
 ## 8. Quality and risk hypotheses
 

@@ -1,1 +1,185 @@
-{"products":[{"product_id":"CPU-A","kind":"cpu","brand":"Fixture","model":"CPU A","specs":{"socket":"AM5","memory_type":"DDR5","tdp_w":65},"spec_source_url":null,"spec_checked_at":null,"workload_fit_tier":{"gaming":2},"fit_evidence_ids":{}},{"product_id":"MB-A","kind":"motherboard","brand":"Fixture","model":"MB A","specs":{"socket":"AM5","memory_type":"DDR5","form_factor":"Micro-ATX","m2_slots":2},"spec_source_url":null,"spec_checked_at":null,"workload_fit_tier":{},"fit_evidence_ids":{}}],"offers":[{"product_id":"CPU-A","price_vnd":3500000,"stock":"IN_STOCK","snapshot_at":"2026-11-04"},{"product_id":"MB-A","price_vnd":null,"stock":"UNKNOWN","snapshot_at":"2026-11-04"}]}
+{
+  "products": [
+    {
+      "product_id": "CPU-A",
+      "kind": "cpu",
+      "brand": "Fixture",
+      "model": "CPU A",
+      "specs": {
+        "socket": "AM5",
+        "memory_type": "DDR5",
+        "tdp_w": 65
+      },
+      "spec_source_url": null,
+      "spec_checked_at": null,
+      "workload_fit_tier": {
+        "gaming": 2
+      },
+      "fit_evidence_ids": {}
+    },
+    {
+      "product_id": "MB-A",
+      "kind": "motherboard",
+      "brand": "Fixture",
+      "model": "MB A",
+      "specs": {
+        "socket": "AM5",
+        "memory_type": "DDR5",
+        "form_factor": "Micro-ATX",
+        "m2_slots": 2
+      },
+      "spec_source_url": null,
+      "spec_checked_at": null,
+      "workload_fit_tier": {},
+      "fit_evidence_ids": {}
+    },
+    {
+      "product_id": "Z-RAM",
+      "kind": "ram",
+      "brand": "Fixture",
+      "model": "Z-RAM",
+      "specs": {
+        "memory_type": "DDR5"
+      },
+      "spec_source_url": null,
+      "spec_checked_at": null,
+      "workload_fit_tier": {},
+      "fit_evidence_ids": {}
+    },
+    {
+      "product_id": "Z-GPU",
+      "kind": "gpu",
+      "brand": "Fixture",
+      "model": "Z-GPU",
+      "specs": {
+        "length_mm": 195,
+        "board_power_w": 115,
+        "power_connectors": [
+          "PCIe_8pin"
+        ]
+      },
+      "spec_source_url": null,
+      "spec_checked_at": null,
+      "workload_fit_tier": {
+        "gaming": 1
+      },
+      "fit_evidence_ids": {
+        "gaming": [
+          "fixture-evidence"
+        ]
+      }
+    },
+    {
+      "product_id": "Z-STORAGE",
+      "kind": "storage",
+      "brand": "Fixture",
+      "model": "Z-STORAGE",
+      "specs": {
+        "interface": "M.2_NVMe"
+      },
+      "spec_source_url": null,
+      "spec_checked_at": null,
+      "workload_fit_tier": {},
+      "fit_evidence_ids": {}
+    },
+    {
+      "product_id": "Z-PSU",
+      "kind": "psu",
+      "brand": "Fixture",
+      "model": "Z-PSU",
+      "specs": {
+        "rated_w": 650,
+        "connectors": [
+          "PCIe_8pin"
+        ]
+      },
+      "spec_source_url": null,
+      "spec_checked_at": null,
+      "workload_fit_tier": {},
+      "fit_evidence_ids": {}
+    },
+    {
+      "product_id": "Z-CASE",
+      "kind": "case",
+      "brand": "Fixture",
+      "model": "Z-CASE",
+      "specs": {
+        "supported_form_factors": [
+          "Micro-ATX"
+        ],
+        "max_gpu_length_mm": 300,
+        "max_cooler_height_mm": 170
+      },
+      "spec_source_url": null,
+      "spec_checked_at": null,
+      "workload_fit_tier": {},
+      "fit_evidence_ids": {}
+    },
+    {
+      "product_id": "Z-COOLER",
+      "kind": "cooler",
+      "brand": "Fixture",
+      "model": "Z-COOLER",
+      "specs": {
+        "supported_sockets": [
+          "AM5"
+        ],
+        "height_mm": 154
+      },
+      "spec_source_url": null,
+      "spec_checked_at": null,
+      "workload_fit_tier": {},
+      "fit_evidence_ids": {}
+    }
+  ],
+  "offers": [
+    {
+      "product_id": "CPU-A",
+      "price_vnd": 3500000,
+      "stock": "IN_STOCK",
+      "snapshot_at": "2026-11-04"
+    },
+    {
+      "product_id": "MB-A",
+      "price_vnd": null,
+      "stock": "UNKNOWN",
+      "snapshot_at": "2026-11-04"
+    },
+    {
+      "product_id": "Z-RAM",
+      "price_vnd": 1000000,
+      "stock": "IN_STOCK",
+      "snapshot_at": "2026-11-04"
+    },
+    {
+      "product_id": "Z-GPU",
+      "price_vnd": 1000000,
+      "stock": "IN_STOCK",
+      "snapshot_at": "2026-11-04"
+    },
+    {
+      "product_id": "Z-STORAGE",
+      "price_vnd": 1000000,
+      "stock": "IN_STOCK",
+      "snapshot_at": "2026-11-04"
+    },
+    {
+      "product_id": "Z-PSU",
+      "price_vnd": 1000000,
+      "stock": "IN_STOCK",
+      "snapshot_at": "2026-11-04"
+    },
+    {
+      "product_id": "Z-CASE",
+      "price_vnd": 1000000,
+      "stock": "IN_STOCK",
+      "snapshot_at": "2026-11-04"
+    },
+    {
+      "product_id": "Z-COOLER",
+      "price_vnd": 1000000,
+      "stock": "IN_STOCK",
+      "snapshot_at": "2026-11-04"
+    }
+  ]
+}

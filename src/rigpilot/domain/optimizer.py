@@ -3,24 +3,22 @@ from __future__ import annotations
 
 from itertools import product
 
-from rigpilot.catalog.models import CatalogItem, CatalogSnapshot, ComponentKind
+from rigpilot.catalog.models import CatalogItem, CatalogSnapshot
 from .compatibility import evaluate_compatibility
 from .constraints import evaluate_constraints
-from .models import BuildRequest, BuildSelection, RecommendationResult
-
-_REQUIRED_KINDS: tuple[ComponentKind,...] = ('cpu','motherboard','ram','storage','gpu','psu','case','cooler')
+from .models import BuildRequest, BuildSelection, RecommendationResult, REQUIRED_COMPONENT_KINDS
 
 
 def optimize_build(request: BuildRequest, snapshot: CatalogSnapshot, max_evaluations: int = 5000) -> RecommendationResult:
     if max_evaluations < 1:
         raise ValueError('max_evaluations must be positive')
-    by_kind: dict[str,list[CatalogItem]]={k:[] for k in _REQUIRED_KINDS}
+    by_kind: dict[str,list[CatalogItem]]={k:[] for k in REQUIRED_COMPONENT_KINDS}
     by_id = {part.product_id:part for part in snapshot.products}
     owned = {part.kind:part for part in request.owned_components}
     for item in snapshot.products:
         if item.kind in by_kind:
             by_kind[item.kind].append(item)
-    required_kinds=[k for k in _REQUIRED_KINDS if k not in owned]
+    required_kinds=[k for k in REQUIRED_COMPONENT_KINDS if k not in owned]
     candidate_choices=[]
     for kind in required_kinds:
         choices=sorted(by_kind[kind],key=lambda x:x.product_id)
@@ -48,8 +46,11 @@ def optimize_build(request: BuildRequest, snapshot: CatalogSnapshot, max_evaluat
         # Tiers are *curated ordinal fit annotations*, never measured FPS.
         primary=sum(p.workload_fit_tier.get(request.primary_workload,0) for p in parts)
         secondary=sum(p.workload_fit_tier.get(w,0) for w in request.secondary_workloads for p in parts)
-        citations=tuple(sorted({v for p in parts for workload in (request.primary_workload,*request.secondary_workloads) for v in p.fit_evidence_ids.get(workload,[])}))
-        fits_sourced=bool(citations) and all(request.primary_workload in p.workload_fit_tier and bool(p.fit_evidence_ids.get(request.primary_workload)) for p in parts)
+        # Imported fit_evidence_ids are unchecked strings; no provenance registry
+        # exists in this core slice. Do not certify or expose them as citations.
+        # Verified evidence will be wired in the future knowledge/RAG slice.
+        citations: tuple[str, ...] = ()
+        fits_sourced = False
         in_budget = rules.total_purchase_vnd is not None and rules.total_purchase_vnd <= request.budget_vnd
         compatible = compat.status=='COMPATIBLE'
         stock_ok = rules.stock_status=='IN_STOCK'
@@ -81,7 +82,7 @@ def optimize_build(request: BuildRequest, snapshot: CatalogSnapshot, max_evaluat
     if truncated:
         explanation.append('Candidate search is not exhaustive; evaluation cap reached.')
     if not fits_sourced:
-        explanation.append('Workload suitability evidence is incomplete; selection is provisional.')
+        explanation.append('Workload evidence IDs have not been independently verified; selection is provisional.')
     if warnings:
         explanation.append('Unresolved checks: '+', '.join(warnings)+'.')
     if compat.status=='INCOMPATIBLE':

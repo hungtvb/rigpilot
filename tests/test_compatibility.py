@@ -125,3 +125,14 @@ def test_incomplete_build_never_claims_compatible():
     assert report.status == 'UNVERIFIED'
     missing = {issue.affected_part_ids[0] for issue in report.issues if issue.code == 'MISSING_REQUIRED_COMPONENT'}
     assert missing == {'gpu', 'storage', 'psu'}
+
+
+def test_ambiguous_psu_8pin_does_not_prove_gpu_power_compatibility():
+    report = evaluate_compatibility(selection(), catalog(psu_connectors=('8-pin',)))
+    assert report.status == 'UNVERIFIED'
+    assert 'GPU_POWER_CONNECTORS_UNKNOWN' in {issue.code for issue in report.issues}
+
+
+def test_explicit_pcie_gpu_cable_is_validated_separately_from_eps():
+    report = evaluate_compatibility(selection(), catalog(psu_connectors=('PCIe-8-pin',)))
+    assert report.status == 'COMPATIBLE'

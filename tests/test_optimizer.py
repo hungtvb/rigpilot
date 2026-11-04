@@ -124,3 +124,13 @@ def test_no_feasible_budget_build_picks_nearest_overspend():
     assert result.selected.part_ids['gpu'] == 'gpu-1'
     assert result.constraints.total_purchase_vnd == 12_000_000
     assert 'OVER_BUDGET' in {i.code for i in result.constraints.issues}
+
+
+def test_unverified_workload_tiers_do_not_justify_more_expensive_choice():
+    # Imported qualitative tiers and arbitrary evidence-ID strings are not
+    # verified benchmark records. They must not justify a 1.5M premium.
+    result = optimize_build(request(), snapshot())
+    assert result.status == 'PROVISIONAL'
+    assert result.evidence_ids == ()
+    assert result.selected.part_ids['gpu'] == 'gpu-1'
+    assert result.constraints.total_purchase_vnd == 12_000_000

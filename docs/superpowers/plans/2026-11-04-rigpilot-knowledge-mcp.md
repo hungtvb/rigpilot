@@ -63,13 +63,13 @@
 
 - `SourceRecord`: `document_id: str`, `path: Path` (import only), `source_url: str`, `publisher: str`, `source_type: Literal["manufacturer","software_requirements","benchmark_context","review"]`, `product_id: str | None`, `revision: str | None`, `publication_date: str | None`, `license_note: str | None`. Ingest validates local file existence, root confinement and HTTPS source URL; do not store local filesystem paths in user-visible evidence.
 - `Chunk`: `chunk_id: str` (stable hash of document ID + version hash + structural locator + normalized content), `document_id: str`, `text: str`, `page: int | None`, `section: str | None`, `product_id: str | None`, `source_hash: str`. Keep heading and table header/units in split sections.
-- `IndexGeneration`: `generation_id: str` (hash of complete manifest content + parser/chunker/schema version + embedding model/dimensions), `catalog_snapshot_id: str`, `embedding_model: str`, `dimension: int`, `status: Literal["STAGING","ACTIVE","FAILED"]`.
+- `IndexGeneration`: `generation_id: str` (hash of complete manifest content + source file hashes + catalog snapshot ID + parser/chunker/schema version + embedding model/dimensions), `catalog_snapshot_id: str`, `embedding_model: str`, `dimension: int`, `status: Literal["STAGING","ACTIVE","FAILED"]`.
 - `EvidenceHit`: `chunk_id`, `document_id`, `product_id`, `source_url`, `publisher`, `source_type`, `page`, `section`, `excerpt`, `evidence_kind: "DOCUMENT_PASSAGE"`, `rank` (display order only). Never expose raw vector distance as confidence probability.
 - `RetrievalResult`: `hits: tuple[EvidenceHit, ...]`, `mode: Literal["HYBRID","FTS_ONLY","UNAVAILABLE"]`, `generation_id: str | None`, `warnings: tuple[str, ...]`, `ambiguous_product_ids: tuple[str, ...]`. Missing requested generation/model must be an explicit error or fallback status.
 
 **Index publication policy:** Build a `STAGING` generation with SQLite content + FTS5 rows + Chroma vectors under generation-scoped IDs; test counts, IDs and embedding dimensions; **then** atomically change the SQLite active-generation pointer. Readers filter by the active pointer from the outset. On failure, leave old active pointer unchanged and mark staging generation `FAILED`; subsequent reindex may delete/rebuild only the failed generation. An idempotent import of identical sources/model returns the existing active generation. Only prune old generations after successful promotion and a safe grace period. Snapshot changes may require reevaluating document associations, never silently rebind a source to a different SKU.
 
-## Task 1: Curated document parsing and structure-aware chunking
+### Task 1: Curated document parsing and structure-aware chunking
 
 **Files:** Create `knowledge/models.py`, `parsers.py`, `chunking.py`, `__init__.py`; `tests/test_knowledge_parse.py`, `tests/fixtures/knowledge/`, `data/knowledge/manifest.example.json`; modify `pyproject.toml` only for parser extras.
 
@@ -80,7 +80,7 @@
 - [ ] **Implement:** parse only supported file extensions; avoid implicit internet fetching or OCR; split on headings/table boundaries before length caps; reject blank extraction and untrusted/out-of-root paths; preserve publisher, URL, page/section and source hash.
 - [ ] **Verify GREEN + commit:** `pytest tests/test_knowledge_parse.py -q` then `pytest -q`; commit `feat: parse curated technical sources with provenance`.
 
-## Task 2: SQLite knowledge registry, FTS5 and generation pointer
+### Task 2: SQLite knowledge registry, FTS5 and generation pointer
 
 **Files:** Create `knowledge/registry.py`, `tests/test_knowledge_index.py`.
 
@@ -91,7 +91,7 @@
 - [ ] **Implement:** own knowledge tables and SQLite FTS5 (availability checked at startup); parameterize all SQL, escape/normalize FTS5 user tokens, join metadata by `generation_id` and exact `product_id`. Do **not** add new fields to existing catalog models or change product offers.
 - [ ] **Verify GREEN + commit:** `pytest tests/test_knowledge_index.py -q && pytest tests/test_catalog.py -q`; commit `feat: add staged local knowledge registry and FTS5`.
 
-## Task 3: Embeddings and Chroma generation-scoped indexing
+### Task 3: Embeddings and Chroma generation-scoped indexing
 
 **Files:** Create `knowledge/vectors.py`, `knowledge/ingest.py`; extend `tests/test_knowledge_index.py`, `pyproject.toml`.
 
@@ -102,7 +102,7 @@
 - [ ] **Implement:** embed explicitly (no implicit Chroma default model), save vectors to local persisted collection with `generation_id` metadata and stable chunk ID; validate counts before pointer promotion; catch retriable network failures with bounded retry in the **operator** command, not a chat tool.
 - [ ] **Verify GREEN + commit:** `pytest tests/test_knowledge_index.py -q && pytest -q`; commit `feat: index vetted chunks using OpenAI and Chroma`. A separately labeled **opt-in** real OpenAI smoke test is allowed only when credentials are present and must report its exact model, costs and result.
 
-## Task 4: Hybrid search, exact-model identity and cited evidence
+### Task 4: Hybrid search, exact-model identity and cited evidence
 
 **Files:** Create `knowledge/retrieval.py`, `tests/test_knowledge_retrieval.py`.
 
@@ -113,7 +113,7 @@
 - [ ] **Implement:** exact catalog ID aliases first; FTS5 + Chroma ranks independently, merge stable IDs via RRF (`k=60` proposal) then deduplicate and enforce product/revision filters **after** merging. If Chroma fails, return explicit `FTS_ONLY` with warning; if active SQLite generation absent, return `UNAVAILABLE`, never stale Chroma content.
 - [ ] **Verify GREEN + commit:** `pytest tests/test_knowledge_retrieval.py -q && pytest -q`; commit `feat: retrieve source-grounded hybrid evidence with exact SKU filter`.
 
-## Task 5: Read-only MCP tools, stdio contract, CLI and CI
+### Task 5: Read-only MCP tools, stdio contract, CLI and CI
 
 **Files:** Create `mcp_tools.py`, `mcp_server.py`, `knowledge_cli.py`, `tests/test_mcp_tools.py`, `tests/test_mcp_stdio.py`; modify `pyproject.toml`, `.github/workflows/python-checks.yml`, `README.md` (only verified commands).
 

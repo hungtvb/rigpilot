@@ -7,6 +7,19 @@ from rigpilot.catalog.models import CatalogItem, CatalogSnapshot
 from .models import BuildSelection, CompatibilityReport, ValidationIssue, REQUIRED_COMPONENT_KINDS
 
 
+# Generic PSU "8-pin" can refer to CPU EPS or GPU PCIe; never infer the cable.
+_GPU_POWER_CONNECTOR_TYPES = {
+    '8-pin': 'PCIe-8-pin', 'PCIe-8-pin': 'PCIe-8-pin',
+    '6-pin': 'PCIe-6-pin', 'PCIe-6-pin': 'PCIe-6-pin',
+    '12V-2x6': '12V-2x6',
+}
+_PSU_CONNECTOR_TYPES = {
+    'PCIe-8-pin': 'PCIe-8-pin', 'PCIe-6+2-pin': 'PCIe-8-pin',
+    'PCIe-6-pin': 'PCIe-6-pin', '12V-2x6': '12V-2x6',
+    'EPS-8-pin': None, 'ATX-24-pin': None,
+}
+
+
 class PowerPolicy:
     """Conservative indicative headroom, not electrical certification."""
     BASE_SYSTEM_OVERHEAD_W = 150
@@ -78,8 +91,27 @@ def evaluate_compatibility(build: BuildSelection, snapshot: CatalogSnapshot) -> 
         gpu_conn, psu_conn = spec('gpu','power_connectors'), spec('psu','connectors')
         if gpu_conn is None or psu_conn is None:
             issue('GPU_POWER_CONNECTORS_UNKNOWN', 'GPU power connector availability is unverified', 'gpu','psu',unknown=True)
-        elif any(Counter(gpu_conn)[connector] > Counter(psu_conn)[connector] for connector in set(gpu_conn)):
-            issue('GPU_POWER_CONNECTOR_MISMATCH', 'PSU lacks a required GPU power connector', 'gpu','psu')
+        else:
+            required = [_GPU_POWER_CONNECTOR_TYPES.get(name) for name in gpu_conn]
+            if any(name is None for name in required):
+                issue('GPU_POWER_CONNECTORS_UNKNOWN', 'GPU connector type is not recognized', 'gpu', unknown=True)
+            else:
+                available = [
+                    _PSU_CONNECTOR_TYPES[name]
+                    for name in psu_conn
+                    if name in _PSU_CONNECTOR_TYPES and _PSU_CONNECTOR_TYPES[name] is not None
+                ]
+                need = Counter(required)
+                have = Counter(available)
+                if any(have[connector] < count for connector, count in need.items()):
+                    if any(name not in _PSU_CONNECTOR_TYPES for name in psu_conn):
+                        issue('GPU_POWER_CONNECTORS_UNKNOWN',
+                              'PSU connector labels are ambiguous; cannot verify dedicated GPU PCIe cables',
+                              'gpu', 'psu', unknown=True)
+                    else:
+                        issue('GPU_POWER_CONNECTOR_MISMATCH',
+                              'PSU lacks sufficient dedicated GPU PCIe power connectors',
+                              'gpu', 'psu')
 
     if 'cooler' in selected:
         supported, socket = spec('cooler','supported_sockets'), spec('cpu','socket')

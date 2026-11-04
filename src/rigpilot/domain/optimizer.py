@@ -54,7 +54,7 @@ def optimize_build(request: BuildRequest, snapshot: CatalogSnapshot, max_evaluat
         in_budget = rules.total_purchase_vnd is not None and rules.total_purchase_vnd <= request.budget_vnd
         compatible = compat.status=='COMPATIBLE'
         stock_ok = rules.stock_status=='IN_STOCK'
-        other_errors=any(i.severity=='ERROR' and i.code!='STOCKOUT_SUBSTITUTION_APPROVAL_REQUIRED' for i in rules.issues)
+        other_errors=any(i.severity=='ERROR' and i.code not in ('STOCKOUT_SUBSTITUTION_APPROVAL_REQUIRED', 'PREVIOUS_PART_UNAVAILABLE_APPROVAL_REQUIRED') for i in rules.issues)
         if compatible and stock_ok and in_budget and not other_errors:
             group=1 if rules.approval_required else 0
         elif compat.status=='INCOMPATIBLE':
@@ -68,10 +68,14 @@ def optimize_build(request: BuildRequest, snapshot: CatalogSnapshot, max_evaluat
         # When every feasible purchase exceeds budget, the least overspend is
         # the nearest non-compliant alternative. Never pay more merely because
         # unverified qualitative workload tiers claim an advantage.
+        # Qualitative fit labels in this core are unverified catalog metadata.
+        # They must not justify spending more without a trusted source registry.
+        trusted_primary = primary if fits_sourced else 0
+        trusted_secondary = secondary if fits_sourced else 0
         if group == 3:
-            rank=(group,cost,-primary,-secondary,tuple(x.product_id for x in combo))
+            rank=(group,cost,-trusted_primary,-trusted_secondary,tuple(x.product_id for x in combo))
         else:
-            rank=(group,-primary,-secondary,cost,tuple(x.product_id for x in combo))
+            rank=(group,-trusted_primary,-trusted_secondary,cost,tuple(x.product_id for x in combo))
         results.append((rank,selection,compat,rules,citations,fits_sourced))
     if not results:
         return RecommendationResult(status='NO_CANDIDATE',explanation=('No combination could be assessed.',))
@@ -84,7 +88,7 @@ def optimize_build(request: BuildRequest, snapshot: CatalogSnapshot, max_evaluat
         status='RECOMMENDED'
     else:
         status='PROVISIONAL'
-    explanation=['Selected from the available catalog using the primary workload and explicit constraints.']
+    explanation=['Selected from candidates satisfying checked constraints; performance ordering is provisional without verified workload evidence.']
     if truncated:
         explanation.append('Candidate search is not exhaustive; evaluation cap reached.')
     if not fits_sourced:

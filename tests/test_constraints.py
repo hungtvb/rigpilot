@@ -95,4 +95,4 @@ def test_removed_previous_product_cannot_be_silently_replaced():
     request = req(previous_parts={'gpu': 'previous-gpu-no-longer-listed'})
     result = evaluate_constraints(request, build(), fixture())
     assert result.approval_required
-    assert 'STOCKOUT_SUBSTITUTION_APPROVAL_REQUIRED' in issue_codes(result)
+    assert 'PREVIOUS_PART_UNAVAILABLE_APPROVAL_REQUIRED' in issue_codes(result)

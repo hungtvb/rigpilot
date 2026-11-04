@@ -11,6 +11,7 @@ Conversational PC-build advisor for a simulated PC parts store. Local-first with
 - [Accepted stakeholder decision log](docs/DECISIONS.md)
 - [Contributor and Superpowers workflow rules](AGENTS.md)
 - [Recommendation core implementation plan — proposed](docs/superpowers/plans/2026-11-04-rigpilot-recommendation-core.md)
+- [Hybrid RAG + read-only MCP implementation plan — proposed](docs/superpowers/plans/2026-11-04-rigpilot-knowledge-mcp.md)
 
 Implementation plans live in `docs/superpowers/plans/` **after the corresponding spec is approved**; a separate plan review must precede coding. No direct commits to `main`.
 

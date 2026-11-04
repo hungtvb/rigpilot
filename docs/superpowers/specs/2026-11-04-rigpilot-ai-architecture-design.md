@@ -1,7 +1,7 @@
 # RigPilot — AI Architecture & Evaluation Design
 
 **Date:** 2026-11-04  
-**Status:** DRAFT — for stakeholder review; not authorization to implement  
+**Status:** DESIGN APPROVED by stakeholder on 2026-11-04; implementation requires a separately reviewed and approved plan  
 **Scope:** AI recommendation, retrieval, tooling, workflow state, observability and evaluation. Product behavior remains owned by [Product & UX Design](2026-11-04-rigpilot-product-design.md); accepted stakeholder decisions by [Decision Log](../../DECISIONS.md).  
 **Evidence baseline:** `hungtvb/rigpilot`, `docs/foundation-decisions`, documentation-only. This document defines **TO-BE** architecture; no runtime, evaluation PASS, benchmark or chosen ShopMate reusable module has been verified.
 
@@ -198,4 +198,4 @@ Use the REVIEWED subset for the highest-confidence recommendation-quality compar
 
 **Source reuse caveat:** ShopMate source is stakeholder-owned and selective reuse is agreed, but specific code, licenses and dependencies are **not audited in this repository**. Do not claim a reusable component until reviewed at a named source commit.
 
-**Design review gate:** This architecture is a coherent proposed choice assembled from accepted requirements plus explicitly labeled designer defaults. Review/approval of this spec precedes `docs/superpowers/plans/YYYY-MM-DD-<feature>.md`. Do not create plans from draft specs or implement application code on this documentation PR.
+**Design review gate:** The stakeholder approved this design baseline on 2026-11-04, including documented designer defaults. Implementation plans now follow under `docs/superpowers/plans/YYYY-MM-DD-<feature>.md` and require their own review before any application code is written. This documentation PR does not implement the architecture.

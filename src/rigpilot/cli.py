@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import sqlite3
 import sys
 from pathlib import Path
 
@@ -59,6 +60,9 @@ def main(argv: list[str] | None = None) -> int:
             for line in result.explanation:
                 print(line)
         return 0
+    except sqlite3.DatabaseError as exc:
+        print(f'Catalog database error: {exc}', file=sys.stderr)
+        return 1
     except (OSError, ValueError, LookupError, ValidationError) as exc:
         print(f'{type(exc).__name__}: {exc}',file=sys.stderr)
         return 1

@@ -73,6 +73,7 @@
 |---|---|
 | D-042 | **Hybrid Agentic (Option C)**: LLM interprets and clarifies customer requirements, coordinates recommendation/refinement and explains results; **deterministic structured logic** filters products, checks hardware compatibility, budget and inventory constraints, and performs explainable optimization. LLM judgments alone cannot establish compatibility, FPS, price or inventory facts. Exact agent count, ranking method and integration design are still open. |
 | D-043 | **Within-budget priority:** choose the configuration with the strongest fit/performance for the customer's prioritized workloads **within the stated budget**, rather than selecting a cheaper option solely to save money. The customer-approved budget is a ceiling; never auto-exceed it. Do not assume that every unit of budget must be spent. How to evaluate marginal performance gains versus additional price remains open. |
+| D-044 | **Meaningful gain over marginal uplift:** between two configurations both meeting the same mandatory needs, prefer the materially cheaper build when paying more yields only a small improvement (stakeholder chose the illustrative 25M / 100% build over 29M / 105%). This qualifies D-043: optimize customer value within budget, not absolute performance at any cost. The example is **not** a universal 5% threshold, an official performance score or a fixed ranking formula; define testable workload-aware trade-offs later. |
 
 ## Deferred / open, NOT accepted implementation decisions
 

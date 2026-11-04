@@ -1,0 +1,54 @@
+{
+  "products": [
+    {
+      "product_id": "cpu-demo",
+      "kind": "cpu",
+      "brand": "Test Only",
+      "model": "Test CPU A",
+      "specs": {
+        "socket": "AM5",
+        "memory_type": "DDR5",
+        "tdp_w": 65
+      },
+      "spec_source_url": null,
+      "spec_checked_at": null,
+      "workload_fit_tier": {
+        "gaming": 2
+      },
+      "fit_evidence_ids": {}
+    },
+    {
+      "product_id": "gpu-demo",
+      "kind": "gpu",
+      "brand": "Test Only",
+      "model": "Test GPU B",
+      "specs": {
+        "length_mm": 250,
+        "board_power_w": 150,
+        "power_connectors": [
+          "8-pin"
+        ]
+      },
+      "spec_source_url": null,
+      "spec_checked_at": null,
+      "workload_fit_tier": {
+        "gaming": 2
+      },
+      "fit_evidence_ids": {}
+    }
+  ],
+  "offers": [
+    {
+      "product_id": "cpu-demo",
+      "price_vnd": 3500000,
+      "stock": "IN_STOCK",
+      "snapshot_at": "2026-11-04"
+    },
+    {
+      "product_id": "gpu-demo",
+      "price_vnd": 6600000,
+      "stock": "OUT_OF_STOCK",
+      "snapshot_at": "2026-11-04"
+    }
+  ]
+}

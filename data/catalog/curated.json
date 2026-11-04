@@ -1,0 +1,208 @@
+{
+  "products": [
+    {
+      "product_id": "amd-ryzen-5-7600",
+      "kind": "cpu",
+      "brand": "AMD",
+      "model": "Ryzen 5 7600",
+      "specs": {
+        "socket": "AM5",
+        "memory_type": "DDR5",
+        "tdp_w": 65
+      },
+      "spec_source_url": "https://www.amd.com/en/products/processors/desktops/ryzen/7000-series/amd-ryzen-5-7600.html",
+      "spec_checked_at": "2026-11-04",
+      "workload_fit_tier": {},
+      "fit_evidence_ids": {}
+    },
+    {
+      "product_id": "msi-pro-b650m-a-wifi",
+      "kind": "motherboard",
+      "brand": "MSI",
+      "model": "PRO B650M-A WIFI",
+      "specs": {
+        "socket": "AM5",
+        "memory_type": "DDR5",
+        "form_factor": "mATX",
+        "m2_slots": 2
+      },
+      "spec_source_url": "https://vn.msi.com/Motherboard/PRO-B650M-A-WIFI/Specification",
+      "spec_checked_at": "2026-11-04",
+      "workload_fit_tier": {},
+      "fit_evidence_ids": {}
+    },
+    {
+      "product_id": "kingston-kf560c36bbek2-32",
+      "kind": "ram",
+      "brand": "Kingston",
+      "model": "FURY Beast 32GB DDR5-6000 KF560C36BBEK2-32",
+      "specs": {
+        "memory_type": "DDR5",
+        "capacity_gb": 32
+      },
+      "spec_source_url": "https://www.kingston.com/en/memory/search/discontinuedmodels?partid=kf560c36bbek2-32",
+      "spec_checked_at": "2026-11-04",
+      "workload_fit_tier": {},
+      "fit_evidence_ids": {}
+    },
+    {
+      "product_id": "msi-rtx4060-ventus-oc",
+      "kind": "gpu",
+      "brand": "MSI",
+      "model": "GeForce RTX 4060 VENTUS 2X BLACK 8G OC",
+      "specs": {
+        "length_mm": 199,
+        "board_power_w": 120,
+        "power_connectors": [
+          "8-pin"
+        ]
+      },
+      "spec_source_url": "https://www.msi.com/Graphics-Card/GeForce-RTX-4060-VENTUS-2X-BLACK-8G-OC/Specification",
+      "spec_checked_at": "2026-11-04",
+      "workload_fit_tier": {},
+      "fit_evidence_ids": {}
+    },
+    {
+      "product_id": "msi-rtx4060-ventus",
+      "kind": "gpu",
+      "brand": "MSI",
+      "model": "GeForce RTX 4060 VENTUS 2X BLACK 8G",
+      "specs": {
+        "length_mm": 199,
+        "board_power_w": 120,
+        "power_connectors": [
+          "8-pin"
+        ]
+      },
+      "spec_source_url": "https://us.msi.com/Graphics-Card/GeForce-RTX-4060-VENTUS-2X-BLACK-8G/Specification",
+      "spec_checked_at": "2026-11-04",
+      "workload_fit_tier": {},
+      "fit_evidence_ids": {}
+    },
+    {
+      "product_id": "samsung-990-evo-plus-1tb",
+      "kind": "storage",
+      "brand": "Samsung",
+      "model": "990 EVO Plus 1TB MZ-V9S1T0BW",
+      "specs": {
+        "interface": "M.2 NVMe PCIe 4.0 x4",
+        "capacity_gb": 1000
+      },
+      "spec_source_url": "https://www.samsung.com/vn/memory-storage/nvme-ssd/990-evo-plus-1tb-nvme-pcie-gen-4-mz-v9s1t0bw/",
+      "spec_checked_at": "2026-11-04",
+      "workload_fit_tier": {},
+      "fit_evidence_ids": {}
+    },
+    {
+      "product_id": "corsair-rm750e",
+      "kind": "psu",
+      "brand": "Corsair",
+      "model": "RM750e 750W",
+      "specs": {
+        "rated_w": 750,
+        "connectors": [
+          "8-pin",
+          "12V-2x6"
+        ]
+      },
+      "spec_source_url": "https://www.corsair.com/us/en/p/psu/cp-9020262-na/rme-series-rm750e-fully-modular-low-noise-atx-power-supply-cp-9020262-na",
+      "spec_checked_at": "2026-11-04",
+      "workload_fit_tier": {},
+      "fit_evidence_ids": {}
+    },
+    {
+      "product_id": "nzxt-h5-flow-2024",
+      "kind": "case",
+      "brand": "NZXT",
+      "model": "H5 Flow 2024 CC-H52FB-01",
+      "specs": {
+        "supported_form_factors": [
+          "E-ATX",
+          "ATX",
+          "mATX",
+          "Mini-ITX"
+        ],
+        "max_gpu_length_mm": 410,
+        "max_cooler_height_mm": 170
+      },
+      "spec_source_url": "https://support.nzxt.com/hc/en-us/articles/40225168535451-H5-Flow-2024-Specs",
+      "spec_checked_at": "2026-11-04",
+      "workload_fit_tier": {},
+      "fit_evidence_ids": {}
+    },
+    {
+      "product_id": "deepcool-ag400",
+      "kind": "cooler",
+      "brand": "DeepCool",
+      "model": "AG400 R-AG400-BKNNMN-G-1",
+      "specs": {
+        "supported_sockets": [
+          "AM5",
+          "AM4",
+          "LGA1700"
+        ],
+        "height_mm": 150
+      },
+      "spec_source_url": "https://global.deepcool.com/products/Cooling/cpuaircoolers/GAMMAXX-AG400-Single-Tower-CPU-Cooler-1851-1700-AM5/2024/15898.shtml",
+      "spec_checked_at": "2026-11-04",
+      "workload_fit_tier": {},
+      "fit_evidence_ids": {}
+    }
+  ],
+  "offers": [
+    {
+      "product_id": "amd-ryzen-5-7600",
+      "price_vnd": 4250000,
+      "stock": "IN_STOCK",
+      "snapshot_at": "2026-11-04"
+    },
+    {
+      "product_id": "msi-pro-b650m-a-wifi",
+      "price_vnd": 3500000,
+      "stock": "IN_STOCK",
+      "snapshot_at": "2026-11-04"
+    },
+    {
+      "product_id": "kingston-kf560c36bbek2-32",
+      "price_vnd": 2600000,
+      "stock": "IN_STOCK",
+      "snapshot_at": "2026-11-04"
+    },
+    {
+      "product_id": "msi-rtx4060-ventus-oc",
+      "price_vnd": 8000000,
+      "stock": "IN_STOCK",
+      "snapshot_at": "2026-11-04"
+    },
+    {
+      "product_id": "msi-rtx4060-ventus",
+      "price_vnd": 7500000,
+      "stock": "OUT_OF_STOCK",
+      "snapshot_at": "2026-11-04"
+    },
+    {
+      "product_id": "samsung-990-evo-plus-1tb",
+      "price_vnd": 1900000,
+      "stock": "IN_STOCK",
+      "snapshot_at": "2026-11-04"
+    },
+    {
+      "product_id": "corsair-rm750e",
+      "price_vnd": 2200000,
+      "stock": "IN_STOCK",
+      "snapshot_at": "2026-11-04"
+    },
+    {
+      "product_id": "nzxt-h5-flow-2024",
+      "price_vnd": 1900000,
+      "stock": "IN_STOCK",
+      "snapshot_at": "2026-11-04"
+    },
+    {
+      "product_id": "deepcool-ag400",
+      "price_vnd": 550000,
+      "stock": "IN_STOCK",
+      "snapshot_at": "2026-11-04"
+    }
+  ]
+}

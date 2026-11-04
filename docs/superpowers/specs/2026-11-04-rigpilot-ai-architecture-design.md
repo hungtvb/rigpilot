@@ -138,6 +138,19 @@ LLM outputs **proposed patches** via schema validation; they are not applied bef
 
 **Loop safeguards:** bounded tool-call count, retry budget, wall-time budget and explicit terminal failure; exact limits will be chosen and tested during implementation.
 
+### Optimizer policy — designer default for V1
+
+Use a **bounded deterministic candidate search** rather than LLM inventing a parts list and grading itself:
+
+1. Enumerate plausible compatible combinations from the catalog, pruning by mandatory hardware constraints, the customer's locked/owned parts and documented part requirements.
+2. Exclude known out-of-stock substitutions from automatic publication until consent is obtained. An unknown-stock part may remain a **provisional** candidate with a visible warning, never an assumed available offer.
+3. For each workload, estimate **relative suitability only from normalized comparable evidence** (supported game/software requirements and measurements with matching conditions). Unknown evidence lowers confidence and may prevent exact ranking; do not impute arbitrary FPS.
+4. Reject candidates dominated by another candidate that meets at least the same evaluated needs and costs no more without worsening important constraints. Among remaining candidates, prefer stronger fit to the **primary** workload, then avoid paying materially more for gains within evidence uncertainty; use price and upgradeability as tie-breakers only after respecting user priorities.
+5. If no feasible candidate satisfies all hard requirements, provide the nearest **explicitly noncompliant** configuration with itemized blockers and request an authorized constraint change; never silently reinterpret a hard constraint.
+6. Save the rationale: rejected alternatives, constraint evaluations, evidence IDs and the reason the selected build is preferable. The final ranking remains a **designer hypothesis** until calibrated against reviewed golden scenarios.
+
+This is an explainable **value-first heuristic**, not a proof of global optimum. A linear solver / OR-Tools can be considered later only if catalog scale or scenario tests expose a real gap; exact utility weights and thresholds must come from evaluation evidence, not invented benchmarks.
+
 ## 8. Privacy and security
 
 - **Privacy-aware LangSmith tracing:** default to trace metadata (anonymized correlation ID, node/tool name, duration, token/cost usage, result status). Do not send complete prompts/responses, email, secrets, owned-component personal narratives or unredacted tool payloads by default. Debug content is opt-in, time-limited, controlled and redacted.

@@ -62,10 +62,12 @@
 **Contracts (use exactly, refine only by reviewed plan revision):**
 
 - `SourceRecord`: `document_id: str`, `path: Path` (import only), `source_url: str`, `publisher: str`, `source_type: Literal["manufacturer","software_requirements","benchmark_context","review"]`, `product_id: str | None`, `revision: str | None`, `publication_date: str | None`, `license_note: str | None`. Ingest validates local file existence, root confinement and HTTPS source URL; do not store local filesystem paths in user-visible evidence.
-- `Chunk`: `chunk_id: str` (stable hash of document ID + version hash + structural locator + normalized content), `document_id: str`, `text: str`, `page: int | None`, `section: str | None`, `product_id: str | None`, `source_hash: str`. Keep heading and table header/units in split sections.
+- `Chunk`: `chunk_id: str` (stable hash of document ID + version hash + structural locator + normalized content), `document_id: str`, `text: str`, `page: int | None`, `section: str | None`, `product_id: str | None`, `source_hash: str`. Keep heading and table header/units in split sections. Start with a conservative maximum of 2,000 normalized characters per chunk; oversized table rows stay intact and are marked for review, not silently truncated.
 - `IndexGeneration`: `generation_id: str` (hash of complete manifest content + source file hashes + catalog snapshot ID + parser/chunker/schema version + embedding model/dimensions), `catalog_snapshot_id: str`, `embedding_model: str`, `dimension: int`, `status: Literal["STAGING","ACTIVE","FAILED"]`.
 - `EvidenceHit`: `chunk_id`, `document_id`, `product_id`, `source_url`, `publisher`, `source_type`, `page`, `section`, `excerpt`, `evidence_kind: "DOCUMENT_PASSAGE"`, `rank` (display order only). Never expose raw vector distance as confidence probability.
 - `RetrievalResult`: `hits: tuple[EvidenceHit, ...]`, `mode: Literal["HYBRID","FTS_ONLY","UNAVAILABLE"]`, `generation_id: str | None`, `warnings: tuple[str, ...]`, `ambiguous_product_ids: tuple[str, ...]`. Missing requested generation/model must be an explicit error or fallback status.
+
+**Validation limits:** MCP product-search results `limit=1..20`, inventory batches `1..20` product IDs, knowledge `top_k=1..10`, and user query length `1..256` Unicode characters. Exceeding limits returns a structured error instead of truncating silently; SQL and FTS5 input remains parameterized/escaped.
 
 **Index publication policy:** Build a `STAGING` generation with SQLite content + FTS5 rows + Chroma vectors under generation-scoped IDs; test counts, IDs and embedding dimensions; **then** atomically change the SQLite active-generation pointer. Readers filter by the active pointer from the outset. On failure, leave old active pointer unchanged and mark staging generation `FAILED`; subsequent reindex may delete/rebuild only the failed generation. An idempotent import of identical sources/model returns the existing active generation. Only prune old generations after successful promotion and a safe grace period. Snapshot changes may require reevaluating document associations, never silently rebind a source to a different SKU.
 
@@ -78,7 +80,8 @@
 - [ ] **RED:** Write `test_markdown_headings_and_tables_preserved`, `test_pdf_page_numbers_and_table_header_remain_attached`, `test_html_script_text_is_excluded`, `test_txt_source_section_is_traceable`, `test_empty_scanned_pdf_fails_as_unparseable`, `test_source_path_traversal_rejected`, `test_same_input_produces_same_chunk_ids`. Use clearly synthetic fixture docs, not fictitious official URLs.
 - [ ] **Verify RED:** `pytest tests/test_knowledge_parse.py -q` → expected missing parser functions.
 - [ ] **Implement:** parse only supported file extensions; avoid implicit internet fetching or OCR; split on headings/table boundaries before length caps; reject blank extraction and untrusted/out-of-root paths; preserve publisher, URL, page/section and source hash.
-- [ ] **Verify GREEN + commit:** `pytest tests/test_knowledge_parse.py -q` then `pytest -q`; commit `feat: parse curated technical sources with provenance`.
+- [ ] **Verify GREEN:** `pytest tests/test_knowledge_parse.py -q && pytest -q`; all pass.
+- [ ] **Commit:** `git add pyproject.toml src/rigpilot/knowledge data/knowledge tests/fixtures/knowledge tests/test_knowledge_parse.py && git commit -m "feat: parse curated technical sources with provenance"`.
 
 ### Task 2: SQLite knowledge registry, FTS5 and generation pointer
 
@@ -89,7 +92,8 @@
 - [ ] **RED:** `test_fts_exact_model_tokens`, `test_fts_query_escaping_prevents_syntax_injection`, `test_staging_not_visible_to_readers`, `test_atomic_publish_fails_when_chunk_ids_missing`, `test_old_generation_survives_failed_publish`, `test_repeated_stage_has_no_duplicate_chunk_ids`, `test_registry_cannot_corrupt_catalog_tables`.
 - [ ] **Verify RED:** `pytest tests/test_knowledge_index.py -q`.
 - [ ] **Implement:** own knowledge tables and SQLite FTS5 (availability checked at startup); parameterize all SQL, escape/normalize FTS5 user tokens, join metadata by `generation_id` and exact `product_id`. Do **not** add new fields to existing catalog models or change product offers.
-- [ ] **Verify GREEN + commit:** `pytest tests/test_knowledge_index.py -q && pytest tests/test_catalog.py -q`; commit `feat: add staged local knowledge registry and FTS5`.
+- [ ] **Verify GREEN:** `pytest tests/test_knowledge_index.py -q && pytest -q`; all pass.
+- [ ] **Commit:** `git add src/rigpilot/knowledge/registry.py tests/test_knowledge_index.py && git commit -m "feat: add staged local knowledge registry and FTS5"`.
 
 ### Task 3: Embeddings and Chroma generation-scoped indexing
 
@@ -100,7 +104,8 @@
 - [ ] **RED:** `test_chroma_persisted_vectors_roundtrip`, `test_mid_vector_failure_keeps_old_active_generation`, `test_reindex_same_generation_is_idempotent`, `test_embedding_dimension_mismatch_rejected`, `test_embedding_model_change_requires_new_generation`, `test_no_implicit_chroma_embedding_download`.
 - [ ] **Verify RED:** `pytest tests/test_knowledge_index.py -q` with deterministic in-memory fake embedder; no API calls.
 - [ ] **Implement:** embed explicitly (no implicit Chroma default model), save vectors to local persisted collection with `generation_id` metadata and stable chunk ID; validate counts before pointer promotion; catch retriable network failures with bounded retry in the **operator** command, not a chat tool.
-- [ ] **Verify GREEN + commit:** `pytest tests/test_knowledge_index.py -q && pytest -q`; commit `feat: index vetted chunks using OpenAI and Chroma`. A separately labeled **opt-in** real OpenAI smoke test is allowed only when credentials are present and must report its exact model, costs and result.
+- [ ] **Verify GREEN:** `pytest tests/test_knowledge_index.py -q && pytest -q`; all pass. A separately labeled **opt-in** real OpenAI smoke test is allowed only with credentials and must report its exact model, costs and result.
+- [ ] **Commit:** `git add pyproject.toml src/rigpilot/knowledge/vectors.py src/rigpilot/knowledge/ingest.py tests/test_knowledge_index.py && git commit -m "feat: index vetted chunks using OpenAI and Chroma"`.
 
 ### Task 4: Hybrid search, exact-model identity and cited evidence
 
@@ -111,7 +116,8 @@
 - [ ] **RED:** `test_4060_ti_cannot_use_4060_as_exact_model_evidence`, `test_ambiguous_shorthand_returns_disambiguation`, `test_fts_only_fallback_reports_mode`, `test_generation_filter_excludes_stale_chroma_vectors`, `test_citations_include_origin_and_page`, `test_fts_and_chroma_merge_deduplicates_by_chunk_id`, `test_invalid_product_id_rejected`, `test_no_fabricated_fps_or_confidence_probability`.
 - [ ] **Verify RED:** `pytest tests/test_knowledge_retrieval.py -q`.
 - [ ] **Implement:** exact catalog ID aliases first; FTS5 + Chroma ranks independently, merge stable IDs via RRF (`k=60` proposal) then deduplicate and enforce product/revision filters **after** merging. If Chroma fails, return explicit `FTS_ONLY` with warning; if active SQLite generation absent, return `UNAVAILABLE`, never stale Chroma content.
-- [ ] **Verify GREEN + commit:** `pytest tests/test_knowledge_retrieval.py -q && pytest -q`; commit `feat: retrieve source-grounded hybrid evidence with exact SKU filter`.
+- [ ] **Verify GREEN:** `pytest tests/test_knowledge_retrieval.py -q && pytest -q`; all pass.
+- [ ] **Commit:** `git add src/rigpilot/knowledge/retrieval.py tests/test_knowledge_retrieval.py && git commit -m "feat: retrieve source-grounded hybrid evidence with exact SKU filter"`.
 
 ### Task 5: Read-only MCP tools, stdio contract, CLI and CI
 
@@ -122,7 +128,8 @@
 - [ ] **RED:** `test_tool_allowlist_exactly_four`, `test_search_products_uses_exact_catalog_snapshot`, `test_get_product_specs_returns_provenance`, `test_check_inventory_synthetic_and_unknown_are_distinct`, `test_search_knowledge_returns_citation_metadata`, `test_read_only_calls_preserve_catalog_hash_and_active_generation`, `test_oversized_limits_and_sql_injection_are_rejected`, `test_sdk_stdio_client_calls_real_server`, `test_cli_ingest_query_status_roundtrip`. Verify tool responses carry declared state, source and snapshot identifiers.
 - [ ] **Verify RED:** `pytest tests/test_mcp_tools.py tests/test_mcp_stdio.py -q`.
 - [ ] **Implement:** SQLite read connections for MCP, bounded typed queries, no mutating tools, optional `RIGPILOT_DB_PATH` and `RIGPILOT_INDEX_DIR` environment config, no API key/credential in MCP response/log; send only JSON-RPC to stdout (logs to stderr). Operator CLI supports `python -m rigpilot.knowledge_cli ingest --manifest <manifest> --db <catalog.sqlite> --index-dir <chroma_dir>`, `query`, `status`. Update workflow to install `.[knowledge,dev]` and run full pytest for code/data changes.
-- [ ] **Verify GREEN + commit:** `pytest tests/test_mcp_tools.py tests/test_mcp_stdio.py -q && pytest -q`, run a real local CLI import/query against known fixture files, then inspect the actual GitHub Actions run; commit `feat: expose local read-only RigPilot MCP search tools`.
+- [ ] **Verify GREEN:** `pytest tests/test_mcp_tools.py tests/test_mcp_stdio.py -q && pytest -q`, then run a local CLI ingest/query using the fixtures; all pass. Confirm GitHub CI **after** pushing, not from expected outcomes.
+- [ ] **Commit:** `git add pyproject.toml README.md .github/workflows/python-checks.yml src/rigpilot/mcp_tools.py src/rigpilot/mcp_server.py src/rigpilot/knowledge_cli.py tests/test_mcp_tools.py tests/test_mcp_stdio.py && git commit -m "feat: expose local read-only RigPilot MCP search tools"`.
 
 ## Acceptance and continuation
 

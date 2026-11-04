@@ -2,7 +2,7 @@
 
 **Draft date:** 2026-11-04  
 **Phase:** Product discovery / brainstorming — **not yet approved as a full implementation specification**  
-**Authority:** Stakeholder-confirmed decisions in [Decision Log](../../DECISIONS.md) (the canonical source).  
+**Authority:** Stakeholder-confirmed decisions in [Decision Log](../../DECISIONS.md). Related implementation-facing design: [AI Architecture & Evaluation](2026-11-04-rigpilot-ai-architecture-design.md) (DRAFT).  
 **Current repository state:** Documentation initialization only; no RigPilot application, data import, benchmark, tests, or live agent execution verified here.
 
 ## 1. Why RigPilot exists
@@ -100,7 +100,7 @@ These are **proposed acceptance cases**, not PASS evidence.
 | Performance benchmarks | Verified third-party/manufacturer test records where credible | Annotate scenario and limitations; never invent FPS |
 | Customer history | Local persisted account-scoped conversation and immutable build versions | Implement auth, retention, ownership and restore rules later |
 
-Initial data set should be **small and scenario-complete**, not an exhaustive market index. Files (CSV/JSON as appropriate) with validation/import scripts are accepted; schema, exact counts, DB technology and source licenses remain open.
+Initial data set should be **small and scenario-complete**, not an exhaustive market index. Files (CSV/JSON as appropriate) with validation/import scripts are accepted. **SQLite** is selected for structured data and **ChromaDB** for document embeddings (D-047/D-048); exact schema, item counts and source licenses remain under design.
 
 ## 6. Product UX (accepted choices)
 
@@ -127,7 +127,7 @@ Essential pending UI checks: responsive breakpoints, keyboard/AT navigation, foc
 
 **No specific module is accepted as safe to copy without repository inspection.** Prior ShopMate review had only static checks and selected offline tests; its complete integration behavior was not established. In particular, do not inherit post-write refund validation, replay-prone approvals or unverified A2A claims.
 
-The application may remain local-first while using an external LLM API; authentication, persistence, deployment mechanics, actual graph/agent structure and service boundaries **remain to be designed**.
+The application is local-first and will call OpenAI for LLM/embeddings (D-045). SQLite/ChromaDB, MCP, hybrid retrieval and controlled checkpoints are selected at direction level (D-046–D-061); the component contract and exact graph implementation are documented as a **draft** in [AI Architecture & Evaluation](2026-11-04-rigpilot-ai-architecture-design.md).
 
 ## 7a. Recommendation engine — confirmed direction, details pending
 
@@ -138,7 +138,7 @@ The application may remain local-first while using an external LLM API; authenti
 - **Deterministic/explainable optimizer:** choose a single best-fit candidate under user priorities and hard requirements; report when the best achievable build fails some goals.
 - **Confirmed budget objective (D-043, qualified by D-044):** optimize value for the customer's primary workload **within** their budget ceiling, without assuming full budget must be spent. Between feasible builds, favor the cheaper one when the more expensive one offers only a marginal practical gain. The illustrative 25M/100% vs 29M/105% preference **does not create a universal 5% cutoff**, nor is it a real benchmark. Any ranking rule must consider workload-specific evidence and clarify meaningful benefit.
 - **Evidence and warnings:** a recommendation is never certified solely because an LLM says it is optimal. Missing product specs or benchmark records remain unknown, and user consent is retained for out-of-stock substitution.
-- **Still open:** objective/ranking model, handling close trade-offs, exact tools, agent architecture, sequencing, state/persistence and evaluation criteria.
+- **Technical details:** exact ranking formulas, contracts, agent topology, sequencing, state/persistence implementation and evaluation thresholds are handled in the [AI Architecture & Evaluation design](2026-11-04-rigpilot-ai-architecture-design.md). The stack and quality-assurance directions are already agreed; the full design is still pending approval.
 
 ## 8. Quality and risk hypotheses
 
@@ -155,15 +155,10 @@ The application may remain local-first while using an external LLM API; authenti
 
 No ROI, performance gain or accuracy percentage has yet been measured. Later test evidence must identify revision, dataset, mode and observed outcome.
 
-## 9. Still to decide in brainstorming
+## 9. Ownership and next gates
 
-1. **Optimization trade-offs:** D-043/D-044 establish a value-first, within-budget preference; precise workload-aware scoring, meaningful-gain criteria and upgradeability preferences remain open.
-2. Minimal compatibility rule coverage and what happens when required data is unknown.
-3. Precise representation of constraints, use-case importance, customer-owned parts and the selected build in conversation context.
-4. Architecture/infrastructure choice after reviewing reusable ShopMate code.
-5. Data model, validator/import pipeline, benchmark provenance and evaluation datasets.
-6. Authentication/persistence technology, workflow state, errors, cancellation and concurrency.
-7. Detailed visual design system and a mockup/UX review.
-8. Acceptance benchmark and project plan after this design is reviewed.
+This document owns **product outcomes, UX behavior and business rules**, not detailed AI workflow or evaluation implementation. Accepted choices are recorded once in the [Decision Log](../../DECISIONS.md). The [AI Architecture & Evaluation Design](2026-11-04-rigpilot-ai-architecture-design.md) owns technical design, RAG and retrieval, MCP, state, recovery, privacy and evaluation strategy.
 
-**Next step:** Continue brainstorming. Do not start implementation, seed real data, or claim the architecture is approved until this draft is reviewed and a concrete plan is accepted.
+**Remaining before implementation:** stakeholder review of both draft specs, data and hardware-rule acceptance scope, feasibility inspection of selected ShopMate reuse, and explicit approval. Only after approved specs should a separate implementation plan be authored under `docs/superpowers/plans/`.
+
+**Status:** Documentation and recommendations only; there is no implemented RigPilot agent, dataset, passing tests or verified user-facing application in this repository.

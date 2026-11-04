@@ -116,3 +116,12 @@ def test_dual_memory_cpu_rejects_unsupported_board_generation():
     products = tuple(p.model_copy(update={"specs": {"socket": "AM5", "supported_memory_types": ["DDR4", "DDR5"], "tdp_w": 65}}) if p.kind == "cpu" else p for p in data.products)
     result = evaluate_compatibility(selection(), data.model_copy(update={"products": products}))
     assert "CPU_MEMORY_GENERATION_MISMATCH" in {i.code for i in result.issues}
+
+
+def test_incomplete_build_never_claims_compatible():
+    full = selection()
+    partial = BuildSelection(part_ids={kind: pid for kind, pid in full.part_ids.items() if kind not in {'gpu', 'storage', 'psu'}})
+    report = evaluate_compatibility(partial, catalog())
+    assert report.status == 'UNVERIFIED'
+    missing = {issue.affected_part_ids[0] for issue in report.issues if issue.code == 'MISSING_REQUIRED_COMPONENT'}
+    assert missing == {'gpu', 'storage', 'psu'}

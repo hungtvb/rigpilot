@@ -67,9 +67,15 @@
 | D-040 | Execution progress is based on **actual execution events**, shown as one compact Chat status line with expandable details; never fake graph progress. |
 | D-041 | **Publish the PC Builder update only after processing and validation complete**. On failure keep the prior saved version, show an error; validation may complete with explicit warnings. |
 
+## Recommendation architecture direction
+
+| ID | Accepted decision |
+|---|---|
+| D-042 | **Hybrid Agentic (Option C)**: LLM interprets and clarifies customer requirements, coordinates recommendation/refinement and explains results; **deterministic structured logic** filters products, checks hardware compatibility, budget and inventory constraints, and performs explainable optimization. LLM judgments alone cannot establish compatibility, FPS, price or inventory facts. Exact agent count, ranking method and integration design are still open. |
+
 ## Deferred / open, NOT accepted implementation decisions
 
-- **Architecture:** orchestrator, agent count and responsibilities, use of LangGraph/MCP/RAG, rule engine, optimizer algorithm, whether separate services are justified.
+- **Architecture:** exact agent count, orchestration, LangGraph/MCP/RAG integration, constraint representation, optimizer/ranking algorithm and service boundaries are still open; D-042 establishes only the division of responsibility.
 - **Storage/auth technology:** DB, session/security implementation, hosting model and secret handling.
 - **Data contracts:** exact hardware coverage, provenance and benchmark schema, freshness and import strategy.
 - **UX detail:** design tokens, error details, keyboard/accessibility QA, status copy, exact mobile history drawer behavior.

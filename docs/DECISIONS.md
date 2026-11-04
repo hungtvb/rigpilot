@@ -2,7 +2,7 @@
 
 **Updated:** 2026-11-04  
 **Source:** stakeholder brainstorming for RigPilot Agentic AI  
-**Status:** decisions below are **ACCEPTED at product/UX level**. They are **not** a claim of implemented or tested functionality.
+**Status:** decisions below are **ACCEPTED at product and AI-design direction level**. They are **not** a claim of implemented or tested functionality.
 
 > This is the single source of truth for confirmed choices. Future proposed changes must not silently replace accepted decisions. Add a dated entry or supersede an older ID explicitly.
 
@@ -75,10 +75,32 @@
 | D-043 | **Within-budget priority:** choose the configuration with the strongest fit/performance for the customer's prioritized workloads **within the stated budget**, rather than selecting a cheaper option solely to save money. The customer-approved budget is a ceiling; never auto-exceed it. Do not assume that every unit of budget must be spent. How to evaluate marginal performance gains versus additional price remains open. |
 | D-044 | **Meaningful gain over marginal uplift:** between two configurations both meeting the same mandatory needs, prefer the materially cheaper build when paying more yields only a small improvement (stakeholder chose the illustrative 25M / 100% build over 29M / 105%). This qualifies D-043: optimize customer value within budget, not absolute performance at any cost. The example is **not** a universal 5% threshold, an official performance score or a fixed ranking formula; define testable workload-aware trade-offs later. |
 
+## AI technology, retrieval, orchestration and evaluation
+
+| ID | Accepted decision |
+|---|---|
+| D-045 | **OpenAI** is the fixed V1 provider for both LLM inference and embeddings; do not build multi-provider abstraction solely for optional future support. |
+| D-046 | **RAG is in V1 scope**, to work with curated technical manuals, official game/software requirements, credible reviews and explanatory benchmark documents. RAG is evidence retrieval, not source of truth for live/shop price or stock. |
+| D-047 | **SQLite local** is V1 structured storage for catalog/specs, synthetic shop price/stock, benchmark measurements and customer/conversation/build records. |
+| D-048 | **ChromaDB local** stores document embeddings/chunks and retrieval metadata; it is a derived index, not authoritative business data. |
+| D-049 | **Hybrid Retrieval** joins semantic search, keyword/exact-model matching and metadata filtering; implementation may use ChromaDB plus SQLite FTS5, without requiring Elasticsearch. |
+| D-050 | **Structure-aware Chunking** preserves headings, section boundaries, tables, units and source metadata; fixed-size limits can be applied as a fallback for oversized sections. |
+| D-051 | **Structured Benchmark + RAG**: validated, comparable benchmark measurements are stored in SQLite, explanatory source passages in ChromaDB. Do not directly compare FPS measured under incompatible conditions. |
+| D-052 | **Evaluation = deterministic correctness + expert reference builds**: do not require exact-match components if an alternative satisfies requirements comparably; critical safety errors override prose quality scores. |
+| D-053 | **AI-assisted Golden Dataset with review:** generated references remain `PROVISIONAL` until mechanically `VALIDATED`, and only truly independently reviewed cases become `REVIEWED` expert reference evidence. |
+| D-054 | **Risk-based CI evaluation:** deterministic checks on applicable code PRs; targeted real OpenAI/RAG tests when affected; broader LLM E2E before major AI merges and periodically, not every docs/trivial PR. |
+| D-055 | **Privacy-aware tracing:** capture bounded execution metadata, token usage, latency and error status; do not upload raw chats, prompt/response contents or secrets to LangSmith by default; detailed debug access controlled/redacted. |
+| D-056 | **Structured Context + Conversation Memory:** typed constraints, owned/locked parts, state and pending approvals are authoritative for the active chat; chat summaries support LLM context but cannot override structured state. |
+| D-057 | **Isolated Conversations:** a new chat does not inherit prior chat budget/preferences/build state; reopening an existing chat restores its own state and immutable build history. No automatic cross-session preference memory in V1. |
+| D-058 | **MCP included in V1 and read-only:** local tools expose product search, product specs, inventory and knowledge retrieval; compatibility validation, optimization and version persistence remain ordinary application/domain operations. |
+| D-059 | **Controlled Agentic Workflow:** LLM interprets user needs and chooses contextual retrieval/clarification, but compatibility, budget, stock, hard constraints and validation before publishing are mandatory gates. |
+| D-060 | **Graceful Degradation:** bounded retry; unavailable inventory becomes `UNKNOWN`, missing price cannot yield 'under budget' proof, missing compatibility-critical data becomes `UNVERIFIED`; failures must not silently turn into a green status. |
+| D-061 | **Checkpoint-based Recovery:** resume from valid LangGraph state with freshness/approval checks, bounded retries and idempotent publication; do not replay stale decisions or generate duplicate saved versions. |
+
 ## Deferred / open, NOT accepted implementation decisions
 
-- **Architecture:** exact agent count, orchestration, LangGraph/MCP/RAG integration, constraint representation, optimizer/ranking algorithm and service boundaries are still open; D-042 establishes only the division of responsibility.
-- **Storage/auth technology:** DB, session/security implementation, hosting model and secret handling.
+- **Architecture detail:** exact agent count/graph topology, component interfaces, optimization scoring and model IDs remain subject to designer proposal and owner review; D-042 and D-045–D-061 establish agreed direction, not code-level sign-off.
+- **Storage/auth detail:** SQLite and ChromaDB are selected; schema, session/security implementation, local deployment mechanism and secret handling are still design-level proposals.
 - **Data contracts:** exact hardware coverage, provenance and benchmark schema, freshness and import strategy.
 - **UX detail:** design tokens, error details, keyboard/accessibility QA, status copy, exact mobile history drawer behavior.
 - **Integration:** `Proceed to Cart` contract, any eventual cart service/CTA states.

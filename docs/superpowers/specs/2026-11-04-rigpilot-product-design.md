@@ -127,7 +127,7 @@ Essential pending UI checks: responsive breakpoints, keyboard/AT navigation, foc
 
 **No specific module is accepted as safe to copy without repository inspection.** Prior ShopMate review had only static checks and selected offline tests; its complete integration behavior was not established. In particular, do not inherit post-write refund validation, replay-prone approvals or unverified A2A claims.
 
-The application is local-first and will call OpenAI for LLM/embeddings (D-045). SQLite/ChromaDB, MCP, hybrid retrieval and controlled checkpoints are selected at direction level (D-046–D-061); the component contract and exact graph implementation are documented as a **draft** in [AI Architecture & Evaluation](2026-11-04-rigpilot-ai-architecture-design.md).
+The application is local-first and will call OpenAI for LLM/embeddings (D-045). SQLite/ChromaDB, MCP, hybrid retrieval and controlled checkpoints are selected at direction level (D-046–D-061); the component contract and exact graph implementation are documented in the **approved design** [AI Architecture & Evaluation](2026-11-04-rigpilot-ai-architecture-design.md).
 
 ## 7a. Recommendation engine — confirmed direction, details pending
 
@@ -159,6 +159,6 @@ No ROI, performance gain or accuracy percentage has yet been measured. Later tes
 
 This document owns **product outcomes, UX behavior and business rules**, not detailed AI workflow or evaluation implementation. Accepted choices are recorded once in the [Decision Log](../../DECISIONS.md). The [AI Architecture & Evaluation Design](2026-11-04-rigpilot-ai-architecture-design.md) owns technical design, RAG and retrieval, MCP, state, recovery, privacy and evaluation strategy.
 
-**Remaining before implementation:** stakeholder review of both draft specs, data and hardware-rule acceptance scope, feasibility inspection of selected ShopMate reuse, and explicit approval. Only after approved specs should a separate implementation plan be authored under `docs/superpowers/plans/`.
+**Remaining before implementation:** stakeholder approval of a concrete implementation plan, a source-verified initial catalog, hardware-rule scope and any selected ShopMate reuse audit. Only after approved specs should a separate implementation plan be authored under `docs/superpowers/plans/`.
 
-**Status:** Documentation and recommendations only; there is no implemented RigPilot agent, dataset, passing tests or verified user-facing application in this repository.
+**Status:** Design baseline approved on 2026-11-04. Documentation only; there is no implemented RigPilot agent, dataset, passing tests or verified user-facing application in this repository.

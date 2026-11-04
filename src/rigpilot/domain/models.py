@@ -9,6 +9,11 @@ from rigpilot.catalog.models import ComponentKind
 CompatibilityStatus = Literal['COMPATIBLE', 'UNVERIFIED', 'INCOMPATIBLE']
 IssueSeverity = Literal['ERROR', 'WARNING']
 
+# First-slice tower contract. Owned parts satisfy the same kind requirements.
+REQUIRED_COMPONENT_KINDS: tuple[ComponentKind, ...] = (
+    'cpu', 'motherboard', 'ram', 'storage', 'gpu', 'psu', 'case', 'cooler'
+)
+
 
 class OwnedComponent(BaseModel):
     model_config = ConfigDict(extra='forbid', frozen=True)

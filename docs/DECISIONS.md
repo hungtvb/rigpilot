@@ -49,7 +49,7 @@
 | D-027 | Use **curated, verified datasets** in the first release; no live web research during customer conversations. |
 | D-028 | Start with a **small, sufficient** catalog, covering replacements, stockouts, incompatible combinations and varied use cases. Exact item counts are not approved. |
 | D-029 | Manage catalog and knowledge using **files plus import/validation scripts**, not an Admin UI. |
-| D-030 | **Local-first** deployment. No cloud deployment requirement at this stage; LLM API use remains an open technical choice. |
+| D-030 | **Local-first** deployment. No cloud deployment requirement at this stage; provider choice was later resolved by D-045 (OpenAI for LLM and embeddings). |
 | D-031 | **Selective Reuse (Option B)** from stakeholder-owned ShopMate; reuse infrastructure only after an audit, and build PC-specific domain logic separately. |
 
 ## Experience and interface
@@ -71,7 +71,7 @@
 
 | ID | Accepted decision |
 |---|---|
-| D-042 | **Hybrid Agentic (Option C)**: LLM interprets and clarifies customer requirements, coordinates recommendation/refinement and explains results; **deterministic structured logic** filters products, checks hardware compatibility, budget and inventory constraints, and performs explainable optimization. LLM judgments alone cannot establish compatibility, FPS, price or inventory facts. Exact agent count, ranking method and integration design are still open. |
+| D-042 | **Hybrid Agentic (Option C)**: LLM interprets and clarifies customer requirements, coordinates recommendation/refinement and explains results; **deterministic structured logic** filters products, checks hardware compatibility, budget and inventory constraints, and performs explainable optimization. LLM judgments alone cannot establish compatibility, FPS, price or inventory facts. The approved AI design selects a controlled orchestrator and value-first heuristic; exact node contracts and algorithm calibration are implementation-plan decisions. |
 | D-043 | **Within-budget priority:** choose the configuration with the strongest fit/performance for the customer's prioritized workloads **within the stated budget**, rather than selecting a cheaper option solely to save money. The customer-approved budget is a ceiling; never auto-exceed it. Do not assume that every unit of budget must be spent. How to evaluate marginal performance gains versus additional price remains open. |
 | D-044 | **Meaningful gain over marginal uplift:** between two configurations both meeting the same mandatory needs, prefer the materially cheaper build when paying more yields only a small improvement (stakeholder chose the illustrative 25M / 100% build over 29M / 105%). This qualifies D-043: optimize customer value within budget, not absolute performance at any cost. The example is **not** a universal 5% threshold, an official performance score or a fixed ranking formula; define testable workload-aware trade-offs later. |
 
@@ -99,7 +99,7 @@
 
 ## Deferred / open, NOT accepted implementation decisions
 
-- **Architecture detail:** exact agent count/graph topology, component interfaces, optimization scoring and model IDs remain subject to designer proposal and owner review; D-042 and D-045–D-061 establish agreed direction, not code-level sign-off.
+- **Architecture detail:** controlled single-orchestrator direction is approved in the AI design; exact graph nodes, interfaces, optimizer calibration and model IDs remain implementation-plan decisions, not code-level sign-off.
 - **Storage/auth detail:** SQLite and ChromaDB are selected; schema, session/security implementation, local deployment mechanism and secret handling are still design-level proposals.
 - **Data contracts:** exact hardware coverage, provenance and benchmark schema, freshness and import strategy.
 - **UX detail:** design tokens, error details, keyboard/accessibility QA, status copy, exact mobile history drawer behavior.

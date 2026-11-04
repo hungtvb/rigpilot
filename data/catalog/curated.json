@@ -1,0 +1,24 @@
+{
+  "products": [
+    {"product_id":"amd-ryzen-5-7600","kind":"cpu","brand":"AMD","model":"Ryzen 5 7600","specs":{"socket":"AM5","memory_type":"DDR5","tdp_w":65},"spec_source_url":"https://www.amd.com/en/products/processors/desktops/ryzen/7000-series/amd-ryzen-5-7600.html","spec_checked_at":"2026-11-04","workload_fit_tier":{},"fit_evidence_ids":{}},
+    {"product_id":"msi-pro-b650m-a-wifi","kind":"motherboard","brand":"MSI","model":"PRO B650M-A WIFI","specs":{"socket":"AM5","memory_type":"DDR5","form_factor":"Micro-ATX","m2_slots":2},"spec_source_url":"https://www.msi.com/Motherboard/PRO-B650M-A-WIFI/Specification","spec_checked_at":"2026-11-04","workload_fit_tier":{},"fit_evidence_ids":{}},
+    {"product_id":"kingston-kf560c36bbek2-32","kind":"ram","brand":"Kingston","model":"FURY Beast DDR5 6000MT/s 32GB KF560C36BBEK2-32","specs":{"memory_type":"DDR5","capacity_gb":32},"spec_source_url":"https://www.kingston.com/en/memory/search/discontinuedmodels?partid=kf560c36bbek2-32","spec_checked_at":"2026-11-04","workload_fit_tier":{},"fit_evidence_ids":{}},
+    {"product_id":"msi-rtx4060-ventus-oc","kind":"gpu","brand":"MSI","model":"GeForce RTX 4060 VENTUS 2X BLACK 8G OC","specs":{"length_mm":199,"board_power_w":120,"power_connectors":["PCIe_8pin"]},"spec_source_url":"https://www.msi.com/Graphics-Card/GeForce-RTX-4060-VENTUS-2X-BLACK-8G-OC/Specification","spec_checked_at":"2026-11-04","workload_fit_tier":{},"fit_evidence_ids":{}},
+    {"product_id":"msi-rtx4060-ventus","kind":"gpu","brand":"MSI","model":"GeForce RTX 4060 VENTUS 2X BLACK 8G","specs":{"length_mm":199,"board_power_w":120,"power_connectors":["PCIe_8pin"]},"spec_source_url":"https://us.msi.com/Graphics-Card/GeForce-RTX-4060-VENTUS-2X-BLACK-8G/Specification","spec_checked_at":"2026-11-04","workload_fit_tier":{},"fit_evidence_ids":{}},
+    {"product_id":"crucial-p3-plus-1tb","kind":"storage","brand":"Crucial","model":"P3 Plus 1TB CT1000P3PSSD8","specs":{"interface":"M.2_NVMe","capacity_gb":1000},"spec_source_url":"https://www.crucial.com/ssd/p3-plus/ct1000p3pssd8","spec_checked_at":"2026-11-04","workload_fit_tier":{},"fit_evidence_ids":{}},
+    {"product_id":"corsair-rm750e-2025","kind":"psu","brand":"CORSAIR","model":"RM750e (2025) CP-9020295-NA","specs":{"rated_w":750,"connectors":["PCIe_8pin","12V_2x6"]},"spec_source_url":"https://www.corsair.com/us/en/p/psu/cp-9020295-na/rme-series-rm750e-fully-modular-low-noise-atx-power-supply-cp-9020295-na","spec_checked_at":"2026-11-04","workload_fit_tier":{},"fit_evidence_ids":{}},
+    {"product_id":"asus-prime-ap201","kind":"case","brand":"ASUS","model":"Prime AP201 MicroATX Case","specs":{"supported_form_factors":["Micro-ATX","Mini-ITX"],"max_gpu_length_mm":338,"max_cooler_height_mm":170},"spec_source_url":"https://www.asus.com/motherboards-components/cases/prime/asus-prime-ap201-microatx-case/techspec/","spec_checked_at":"2026-11-04","workload_fit_tier":{},"fit_evidence_ids":{}},
+    {"product_id":"deepcool-ak400","kind":"cooler","brand":"DeepCool","model":"AK400 R-AK400-BKNNMN-G-1","specs":{"supported_sockets":["AM5","AM4","LGA1700"],"height_mm":155},"spec_source_url":"https://www.deepcool.com/products/Cooling/cpuaircoolers/AK400-Performance-CPU-Cooler-1851-1700-AM5/2024/15222.shtml","spec_checked_at":"2026-11-04","workload_fit_tier":{},"fit_evidence_ids":{}}
+  ],
+  "offers": [
+    {"product_id":"amd-ryzen-5-7600","price_vnd":4900000,"stock":"IN_STOCK","snapshot_at":"2026-11-04"},
+    {"product_id":"msi-pro-b650m-a-wifi","price_vnd":3900000,"stock":"IN_STOCK","snapshot_at":"2026-11-04"},
+    {"product_id":"kingston-kf560c36bbek2-32","price_vnd":2200000,"stock":"IN_STOCK","snapshot_at":"2026-11-04"},
+    {"product_id":"msi-rtx4060-ventus-oc","price_vnd":7800000,"stock":"OUT_OF_STOCK","snapshot_at":"2026-11-04"},
+    {"product_id":"msi-rtx4060-ventus","price_vnd":7300000,"stock":"IN_STOCK","snapshot_at":"2026-11-04"},
+    {"product_id":"crucial-p3-plus-1tb","price_vnd":1900000,"stock":"IN_STOCK","snapshot_at":"2026-11-04"},
+    {"product_id":"corsair-rm750e-2025","price_vnd":2500000,"stock":"IN_STOCK","snapshot_at":"2026-11-04"},
+    {"product_id":"asus-prime-ap201","price_vnd":1700000,"stock":"IN_STOCK","snapshot_at":"2026-11-04"},
+    {"product_id":"deepcool-ak400","price_vnd":800000,"stock":"IN_STOCK","snapshot_at":"2026-11-04"}
+  ]
+}

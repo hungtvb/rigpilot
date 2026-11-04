@@ -10,7 +10,7 @@
 
 **Spec:** [AI Architecture & Evaluation](../specs/2026-11-04-rigpilot-ai-architecture-design.md), [Product & UX Design](../specs/2026-11-04-rigpilot-product-design.md), [Decision Log](../../DECISIONS.md), especially D-003, D-007, D-010, D-013–D-021, D-026–D-029, D-042–D-044, D-047, D-052, D-058–D-060.
 
-**Plan status:** PROPOSED — stakeholder plan approval required before coding. Design baseline approved 2026-11-04. Target branch for code execution will be a **fresh feature branch** after approval; do not write application code in the documentation branches.
+**Plan status:** APPROVED by stakeholder on 2026-11-04 ("Okie"), including the proposed Subagent-driven execution method. Implementation belongs on a feature branch; no app code on documentation branches. Merge still requires separate review and approval.
 
 ## Global Constraints
 
@@ -181,4 +181,4 @@ Use Pydantic 2 models. Exact Python interface names below must match call sites 
 - **Review Focus mapping:** critical unknown price/stock (Task 3), consent (Task 3/4), owned part (Task 2/3), conflict (Task 2/5), evidence and search cap (Task 4/5) each have explicit negative tests.
 - **No execution evidence yet:** this plan was authored before any source, fixture, CLI, CI or real LLM tests were created. All expected PASS outcomes above are **future acceptance criteria**.
 
-**Stakeholder review required:** approve or amend this plan and choose execution method. For a high-correctness domain engine, prefer Superpowers subagent-driven task implementation and independent review. Do not start Task 1 before approval.
+**Execution sign-off:** stakeholder approved this plan and favored Subagent-driven execution on 2026-11-04. Each task requires TDD evidence and a review gate. Deployment or merge remains out of scope until code review.

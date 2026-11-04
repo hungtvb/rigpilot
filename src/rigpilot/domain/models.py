@@ -66,3 +66,14 @@ class ConstraintReport(BaseModel):
     stock_status: Literal["IN_STOCK", "OUT_OF_STOCK", "UNKNOWN"]
     approval_required: bool
     issues: tuple[ValidationIssue, ...] = ()
+
+
+class RecommendationResult(BaseModel):
+    model_config = ConfigDict(extra="forbid", frozen=True)
+    status: Literal["RECOMMENDED", "PROVISIONAL", "APPROVAL_REQUIRED", "NO_CANDIDATE"]
+    selected: BuildSelection | None
+    compatibility: CompatibilityReport | None
+    constraints: ConstraintReport | None
+    evidence_ids: tuple[str, ...] = ()
+    selection_limited: bool = False
+    explanation: tuple[str, ...] = ()

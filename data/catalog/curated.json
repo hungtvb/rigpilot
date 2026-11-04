@@ -101,7 +101,8 @@
       "specs": {
         "rated_w": 750,
         "connectors": [
-          "8-pin",
+          "PCIe-8-pin",
+          "PCIe-8-pin",
           "12V-2x6"
         ]
       },

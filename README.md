@@ -16,7 +16,7 @@ Implementation plans live in `docs/superpowers/plans/` **after the corresponding
 
 ## Local deterministic core (feature branch)
 
-The current implementation can import a **nine-item curated real-model PC catalog**, with **simulated VND prices and inventory**, and output one reviewed-by-rules configuration with explicit warnings. It does **not** call OpenAI or make measured FPS claims.
+The current implementation can import a **fourteen-item curated real-model PC catalog**, with **simulated VND prices and inventory**, and output one reviewed-by-rules configuration with explicit warnings. It does **not** call OpenAI or make measured FPS claims.
 
 ```bash
 python -m pip install -e '.[dev]'

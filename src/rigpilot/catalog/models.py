@@ -12,7 +12,7 @@ _NONNEGATIVE_NUMERIC = {
     'tdp_w', 'length_mm', 'board_power_w', 'rated_w', 'max_gpu_length_mm',
     'height_mm', 'max_cooler_height_mm', 'm2_slots', 'capacity_gb',
 }
-_LIST_SPEC = {'connectors', 'power_connectors', 'supported_form_factors', 'supported_sockets'}
+_LIST_SPEC = {'connectors', 'power_connectors', 'supported_form_factors', 'supported_sockets', 'supported_memory_types'}
 _STRING_SPEC = {'socket', 'memory_type', 'form_factor', 'interface'}
 
 class CatalogItem(BaseModel):

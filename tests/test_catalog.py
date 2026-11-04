@@ -93,3 +93,15 @@ def test_invalid_stock_or_price_is_not_coerced(tmp_path):
     data['offers'][0]['price_vnd'] = -1
     with pytest.raises(ValueError):
         import_catalog(write_data(tmp_path,data),tmp_path/'db')
+
+
+def test_curated_catalog_includes_am4_am5_and_intel_platforms(tmp_path):
+    curated = Path(__file__).resolve().parents[1] / 'data' / 'catalog' / 'curated.json'
+    sid = import_catalog(curated, tmp_path / 'coverage.db')
+    snapshot = load_catalog(tmp_path / 'coverage.db', sid)
+    cpus = {p.specs.get('socket') for p in snapshot.products if p.kind == 'cpu'}
+    ram_types = {p.specs.get('memory_type') for p in snapshot.products if p.kind == 'ram'}
+    boards = {(p.specs.get('socket'), p.specs.get('memory_type')) for p in snapshot.products if p.kind == 'motherboard'}
+    assert {'AM4', 'AM5', 'LGA1700'} <= cpus
+    assert {'DDR4', 'DDR5'} <= ram_types
+    assert {('AM4', 'DDR4'), ('AM5', 'DDR5'), ('LGA1700', 'DDR5')} <= boards

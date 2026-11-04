@@ -34,15 +34,16 @@ def test_cli_import_then_recommend_emits_one_structured_build(tmp_path):
     out=cli('recommend','--db',db,'--budget-vnd','26000000','--workload','gaming','--json')
     assert out.returncode==0,out.stderr
     payload=json.loads(out.stdout)
-    assert payload['selected']['part_ids']['cpu']=='amd-ryzen-5-7600'
-    assert payload['selected']['part_ids']['motherboard']=='msi-pro-b650m-a-wifi'
+    assert set(payload['selected']['part_ids']) == {'cpu','motherboard','ram','gpu','storage','psu','case','cooler'}
+    assert payload['compatibility']['status'] == 'COMPATIBLE'
     assert isinstance(payload['snapshot_id'],str)
     assert payload['status']=='PROVISIONAL' # No curated performance comparisons yet.
 
 
 def test_cli_known_cpu_socket_conflict_keeps_incompatible_issue(tmp_path):
     def clash(data):
-        next(x for x in data['products'] if x['kind']=='motherboard')['specs']['socket']='LGA1700'
+        for board in (x for x in data['products'] if x['kind']=='motherboard'):
+            board['specs']['socket']='UNSUPPORTED' 
     db=seed(tmp_path,modified(tmp_path,clash))
     out=cli('recommend','--db',db,'--budget-vnd','26000000','--workload','gaming','--json')
     assert out.returncode==0
@@ -54,7 +55,9 @@ def test_cli_known_cpu_socket_conflict_keeps_incompatible_issue(tmp_path):
 
 def test_cli_missing_price_is_provisional(tmp_path):
     def no_price(data):
-        next(x for x in data['offers'] if x['product_id']=='amd-ryzen-5-7600')['price_vnd']=None
+        for offer in data['offers']:
+            if next(p for p in data['products'] if p['product_id'] == offer['product_id'])['kind'] == 'cpu':
+                offer['price_vnd']=None
     db=seed(tmp_path,modified(tmp_path,no_price))
     out=cli('recommend','--db',db,'--budget-vnd','26000000','--workload','gaming','--json')
     assert out.returncode==0

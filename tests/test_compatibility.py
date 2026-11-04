@@ -100,3 +100,19 @@ def test_unrecognized_storage_interface_is_unverified():
     result=evaluate_compatibility(selection(),data.model_copy(update={'products':products}))
     assert result.status=='UNVERIFIED'
     assert 'STORAGE_SUPPORT_UNKNOWN' in {i.code for i in result.issues}
+
+
+def test_dual_memory_cpu_accepts_both_ddr4_and_ddr5_boards():
+    for memory_type in ("DDR4", "DDR5"):
+        data = catalog(board_ram=memory_type, ram_type=memory_type)
+        products = tuple(p.model_copy(update={"specs": {"socket": "AM5", "supported_memory_types": ["DDR4", "DDR5"], "tdp_w": 65}}) if p.kind == "cpu" else p for p in data.products)
+        result = evaluate_compatibility(selection(), data.model_copy(update={"products": products}))
+        assert "CPU_MEMORY_GENERATION_MISMATCH" not in {i.code for i in result.issues}
+        assert "CPU_MEMORY_GENERATION_UNKNOWN" not in {i.code for i in result.issues}
+
+
+def test_dual_memory_cpu_rejects_unsupported_board_generation():
+    data = catalog(board_ram="DDR3", ram_type="DDR3")
+    products = tuple(p.model_copy(update={"specs": {"socket": "AM5", "supported_memory_types": ["DDR4", "DDR5"], "tdp_w": 65}}) if p.kind == "cpu" else p for p in data.products)
+    result = evaluate_compatibility(selection(), data.model_copy(update={"products": products}))
+    assert "CPU_MEMORY_GENERATION_MISMATCH" in {i.code for i in result.issues}

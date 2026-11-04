@@ -45,7 +45,15 @@ def evaluate_compatibility(build: BuildSelection, snapshot: CatalogSnapshot) -> 
 
     match('cpu', 'socket', 'motherboard', 'socket', 'CPU_SOCKET_MISMATCH', 'CPU_SOCKET_UNKNOWN')
     match('ram', 'memory_type', 'motherboard', 'memory_type', 'RAM_GENERATION_MISMATCH', 'RAM_GENERATION_UNKNOWN')
-    match('cpu', 'memory_type', 'motherboard', 'memory_type', 'CPU_MEMORY_GENERATION_MISMATCH', 'CPU_MEMORY_GENERATION_UNKNOWN')
+    cpu_types = spec('cpu', 'supported_memory_types')
+    board_type = spec('motherboard', 'memory_type')
+    if cpu_types is not None:
+        if board_type is None:
+            issue('CPU_MEMORY_GENERATION_UNKNOWN', 'Motherboard memory generation is unknown', 'cpu', 'motherboard', unknown=True)
+        elif board_type not in cpu_types:
+            issue('CPU_MEMORY_GENERATION_MISMATCH', f'CPU does not support {board_type}', 'cpu', 'motherboard')
+    else:
+        match('cpu', 'memory_type', 'motherboard', 'memory_type', 'CPU_MEMORY_GENERATION_MISMATCH', 'CPU_MEMORY_GENERATION_UNKNOWN')
 
     mobo_form, case_forms = spec('motherboard', 'form_factor'), spec('case', 'supported_form_factors')
     if mobo_form is None or case_forms is None:

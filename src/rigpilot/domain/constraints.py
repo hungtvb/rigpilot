@@ -29,9 +29,16 @@ def evaluate_constraints(request: BuildRequest, build: BuildSelection, snapshot:
             if selected_id is None:
                 selected_id=next((p.product_id for p in build.owned_components if p.kind==kind),None)
             old_offer=snapshot.offers.get(old_id)
-            if old_offer and old_offer.stock=='OUT_OF_STOCK' and selected_id!=old_id:
+            if selected_id!=old_id and (old_offer is None or old_offer.stock=='OUT_OF_STOCK'):
                 if (old_id,selected_id) not in request.approved_replacements:
-                    report('STOCKOUT_SUBSTITUTION_APPROVAL_REQUIRED',f'Substituting out-of-stock {old_id} requires approval for {selected_id}',old_id,selected_id or 'missing',error=True)
+                    if old_offer is None:
+                        report('PREVIOUS_PART_UNAVAILABLE_APPROVAL_REQUIRED',
+                               f'Previous {old_id} is absent from the current catalog; replacing it with {selected_id} requires approval',
+                               old_id,selected_id or 'missing',error=True)
+                    else:
+                        report('STOCKOUT_SUBSTITUTION_APPROVAL_REQUIRED',
+                               f'Substituting out-of-stock {old_id} requires approval for {selected_id}',
+                               old_id,selected_id or 'missing',error=True)
                     approval_required=True
 
     total=0

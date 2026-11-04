@@ -3,7 +3,7 @@ from rigpilot.domain.models import BuildSelection, OwnedComponent
 from rigpilot.domain.compatibility import evaluate_compatibility
 
 
-def catalog(*, cpu_socket='AM5', board_socket='AM5', ram_type='DDR5', board_ram='DDR5', gpu_length=199, case_gpu=410, gpu_connectors=('8-pin',), psu_connectors=('8-pin',), psu_watts=750, board_form_factor='mATX', case_factors=('mATX', 'ATX'), cooler_height=150, case_cooler_height=170, omit=()):
+def catalog(*, cpu_socket='AM5', board_socket='AM5', ram_type='DDR5', board_ram='DDR5', gpu_length=199, case_gpu=410, gpu_connectors=('8-pin',), psu_connectors=('PCIe-8-pin',), psu_watts=750, board_form_factor='mATX', case_factors=('mATX', 'ATX'), cooler_height=150, case_cooler_height=170, omit=()):
     base = [
         ('cpu','cpu',{'socket': cpu_socket, 'memory_type':'DDR5','tdp_w':65}),
         ('board','motherboard',{'socket': board_socket, 'memory_type':board_ram,'form_factor':board_form_factor,'m2_slots':2}),
@@ -89,7 +89,7 @@ def test_unknown_case_size_is_not_assumed_compatible():
 
 
 def test_duplicate_required_gpu_connectors_need_duplicate_psu_connectors():
-    result=evaluate_compatibility(selection(),catalog(gpu_connectors=('8-pin','8-pin'),psu_connectors=('8-pin',)))
+    result=evaluate_compatibility(selection(),catalog(gpu_connectors=('8-pin','8-pin'),psu_connectors=('PCIe-8-pin',)))
     assert result.status=='INCOMPATIBLE'
     assert 'GPU_POWER_CONNECTOR_MISMATCH' in {i.code for i in result.issues}
 
@@ -136,3 +136,9 @@ def test_ambiguous_psu_8pin_does_not_prove_gpu_power_compatibility():
 def test_explicit_pcie_gpu_cable_is_validated_separately_from_eps():
     report = evaluate_compatibility(selection(), catalog(psu_connectors=('PCIe-8-pin',)))
     assert report.status == 'COMPATIBLE'
+
+
+def test_eps_cpu_8pin_cable_cannot_power_gpu():
+    report = evaluate_compatibility(selection(), catalog(psu_connectors=('EPS-8-pin',)))
+    assert report.status == 'INCOMPATIBLE'
+    assert 'GPU_POWER_CONNECTOR_MISMATCH' in {issue.code for issue in report.issues}

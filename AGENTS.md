@@ -6,7 +6,7 @@ This file governs work in this repository. Read the **latest AGENTS.md on the ta
 - **Discovery / brainstorming. No approved implementation design or working application yet.**
 - Product: RigPilot Agentic AI, a local-first conversational PC configuration advisor for customers of a simulated PC parts retailer.
 - Decisions already confirmed by the stakeholder belong in [docs/DECISIONS.md](docs/DECISIONS.md).
-- Active draft product and UX specification: [docs/superpowers/specs/2026-11-04-rigpilot-product-design.md](docs/superpowers/specs/2026-11-04-rigpilot-product-design.md). A *draft* is not implementation authorization.
+- Active draft specs: [Product & UX](docs/superpowers/specs/2026-11-04-rigpilot-product-design.md) and [AI Architecture & Evaluation](docs/superpowers/specs/2026-11-04-rigpilot-ai-architecture-design.md). A *draft* is not implementation authorization.
 
 ## Development workflow
 1. **Problem first.** Confirm user value, scenarios, boundaries, and acceptance criteria before proposing agents/frameworks.
@@ -18,6 +18,22 @@ This file governs work in this repository. Read the **latest AGENTS.md on the ta
 7. **After work, synchronize status.** Reference changes, review outcomes, tests, and decisions in the relevant PR/issue and canonical docs; link to tested SHA when evidence exists.
 8. **Safety and domain correctness.** LLM recommendations do not prove compatibility. Structured compatibility checks, source-backed performance evidence, accurate inventory status, account isolation, and explicit user choice take precedence.
 9. **Source strategy.** Existing ShopMate is owned by the stakeholder and may be selectively reused **after** license/dependency and security review; unrelated refund/order/A2A paths are not automatically in scope.
+
+## Documentation ownership — Superpowers workflow
+
+| Location | Owns | Rules |
+|---|---|---|
+| `README.md` | Short project identity and navigation | No duplicated specs, implementation claims or lengthy setup that does not exist |
+| `docs/DECISIONS.md` | One authoritative log of stakeholder-confirmed decisions | Record explicit approvals, dates, alternatives and scope; avoid marking designer suggestions as accepted |
+| `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md` | What/why, constraints, alternatives, behavior, technical design and evidence plan | Status `DRAFT` until stakeholder signs off; only one canonical owner per subject; cross-link product and technical designs |
+| `docs/superpowers/plans/YYYY-MM-DD-<feature>.md` | Task-by-task implementation plans with exact files/interfaces/tests | **Create only after corresponding design spec approval**, using `superpowers:writing-plans`; do not create placeholder plans |
+| PR / issue / CI evidence | Actual implementation changes, review findings and test results | Link exact revision, dataset/mode/date; no invented `PASS` |
+
+**Workflow:** Brainstorm options → choose approach → write/review draft design spec → stakeholder approval → Superpowers implementation plan → stakeholder review → isolated branch implementation/test → evidence-backed PR review → approved merge.
+
+Keep specs focused: the product spec owns customer/business/UX intent; the AI spec owns LLM, RAG, MCP, workflow, state, privacy and evaluation. Do not replicate the same detail across both. If a user makes a new accepted decision, update the decision log and the relevant spec in one docs PR; no standalone note per conversational turn.
+
+**Design delegation:** a stakeholder delegating architecture choices authorizes designer recommendations in a draft spec; it does not imply those recommendations were explicitly confirmed or that code may start without reviewing the spec.
 
 ## Phase gates
 - Do not add implementation frameworks, agents, schema, APIs, or new runtime code until the stakeholder reviews the product/design specification and approves a concrete implementation plan.

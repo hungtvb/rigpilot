@@ -46,3 +46,23 @@ class CompatibilityReport(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
     status: CompatibilityStatus
     issues: tuple[ValidationIssue, ...] = ()
+
+
+class BuildRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid", frozen=True)
+    budget_vnd: int = Field(ge=0, strict=True)
+    primary_workload: str = Field(min_length=1)
+    secondary_workloads: tuple[str, ...] = ()
+    locked_parts: dict[ComponentKind, str] = Field(default_factory=dict)
+    owned_components: tuple[OwnedComponent, ...] = ()
+    previous_parts: dict[ComponentKind, str] | None = None
+    approved_replacements: tuple[tuple[str, str], ...] = ()
+
+
+class ConstraintReport(BaseModel):
+    model_config = ConfigDict(extra="forbid", frozen=True)
+    total_purchase_vnd: int | None
+    budget_verified: bool
+    stock_status: Literal["IN_STOCK", "OUT_OF_STOCK", "UNKNOWN"]
+    approval_required: bool
+    issues: tuple[ValidationIssue, ...] = ()

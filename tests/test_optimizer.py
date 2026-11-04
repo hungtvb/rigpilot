@@ -11,7 +11,7 @@ def snapshot(*, gpu_alternative=True, unknown_gpu_price=False, missing_kind=None
         'ram': {'memory_type':'DDR5'},
         'storage': {'interface':'M.2 NVMe PCIe 4.0 x4'},
         'gpu': {'length_mm':200,'board_power_w':120,'power_connectors':['8-pin']},
-        'psu': {'rated_w':750,'connectors':['8-pin']},
+        'psu': {'rated_w':750,'connectors':['PCIe-8-pin']},
         'case': {'supported_form_factors':['mATX'],'max_gpu_length_mm':350,'max_cooler_height_mm':170},
         'cooler': {'supported_sockets':['AM5'],'height_mm':150},
     }

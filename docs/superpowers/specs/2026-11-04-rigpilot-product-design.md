@@ -136,7 +136,7 @@ The application may remain local-first while using an external LLM API; authenti
 - **LLM / conversational orchestration:** interpret goals and constraints, identify missing decisive information, ask for customer permission where required, initiate refinement and explain the outcome with evidence.
 - **Structured product and compatibility logic:** source candidate parts from the curated catalog, check available inventory and simulated prices, validate physical/electrical/platform compatibility, budget and known constraints.
 - **Deterministic/explainable optimizer:** choose a single best-fit candidate under user priorities and hard requirements; report when the best achievable build fails some goals.
-- **Confirmed budget objective (D-043):** choose the strongest workload fit/performance within the customer's budget. The budget is a ceiling, not a spending target. Whether a marginal performance gain justifies a larger spend is still open.
+- **Confirmed budget objective (D-043, qualified by D-044):** optimize value for the customer's primary workload **within** their budget ceiling, without assuming full budget must be spent. Between feasible builds, favor the cheaper one when the more expensive one offers only a marginal practical gain. The illustrative 25M/100% vs 29M/105% preference **does not create a universal 5% cutoff**, nor is it a real benchmark. Any ranking rule must consider workload-specific evidence and clarify meaningful benefit.
 - **Evidence and warnings:** a recommendation is never certified solely because an LLM says it is optimal. Missing product specs or benchmark records remain unknown, and user consent is retained for out-of-stock substitution.
 - **Still open:** objective/ranking model, handling close trade-offs, exact tools, agent architecture, sequencing, state/persistence and evaluation criteria.
 
@@ -157,7 +157,7 @@ No ROI, performance gain or accuracy percentage has yet been measured. Later tes
 
 ## 9. Still to decide in brainstorming
 
-1. **Optimization trade-offs:** D-043 confirms the within-budget objective; precise scoring, marginal-gain threshold and preferences versus upgradeability remain open.
+1. **Optimization trade-offs:** D-043/D-044 establish a value-first, within-budget preference; precise workload-aware scoring, meaningful-gain criteria and upgradeability preferences remain open.
 2. Minimal compatibility rule coverage and what happens when required data is unknown.
 3. Precise representation of constraints, use-case importance, customer-owned parts and the selected build in conversation context.
 4. Architecture/infrastructure choice after reviewing reusable ShopMate code.

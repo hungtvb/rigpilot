@@ -4,7 +4,7 @@ from __future__ import annotations
 from collections import Counter
 
 from rigpilot.catalog.models import CatalogItem, CatalogSnapshot
-from .models import BuildSelection, CompatibilityReport, ValidationIssue
+from .models import BuildSelection, CompatibilityReport, ValidationIssue, REQUIRED_COMPONENT_KINDS
 
 
 class PowerPolicy:
@@ -31,6 +31,13 @@ def evaluate_compatibility(build: BuildSelection, snapshot: CatalogSnapshot) -> 
         selected[owned.kind] = part if part and part.kind == owned.kind else None
         if part is None:
             issue('OWNED_PART_UNVERIFIED', f'Owned {owned.kind} model/specification is not verified', owned.label or owned.product_id or owned.kind, unknown=True)
+
+    present_kinds = set(build.part_ids) | {owned.kind for owned in build.owned_components}
+    for required_kind in REQUIRED_COMPONENT_KINDS:
+        if required_kind not in present_kinds:
+            issue('MISSING_REQUIRED_COMPONENT',
+                  f'No {required_kind} component was selected or supplied as owned',
+                  required_kind, unknown=True)
 
     def spec(kind: str, name: str):
         product = selected.get(kind)

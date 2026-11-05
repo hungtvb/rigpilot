@@ -2,7 +2,7 @@
 
 **Status:** Design-token baseline for the **approved UI mockup v0.5** (2026-11-05); formalized in a documentation PR for review. **Design only — not application CSS or an implementation approval.**  
 **Reference:** [Product & UX Design](docs/superpowers/specs/2026-11-04-rigpilot-product-design.md) §6 / v0.5 sign-off; [Decision Log](docs/DECISIONS.md) D-032–D-041 and D-062.  
-**Visual source:** `rigpilot-ui-concept-v0.5.html`, standalone conversation artifact, SHA-256 `dda9e123fa20741d30cfd7ee210ad36cfcc9ddbcfa142f1d498be517d8b08aa9`. Not stored in this repo.
+**Visual source:** [Signed-off standalone HTML mockup v0.5](docs/design/rigpilot-ui-concept-v0.5.html), SHA-256 `dda9e123fa20741d30cfd7ee210ad36cfcc9ddbcfa142f1d498be517d8b08aa9`. This checked-in HTML is a **design reference**, not live RigPilot frontend source.
 
 ## 1. Ownership and guardrails
 

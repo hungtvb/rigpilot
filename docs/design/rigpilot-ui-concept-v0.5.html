@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>RigPilot — Product UI Concept v0.5</title>
+<style>
+:root{--primary:#4f46e5;--primary-dark:#4338ca;--primary-soft:#eef2ff;--ink:#0f172a;--text:#334155;--muted:#475569;--canvas:#f6f8fc;--surface:#fff;--line:#dce3ed;--line-soft:#edf1f6;--success:#047857;--success-bg:#ecfdf5;--warning:#92400e;--warning-bg:#fffbeb;--danger:#b42318;--danger-bg:#fef3f2;--focus:#6366f1}
+*{box-sizing:border-box}html,body{height:100%;margin:0}body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Arial,sans-serif;background:var(--canvas);color:var(--ink);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}button,input,textarea,select{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.6}button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--focus);outline-offset:3px}button,select{min-height:40px}a{color:var(--primary-dark)}[hidden]{display:none!important}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}.icon{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}.app{height:100vh;height:100dvh;min-height:0;display:flex;flex-direction:column;overflow:hidden}.topbar{height:64px;min-height:64px;background:#fff;border-bottom:1px solid var(--line);padding:0 24px;display:flex;justify-content:space-between;align-items:center;gap:18px;z-index:3}.brand{display:flex;align-items:center;gap:11px;white-space:nowrap}.brandmark{width:38px;height:38px;border-radius:11px;background:var(--primary);display:grid;place-items:center;box-shadow:0 4px 13px #4f46e52a}.brandmark svg{width:29px;height:29px}.brandname{font-size:21px;font-weight:800;letter-spacing:-.055em}.tagline{border-left:1px solid var(--line);padding-left:15px;margin-left:7px;color:#64748b;font-weight:650;font-size:10px;letter-spacing:.12em}.top-actions{display:flex;gap:9px;align-items:center}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:9px 12px;border-radius:11px;font-size:12px;font-weight:700;border:1px solid var(--line);background:#fff;color:var(--text);text-decoration:none;line-height:1.2;white-space:nowrap}.btn:hover:not(:disabled){background:#f8fafc}.btn-primary{background:var(--primary);border-color:var(--primary);color:white}.btn-primary:hover:not(:disabled){background:var(--primary-dark)}.btn-soft{border-color:#c7d2fe;background:#eef2ff;color:#3730a3}.btn-soft:hover:not(:disabled){background:#e0e7ff}.icon-button{width:42px;min-width:42px;padding:0}.top-actions #openHistory{width:auto;min-width:103px;padding:9px 12px}.avatar{height:34px;width:34px;border-radius:50%;display:grid;place-items:center;background:#e9eafc;color:#3730a3;font-weight:800;border:1px solid #c7d2fe}.demo-controller{display:flex;align-items:center;gap:8px;margin-right:5px}.demo-controller label{color:#475569;font-size:11px;font-weight:700}.demo-controller select{padding:8px 27px 8px 10px;border:1px solid var(--line);border-radius:9px;background:white;color:var(--ink);font-size:12px;font-weight:650;max-width:178px}.mobile-tabs{display:none}.workspace{display:grid;grid-template-columns:minmax(330px,39%) minmax(0,61%);min-height:0;flex:1}.chat{display:flex;flex-direction:column;background:white;min-width:0;min-height:0;border-right:1px solid var(--line)}.chat-head{padding:23px 25px 18px;border-bottom:1px solid var(--line-soft)}.eyebrow{font-size:10px;letter-spacing:.12em;font-weight:800;color:var(--primary);text-transform:uppercase}.chat-head h1{font-size:21px;letter-spacing:-.045em;line-height:1.2;margin:5px 0 8px;font-weight:800}.chat-head p{font-size:12px;color:var(--muted);margin:0}.thread{flex:1;overflow-y:auto;min-height:0;padding:22px 24px 14px;overscroll-behavior:contain}.thread-label{font-size:10px;letter-spacing:.12em;color:#64748b;font-weight:800;text-align:center;margin-bottom:20px}.user-message{margin-left:auto;max-width:93%;border-radius:15px 15px 4px 15px;background:#eef2ff;color:#1e1b4b;padding:13px 15px;font-size:13px;line-height:1.65}.assistant-message{display:flex;align-items:flex-start;gap:11px;margin-top:22px}.assistant-avatar{height:29px;width:29px;border-radius:9px;background:#eef2ff;color:#4338ca;display:grid;place-items:center;font-size:12px;font-weight:800;flex:none}.message-body{min-width:0;flex:1}.message-body .author{font-size:12px;font-weight:800;margin:0 0 6px}.message-body p{font-size:13px;line-height:1.65;color:#334155;margin:0 0 12px}.message-body strong{color:#0f172a}.message-body ul{margin:6px 0 12px;padding-left:18px;font-size:12px;line-height:1.8;color:#334155}.chat-note{border:1px solid #fed7aa;background:#fffbeb;border-radius:10px;padding:11px 12px;font-size:11.5px;color:#78350f;line-height:1.6;margin:12px 0}.chat-note.danger{border-color:#fecaca;background:var(--danger-bg);color:#991b1b}.chat-note.neutral{border-color:var(--line);background:#f8fafc;color:#475569}.context-action{display:inline-flex;align-items:center;gap:7px;margin-top:4px;margin-bottom:9px;font-size:12px}.execution{border:1px solid var(--line);border-radius:12px;margin-top:17px;overflow:hidden;background:#fff}.execution-toggle{min-height:47px;width:100%;border:0;background:#f8fafc;display:flex;align-items:center;gap:9px;text-align:left;padding:10px 12px;color:var(--text);font-size:12px;font-weight:700}.execution-toggle:hover{background:#f1f5f9}.execution-toggle .chev{margin-left:auto;transition:transform .16s}.execution-toggle[aria-expanded="true"] .chev{transform:rotate(180deg)}.execution-details{border-top:1px solid var(--line);padding:12px 15px}.event-row{display:flex;align-items:flex-start;gap:9px;font-size:11.5px;color:#475569;padding:5px 0}.event-row b{font-weight:700;color:var(--ink)}.status-dot{width:8px;height:8px;background:#94a3b8;border-radius:50%;margin-top:5px;flex:none}.status-dot.done{background:#047857}.status-dot.running{background:#4f46e5}.status-dot.failed{background:#b42318}.event-hint{font-size:10px;color:#64748b;margin:8px 0 0}.composer{padding:12px 20px 16px;border-top:1px solid var(--line);background:#fff}.composer-box{border:1px solid #cbd5e1;border-radius:13px;display:flex;align-items:flex-end;gap:8px;padding:9px 9px 9px 12px;box-shadow:0 2px 6px #0f172a05}.composer-box:focus-within{border-color:#818cf8;box-shadow:0 0 0 3px #e0e7ff}.composer textarea{resize:none;flex:1;min-width:0;max-height:120px;min-height:25px;border:none;outline:none!important;font-size:13px;padding:4px 0;line-height:1.5;background:transparent}.composer .send{border:0;border-radius:9px;background:var(--primary);color:#fff;width:44px;height:44px;display:grid;place-items:center;flex:none}.composer .send:hover{background:var(--primary-dark)}.composer-hint{font-size:10px;color:#64748b;margin:8px 2px 0}.builder{min-width:0;min-height:0;overflow:auto;overscroll-behavior:contain;padding:0 25px 28px}.builder-content{max-width:940px;margin:auto}.builder-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:25px 0 20px}.builder-head h2{font-size:23px;letter-spacing:-.045em;line-height:1.2;margin:5px 0;font-weight:800}.builder-head p{font-size:12px;color:var(--muted);margin:0}.version-group{display:flex;gap:9px;align-items:center;flex-wrap:wrap;justify-content:end}.pill{font-size:11px;font-weight:750;border-radius:999px;padding:7px 11px;background:#f1f5f9;color:#334155;border:1px solid #e2e8f0;white-space:nowrap}.pill.preview{background:#eef2ff;color:#3730a3;border-color:#c7d2fe}.summary{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 4px 20px #0f172a07;overflow:hidden}.summary-top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding:20px 23px}.summary-kicker{font-size:11px;color:#64748b;font-weight:750}.budget{font-size:31px;letter-spacing:-.06em;font-weight:830;line-height:1.2;margin:4px 0 2px;font-variant-numeric:tabular-nums}.budget small{font-size:13px;font-weight:650;color:#64748b;letter-spacing:0}.budget-foot{font-size:11px;color:var(--muted)}.budget-foot strong{color:#334155}.mini-meter{width:178px;padding-top:5px}.meter-track{height:8px;background:#e9edf5;border-radius:99px;overflow:hidden;margin:8px 0}.meter-fill{height:100%;width:96.13%;background:var(--primary);border-radius:99px}.meter-label{display:flex;justify-content:space-between;gap:5px;font-size:10px;color:#64748b}.summary-divider{height:1px;background:var(--line-soft)}.validation{padding:16px 23px 17px;display:flex;gap:12px;align-items:flex-start}.validation .state-icon{height:32px;width:32px;flex:none;border-radius:10px;background:var(--warning-bg);display:grid;place-items:center;color:var(--warning)}.validation strong{font-size:12px}.validation p{font-size:11px;color:#475569;line-height:1.5;margin:2px 0 0}.validation .meta{font-size:10px;color:#64748b;margin-top:7px}.validation.is-danger .state-icon{background:var(--danger-bg);color:var(--danger)}.validation.is-neutral .state-icon{background:#f1f5f9;color:#475569}.verification-note{font-size:11px;line-height:1.5;color:#475569;border:1px solid #cbd5e1;background:#f8fafc;padding:11px 13px;border-radius:10px;margin-top:13px}.warning-list{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:13px}.warn-card{border:1px solid #f2dec1;background:#fffbf5;border-radius:11px;padding:12px 13px;min-width:0}.warn-card strong{font-size:11.5px;color:#854d0e;display:flex;align-items:center;gap:6px}.warn-card p{color:#78350f;font-size:11px;margin:5px 0 0;line-height:1.5}.warn-card.is-danger{border-color:#fecaca;background:var(--danger-bg)}.warn-card.is-danger strong,.warn-card.is-danger p{color:#991b1b}.section-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:22px 0 10px}.section-row h3{font-size:14px;margin:0;letter-spacing:-.015em}.section-row p{margin:0;font-size:10px;color:#64748b}.parts{display:grid;gap:8px}.part{border:1px solid var(--line);background:#fff;border-radius:13px;padding:11px 14px;display:grid;grid-template-columns:53px minmax(0,1fr) auto;gap:12px;align-items:center;min-width:0}.part-image{width:51px;height:51px;border-radius:11px;background:linear-gradient(145deg,#eef2f7,#e2e8f0);border:1px solid #e2e8f0;display:grid;place-items:center;color:#475569;font-size:10px;font-weight:800;letter-spacing:.04em}.part-kind{color:#64748b;font-size:10px;font-weight:750;letter-spacing:.025em}.part-name{font-size:12.5px;font-weight:800;color:var(--ink);margin:2px 0;white-space:normal;overflow-wrap:anywhere}.part-spec{font-size:10.5px;color:#64748b;line-height:1.35}.part-extra{font-size:10px;display:flex;gap:6px;flex-wrap:wrap;margin-top:5px}.part-extra span{border-radius:5px;padding:2px 5px;background:#f1f5f9;color:#475569}.part-extra .caution{background:#fff7ed;color:#92400e}.part-extra .bad{background:#fef2f2;color:#b42318}.part-right{text-align:right;min-width:106px}.part-price{font-size:12.5px;font-weight:850;font-variant-numeric:tabular-nums;color:#0f172a;white-space:nowrap}.part-source{font-size:9.5px;color:#64748b;margin-top:5px}.foot-actions{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin:18px 0 8px}.foot-actions p{font-size:11px;color:#64748b;margin:0}.preview-banner{border:1px solid #c7d2fe;background:#eef2ff;border-radius:12px;color:#312e81;padding:12px 14px;display:flex;align-items:flex-start;justify-content:space-between;gap:11px;margin:0 0 12px;font-size:12px}.preview-banner strong{display:block}.preview-banner .btn{background:#fff}.empty{background:#fff;border:1px dashed #cbd5e1;border-radius:16px;padding:44px 25px;text-align:center;color:#475569}.empty-symbol{margin:0 auto 17px;border-radius:14px;width:60px;height:60px;background:#eef2ff;display:grid;place-items:center;color:#4f46e5}.empty h3{font-size:20px;color:#0f172a;margin:0 0 7px}.empty p{max-width:390px;margin:0 auto 16px;line-height:1.7}.empty-state .builder-head{padding-bottom:12px}.overlay{position:fixed;inset:0;background:#0f172a88;z-index:20;display:flex;justify-content:flex-end}.drawer{background:#fff;width:min(440px,100%);height:100%;display:flex;flex-direction:column;box-shadow:-15px 0 38px #0f172a25}.drawer-head{border-bottom:1px solid var(--line);padding:20px 20px 16px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.drawer-head h2{font-size:19px;letter-spacing:-.035em;margin:2px 0 4px}.drawer-head p{font-size:12px;color:#64748b;margin:0}.drawer-body{padding:16px 18px;overflow:auto;flex:1}.timeline-item{display:grid;grid-template-columns:16px 1fr;gap:8px}.timeline-rail{position:relative;display:flex;flex-direction:column;align-items:center}.timeline-rail:before{content:'';width:2px;background:#e2e8f0;position:absolute;top:14px;bottom:-3px;left:7px}.timeline-item:last-child .timeline-rail:before{display:none}.timeline-dot{height:11px;width:11px;border-radius:50%;background:#818cf8;border:3px solid #e0e7ff;z-index:1;margin-top:7px}.timeline-detail{border:1px solid var(--line);border-radius:12px;padding:12px 13px;margin-bottom:15px}.timeline-title{display:flex;align-items:center;justify-content:space-between;font-size:12px;font-weight:800;gap:8px}.timeline-desc{font-size:11px;color:#475569;line-height:1.55;margin:6px 0 12px}.timeline-meta{color:#64748b;font-size:10px;margin-top:5px}.timeline-actions{display:flex;gap:8px}.drawer-foot{padding:13px 18px;border-top:1px solid var(--line);color:#64748b;font-size:10.5px}.overlay.dialog-layer{z-index:30;align-items:center;justify-content:center;padding:20px}.confirm{background:white;width:min(440px,100%);border-radius:17px;box-shadow:0 20px 55px #0003;padding:24px}.confirm h2{margin:0 0 9px;font-size:21px}.confirm p{font-size:13px;color:#475569;line-height:1.65}.confirm-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:23px}.flash{position:fixed;z-index:70;bottom:20px;left:50%;transform:translateX(-50%);max-width:min(540px,90vw);padding:11px 16px;border-radius:11px;background:#0f172a;color:#fff;font-size:12px;box-shadow:0 10px 28px #0003;line-height:1.6}.flash:empty{display:none}
+@media (max-width:1100px){.topbar{padding:0 14px}.tagline{display:none}.workspace{grid-template-columns:minmax(315px,43%) minmax(0,57%)}.chat-head{padding:20px 17px}.thread{padding:19px 16px}.builder{padding:0 17px 20px}.part{grid-template-columns:46px minmax(0,1fr) auto;gap:9px;padding:10px}.part-image{width:45px;height:45px}.part-right{min-width:92px}}
+@media (max-width:780px){.topbar{height:58px;min-height:58px;padding:0 13px}.brandmark{width:34px;height:34px}.brandname{font-size:19px}.top-actions{gap:5px}.top-actions .create-caption,.top-actions .history-caption,.avatar,.demo-controller label{display:none}.top-actions .btn{min-width:44px;width:44px;min-height:44px;padding:0}.top-actions #openHistory{width:44px;min-width:44px;padding:0}.demo-controller{margin-right:2px}.demo-controller select{max-width:112px;font-size:11px;padding:7px 17px 7px 7px;min-height:44px}.mobile-tabs{display:flex;gap:8px;flex:none;height:54px;padding:5px 13px;background:#fff;border-bottom:1px solid var(--line)}.mobile-tabs button{flex:1;border:0;background:transparent;color:#475569;border-radius:9px;min-height:44px;font-size:12px;font-weight:750}.mobile-tabs button[aria-selected="true"]{background:#eef2ff;color:#3730a3}.workspace{display:block;min-height:0;overflow:hidden}.chat,.builder{height:100%;width:100%;border-right:0}.mobile-hidden{display:none!important}.chat-head{padding:16px 16px 13px}.chat-head h1{font-size:19px}.thread{padding:17px 14px;overflow:auto}.composer{padding:10px 12px calc(12px + env(safe-area-inset-bottom))}.composer-hint{font-size:10px}.builder{padding:0 13px 20px}.builder-head{padding:16px 0}.builder-head h2{font-size:20px}.summary-top{padding:17px}.validation{padding:14px 17px}.warning-list{grid-template-columns:1fr}.section-row{margin-top:19px}.part{grid-template-columns:44px minmax(0,1fr) auto}.part-image{width:44px;height:44px}.part-right{min-width:85px}.part-price{font-size:11px}.part-name{font-size:12px}.part-spec{font-size:10px}.btn{min-height:44px}.drawer-head .icon-button{min-height:44px}.preview-banner{flex-wrap:wrap}}
+@media (max-width:410px){.brandname{font-size:17px}.brandmark{width:32px;height:32px}.topbar{gap:5px}.demo-controller select{max-width:94px}.budget{font-size:27px}.summary-top{gap:8px}.mini-meter{width:106px}.meter-label{font-size:9px}.part{grid-template-columns:40px minmax(0,1fr);gap:8px}.part-image{width:40px;height:40px}.part-right{grid-column:2;text-align:left;display:flex;gap:10px;align-items:baseline;min-width:0;margin-top:-1px}.part-source{margin-top:0}.version-group{gap:5px}.pill{font-size:10px}}
+@media (prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* v0.3 — visual language refinement ONLY. Global 39/61 split, header, chat/composer,
+   builder section order, mobile tabs and existing interaction flows are unchanged. */
+:root{
+ --primary:#4052c2;--primary-dark:#31419e;--primary-soft:#eff1ff;
+ --ink:#192330;--text:#364455;--muted:#687789;
+ --canvas:#f6f7f9;--surface:#fff;--line:#e2e6eb;--line-soft:#edf0f3;
+ --warning:#925824;--warning-bg:#fffaf3;--focus:#5462cb;
+}
+body{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:-.006em}
+.topbar{box-shadow:none;border-bottom-color:#e8ebf0}
+.brandmark{border-radius:9px;box-shadow:none;background:#3244a7}
+.brandname{font-size:21px;font-weight:770;letter-spacing:-.06em}
+.tagline{letter-spacing:.09em;font-weight:600;color:#8993a0}
+.avatar{border-color:#e3e7f0;background:#f3f4f7;color:#526074}
+.btn{border-radius:7px;font-weight:620;box-shadow:none}
+.btn-primary{background:#4052c2}
+.btn-soft{background:#f5f6ff;border-color:#e0e4f9;color:#394b9f}
+.btn-soft:hover:not(:disabled){background:#edf0fd}
+.demo-controller select{border-radius:7px;font-weight:590}
+.chat-head{background:#fff}
+.chat-head h1,.builder-head h2{font-weight:760;letter-spacing:-.035em}
+.eyebrow{color:#798594;font-size:11px;letter-spacing:0;text-transform:none;font-weight:640}
+.thread-label{font-size:11px;letter-spacing:0;text-transform:none;font-weight:560;color:#9aa4b0}
+.user-message{background:#f1f3fb;color:#283657;border-radius:12px 12px 4px 12px;line-height:1.6}
+.assistant-avatar{background:#edf0f8;color:#4052ac;border-radius:6px}
+.message-body .author{font-weight:720}
+.execution{border-radius:8px;border-color:#e7e9ee}
+.execution-toggle{background:#fcfcfd;font-weight:640}
+.execution-toggle:hover{background:#f5f6f8}
+.composer-box{border-radius:9px;box-shadow:none;border-color:#d8dfe8}
+.composer .send{border-radius:7px}
+.builder-head{padding-bottom:18px}
+.pill{background:#f4f5f7;border-color:#e8eaee;border-radius:7px;font-weight:580}
+.pill.preview{background:#f1f2ff;color:#394ba6;border-color:#e1e4fa}
+.summary{border:1px solid #e2e6eb;border-radius:11px;box-shadow:none}
+.summary-top{padding:21px 23px 18px}
+.summary-kicker{font-size:12px;letter-spacing:-.01em;font-weight:610;color:#536176;text-transform:none}
+.budget{font-weight:770;letter-spacing:-.045em}
+.meter-track{height:5px;border-radius:0;background:#e8ecf1}
+.meter-fill{border-radius:0;background:#4052c2}
+.validation{padding:15px 23px 16px;gap:11px}
+.validation .state-icon{height:26px;width:26px;border-radius:5px;background:#fff7ed}
+.validation strong{font-size:12px;font-weight:690}
+.validation p{color:#66717e}
+.validation .meta{color:#8290a0}
+.warning-list{margin-top:14px;gap:0;grid-template-columns:1fr;border-top:1px solid #e6e8ec;border-bottom:1px solid #e6e8ec}
+.warn-card{display:grid;grid-template-columns:minmax(0,1fr);background:transparent;border:none;border-radius:0;padding:10px 14px 11px 2px;min-width:0}
+.warn-card + .warn-card{border-top:1px solid #e9ebee}
+.warn-card strong{font-size:12px;font-weight:650;color:#66462e}
+.warn-card strong svg{width:15px;height:15px;color:#a46628}
+.warn-card p{font-size:11px;color:#6e7783;margin:2px 0 0 21px}
+.warn-card.is-danger{background:#fff9f7;border-color:#f1dddd}
+.warn-card.is-danger strong,.warn-card.is-danger p{color:#9d4b3a}
+.section-row{margin:22px 0 9px}
+.section-row h3{font-size:14px;font-weight:730;letter-spacing:-.015em}
+.section-row p{font-size:11px;color:#788493}
+.parts{gap:0;background:#fff;border:1px solid #e2e6eb;border-radius:10px;overflow:hidden}
+.part{border:none;border-radius:0;box-shadow:none;padding:13px 15px;background:#fff;gap:13px}
+.part+.part{border-top:1px solid #eceef1}
+.part-image{height:51px;width:51px;border:1px solid #e7ebef;background:#f8f9fa;box-shadow:none; border-radius:6px;color:#516173;letter-spacing:0}
+.hardware-art{display:block;width:35px;height:35px}
+.part-kind{font-weight:640;font-size:10px;color:#8995a4;letter-spacing:.03em}
+.part-name{font-weight:710;font-size:13px;letter-spacing:-.013em}
+.part-spec{font-size:11px;color:#728092}
+.part-extra{margin-top:5px;gap:5px;align-items:baseline}
+.part-extra span{background:none;border-radius:0;padding:0 8px 0 0;color:#728092;font-size:10px}
+.part-extra span:not(:last-child){border-right:1px solid #dbe1e7}
+.part-extra span.caution{color:#99692d;background:none}
+.part-extra span.bad{color:#a53d39;background:none}
+.part-price{font-size:13px;font-weight:740;color:#1f2d3a}
+.part-source{font-size:10px;color:#99a2ac}
+.verification-note{background:transparent;border:0;border-top:1px solid #e3e7eb;border-radius:0;margin-top:16px;padding:14px 0 0;color:#788492;font-size:11px}
+.preview-banner{background:#f5f6ff;border:1px solid #e5e6fa;border-radius:8px}
+.timeline-detail{border-radius:8px}
+.timeline-dot{background:#7582c8;border-color:#dfe4fa}
+.empty,.confirm{border-radius:10px}
+@media(max-width:1100px){.part{padding:12px 11px;gap:9px}.part-image{width:45px;height:45px}.hardware-art{width:31px;height:31px}}
+@media(max-width:780px){.mobile-tabs button[aria-selected="true"]{background:#f0f2fa;color:#3549a4}.summary-top{padding:17px}.validation{padding:14px 17px}.warning-list{grid-template-columns:1fr}.warn-card{padding:11px 3px}.parts{border-radius:9px}.part{padding:12px 11px}.part-image{width:44px;height:44px}.hardware-art{width:30px;height:30px}}
+@media(max-width:410px){.part-image{width:40px;height:40px}.hardware-art{width:28px;height:28px}}
+
+
+/* v0.4 — hardware-centric typography and credibility without rearranging the layout */
+:root{--primary:#354f9a;--primary-dark:#263c78;--primary-soft:#f1f4fa;--ink:#1b2732;--text:#354456;--muted:#647386;--canvas:#f5f6f7;--line:#e1e5e9;--line-soft:#e9edef;--focus:#3c61b9}
+body{font-size:14px;font-variant-numeric:lining-nums}
+.topbar{background:#fcfcfd;border-bottom-color:#e2e6ea}
+.brandmark{background:#273e7d;border-radius:7px;height:36px;width:36px}
+.brandname{letter-spacing:-.052em;font-weight:780}
+.tagline{font-weight:580;letter-spacing:.075em;color:#9ba5b1}
+.top-actions .btn-primary{font-weight:680}
+.demo-controller label{color:#8a95a0;font-weight:570}
+.demo-controller select{color:#425267;background:#f9fafb;border-color:#e6e9ed}
+.eyebrow{color:#6e7c8b;font-weight:650;font-size:11px}
+.chat-head h1{font-size:21px;letter-spacing:-.027em;max-width:500px}
+.chat-head p{font-size:12px;line-height:1.55;max-width:470px}
+.thread-label{font-size:10.5px;color:#9ca5ae;letter-spacing:.015em}
+.user-message{max-width:91%;padding:13px 15px;background:#f0f3f7;color:#26374d;border-radius:10px 10px 3px 10px;line-height:1.6}
+.user-followup{margin-top:18px}
+.clarify-message{display:flex;align-items:flex-start;gap:11px;margin-top:22px}
+.clarify-message .message-body p{font-size:13px;line-height:1.65;color:#405063;margin:0}
+.assistant-message{margin-top:23px}
+.assistant-avatar{background:#e9eef5;color:#334f91;font-size:11px;border-radius:7px}
+.message-body .author{letter-spacing:-.015em;font-size:12px}
+.message-body p{color:#344457}
+.execution{border-color:#e4e8ec;margin-top:17px}
+.execution-toggle{min-height:43px;padding:8px 11px;background:#fafbfc;color:#526477;font-size:11.5px}
+.execution-toggle svg:first-child{color:#536f94}
+.composer{padding-bottom:14px}
+.composer-box{border-color:#d3dbe3}
+.composer textarea{font-size:13px}
+.composer-hint{font-size:10.5px;color:#93a0ad}
+.builder-head h2{font-size:23px;letter-spacing:-.035em}
+.history-text-btn{background:transparent!important;border:0!important;color:#6b7b8b!important;padding:8px 2px!important;min-height:36px!important;font-size:11.5px}
+.history-text-btn:hover{text-decoration:underline}
+.history-text-btn .icon{height:14px;width:14px;transform:rotate(-90deg)}
+.pill{border-radius:6px;font-weight:630;background:#f0f2f5;padding:8px 10px;color:#465669}
+.summary{background:#fdfdfd;border-color:#e0e5e9}
+.summary-kicker{font-size:11.5px;font-weight:620;color:#647487}
+.budget{font-size:33px;font-weight:780;letter-spacing:-.052em}
+.budget small{color:#6d7886}
+.mini-meter{width:185px}
+.meter-track{height:4px;margin:9px 0}
+.meter-fill{background:#3d5799}
+.validation strong{font-size:12px;font-weight:720}
+.validation p{font-size:11.5px;max-width:620px}
+.validation .meta{font-size:10.5px}
+.warning-list{margin-top:16px}
+.warn-card{padding:12px 14px 12px 2px}
+.warn-card strong{font-weight:700;color:#84511f}
+.warn-card p{font-size:11.5px;color:#687683}
+.section-row h3{font-size:14px;font-weight:740}
+.section-row p{font-size:11px;color:#768494}
+.part{padding:14px 15px;gap:15px;grid-template-columns:54px minmax(0,1fr) max-content}
+.part-image{height:54px;width:54px;background:linear-gradient(145deg,#f0f3f4,#f8f9fa);border:1px solid #e7ebed;border-radius:5px}
+.hardware-art{width:43px;height:43px;display:block;filter:drop-shadow(0 2px 2px #142a3d16)}
+.part-kind{font-size:10px;font-weight:700;letter-spacing:.045em;color:#75889b}
+.part-name{font-size:13.5px;font-weight:750;color:#1b2a3a;letter-spacing:-.01em}
+.part-spec{font-size:11.5px;color:#6e7b89}
+.part-extra{margin-top:4px}
+.part-extra span{font-size:10.5px;color:#71808c}
+.part-price{font-size:13.5px;font-weight:750;color:#273747}
+.part-source{font-size:10.5px;color:#98a4b0}
+.verification-note{font-size:11px;color:#768594;line-height:1.6}
+.verification-note strong{font-weight:660;color:#586778}
+.foot-actions{align-items:center}
+@media(max-width:1100px){.part{gap:10px;grid-template-columns:45px minmax(0,1fr) max-content;padding:12px}.part-image{width:45px;height:45px}.hardware-art{height:37px;width:37px}}
+@media(max-width:780px){.part{grid-template-columns:46px minmax(0,1fr);gap:10px}.part-image{height:46px;width:46px}.hardware-art{height:39px;width:39px}.builder-head h2{font-size:21px}.summary-kicker{font-size:11px}.mini-meter{width:100%}.chat-head{padding:20px 19px 16px}.thread{padding:18px 17px 12px}.user-message{max-width:94%}}
+@media(max-width:480px){
+.summary-top{flex-direction:column;gap:13px;align-items:stretch}
+.budget{font-size:31px;white-space:nowrap;letter-spacing:-.055em}
+.budget small{font-size:13px}
+.mini-meter{width:100%;padding:2px 0 0}
+.section-row p{display:none}
+.builder-head{gap:5px}
+.builder-head p{max-width:225px}
+}
+@media(max-width:410px){.part-image{height:42px;width:42px}.hardware-art{height:36px;width:36px}}
+/* Readable small metadata on white and the pale builder canvas. */
+.tagline{color:#65758a}
+.eyebrow{color:#647386}
+.thread-label{color:#687789}
+.composer-hint{color:#637589}
+.part-kind{color:#657588}
+.part-spec{color:#617080}
+.part-extra span{color:#617587}
+.part-source{color:#667787}
+.validation .meta{color:#667486}
+.section-row p{color:#64768b}
+
+/* v0.5 visual polish only — the desktop Chat/Builder split, mobile tabs, and mock flows are unchanged. */
+.brandmark{background:#263b58;border-radius:9px;box-shadow:none}
+.tagline{text-transform:none;font-size:11px;letter-spacing:.008em;font-weight:560;color:#617287;padding-left:16px}
+.eyebrow{text-transform:none;font-size:11px;letter-spacing:0;font-weight:720;color:#60738a}
+.chat-head h1{font-weight:790;letter-spacing:-.038em}
+.chat-head p{color:#526476}
+/* A single visible status summary stays inside the budget module. Detailed warnings remain
+   reachable on demand, while per-component cautions stay visible in the parts list. */
+.warning-disclosure{border-bottom:1px solid #e3e8ed;margin-top:8px}
+.warning-disclosure summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px;padding:10px 0;cursor:pointer;color:#4e6074;font-size:12px;font-weight:690}
+.warning-disclosure summary::-webkit-details-marker{display:none}
+.warning-disclosure summary:focus-visible{outline:3px solid #7c8ad8;outline-offset:2px;border-radius:4px}
+.warning-disclosure summary:hover{color:#253f5f}
+.warning-action{display:inline-flex;align-items:center;gap:4px;white-space:nowrap;font-size:11px;font-weight:580;color:#6b7d8e}
+.warning-action .icon{width:14px;height:14px;transform:rotate(-90deg);transition:transform .18s}
+.warning-disclosure[open] .warning-action .icon{transform:rotate(0)}
+.warning-disclosure .warning-list{border-top:1px solid #ebeff2;border-bottom:none;margin-top:0}
+.warning-disclosure .warn-card{padding:11px 5px 12px}
+.warning-disclosure .warn-card + .warn-card{border-top:1px solid #ebeff2}
+/* The scenario selector is a desktop-only mockup reviewer control. On mobile, give
+   History/New session a visible label without introducing another navigation pattern. */
+@media(max-width:780px){
+ .topbar{padding-inline:12px;gap:9px}
+ .demo-controller{display:none}
+ .topbar .top-actions{gap:7px}
+ .topbar .top-actions .btn{display:flex;flex-direction:column;gap:0;justify-content:center;align-items:center;min-width:58px;width:auto;min-height:46px;padding:3px 7px;border-radius:8px;font-size:10px;font-weight:690;line-height:1.1}
+ .topbar .top-actions #openHistory{width:62px;min-width:62px;padding:3px 6px}
+ .topbar .top-actions #newSession{width:62px;min-width:62px;padding:3px 6px}
+ .topbar .top-actions .history-caption,.topbar .top-actions .create-caption{display:inline}
+ .topbar .top-actions .icon{width:17px;height:17px;margin-bottom:3px}
+ .brand{gap:8px}
+ .brandmark{width:35px;height:35px}
+ .brandname{font-size:19px}
+}
+@media(max-width:410px){
+ .topbar{padding-inline:12px;gap:4px}
+ .topbar .top-actions{gap:5px}
+ .brand{gap:7px}
+ .brandname{font-size:17px}
+ .topbar .top-actions #openHistory,.topbar .top-actions #newSession{width:56px;min-width:56px;padding:3px 3px}
+ .warning-disclosure summary{gap:8px}
+}
+@media(max-width:335px){.brandname{font-size:15px}.brandmark{width:31px;height:31px}.topbar{padding-inline:8px}}
+@media(prefers-reduced-motion:reduce){.warning-action .icon{transition:none}}
+</style>
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
+<symbol id="icon-history" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 2-5M3 4v5h5M12 7v5l4 2"/></symbol>
+<symbol id="icon-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="icon-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+<symbol id="icon-alert" viewBox="0 0 24 24"><path d="M12 3 2 21h20L12 3ZM12 9v4m0 4h.01"/></symbol>
+<symbol id="icon-close" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+<symbol id="icon-send" viewBox="0 0 24 24"><path d="m4 20 16-8L4 4l3 8-3 8Zm3-8h12"/></symbol>
+<symbol id="icon-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+<symbol id="icon-box" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 8h8v8H8z"/></symbol>
+</svg>
+<div class="app" id="app">
+<header class="topbar">
+ <div class="brand" aria-label="RigPilot"><span class="brandmark"><svg viewBox="0 0 48 48" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 37V11h13c9 0 11 4 11 10s-5 9-12 9H13m12 0 11 9"/><circle cx="13" cy="11" r="2.6" fill="white" stroke="none"/><circle cx="36" cy="39" r="2.6" fill="white" stroke="none"/></svg></span><span class="brandname">RigPilot</span><span class="tagline">Thiết kế PC theo nhu cầu</span></div>
+ <div class="top-actions">
+  <div class="demo-controller"><label for="scenario">Xem trạng thái mẫu</label><select id="scenario" aria-label="Chọn trạng thái mô phỏng"><option value="ready">Đã lưu · v4</option><option value="running">Đang xử lý</option><option value="failed">Xử lý lỗi</option><option value="stale">Thiếu dữ liệu</option><option value="stockout">Hết hàng</option><option value="empty">Chưa có cấu hình</option></select></div>
+  <button type="button" class="btn icon-button" id="openHistory" aria-label="Mở lịch sử cấu hình"><svg class="icon" aria-hidden="true"><use href="#icon-history"/></svg><span class="history-caption">Lịch sử</span></button>
+  <button type="button" class="btn btn-primary" id="newSession" aria-label="Tạo phiên hội thoại mới"><svg class="icon" aria-hidden="true"><use href="#icon-plus"/></svg><span class="create-caption">Phiên mới</span></button>
+  <span class="avatar" aria-label="Tài khoản minh họa">H</span>
+ </div>
+</header>
+<div class="mobile-tabs" role="tablist" aria-label="Khu vực làm việc"><button type="button" id="tabChat" role="tab" aria-controls="chatPanel" aria-selected="true">Chat</button><button type="button" id="tabBuild" role="tab" aria-controls="buildPanel" aria-selected="false">PC Build</button></div>
+<main class="workspace">
+ <section class="chat" id="chatPanel" aria-label="Tư vấn RigPilot AI">
+  <div class="chat-head"><div class="eyebrow">Tư vấn cấu hình</div><h1>Lên cấu hình PC</h1><p>Cho RigPilot biết game bạn chơi, việc bạn làm và mức ngân sách.</p></div>
+  <div class="thread" id="thread"><div class="thread-label" id="threadLabel">Hội thoại mẫu · 04.11.2026</div><div id="sampleHistory"><div class="user-message">Mình cần PC chơi game 1440p, ngân sách <strong>30 triệu</strong>. Ưu tiên yên tĩnh và dễ nâng cấp sau này.</div>
+   <div class="clarify-message"><div class="assistant-avatar" aria-hidden="true">R</div><div class="message-body"><div class="author">RigPilot</div><p>Để chọn CPU và card đồ họa sát nhu cầu hơn, bạn chơi những game nào nhiều nhất?</p></div></div>
+   <div class="user-message user-followup">Chủ yếu <strong>Cyberpunk 2077</strong> và CS2. Mình ưu tiên Cyberpunk, chưa cần tính màn hình.</div></div>
+   <div class="assistant-message"><div class="assistant-avatar" aria-hidden="true">R</div><div class="message-body"><div class="author">RigPilot</div><div id="assistantReply"></div>
+     <div class="execution" id="executionBlock"><button type="button" class="execution-toggle" id="executionToggle" aria-expanded="false" aria-controls="executionDetails"><svg class="icon" aria-hidden="true"><use href="#icon-check"/></svg><span id="executionLabel">Đã xử lý cấu hình mẫu</span><svg class="icon chev" aria-hidden="true"><use href="#icon-chevron"/></svg></button><div class="execution-details" id="executionDetails" hidden></div></div>
+   </div></div>
+  </div>
+  <form class="composer" id="chatForm"><label class="sr-only" for="chatPrompt">Yêu cầu cấu hình</label><div class="composer-box"><textarea id="chatPrompt" rows="1" placeholder="Ví dụ: Giảm ngân sách xuống 27 triệu…" aria-describedby="composerHint"></textarea><button type="submit" class="send" aria-label="Gửi yêu cầu" title="Gửi yêu cầu"><svg class="icon" aria-hidden="true"><use href="#icon-send"/></svg></button></div><div id="composerHint" class="composer-hint">Bản mô phỏng giao diện · Chưa kết nối AI hoặc tài khoản.</div></form>
+ </section>
+ <section class="builder" id="buildPanel" aria-label="PC Builder chỉ đọc">
+  <div class="builder-content"><div class="builder-head"><div><div class="eyebrow">Bản dựng của bạn</div><h2>Cấu hình PC</h2><p id="builderSub">8 linh kiện · chỉ xem, thay đổi qua Chat</p></div><div class="version-group"><span class="pill" id="versionPill">Bản v4</span><button type="button" class="btn history-text-btn" id="buildHistory">Các phiên bản <svg class="icon" aria-hidden="true"><use href="#icon-chevron"/></svg></button></div></div>
+  <div id="previewBanner" class="preview-banner" hidden><div><strong id="previewTitle">Đang xem phiên bản cũ</strong><span>Chỉ xem. Cấu hình hiện tại không thay đổi.</span></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn btn-primary" id="restorePreview">Khôi phục bản này</button><button type="button" class="btn btn-soft" id="returnActive">Về bản hiện tại</button></div></div>
+  <div id="builderMain"><div class="summary"><div class="summary-top"><div><div class="summary-kicker">Tổng tiền linh kiện · Giá giả lập</div><div class="budget" id="budget">28.840.000 <small>₫</small></div><div class="budget-foot" id="budgetFoot">Ngân sách <strong>30.000.000 ₫</strong></div></div><div class="mini-meter"><div class="meter-label"><span>Đã dùng ngân sách</span><strong id="meterPct">96%</strong></div><div class="meter-track"><div class="meter-fill" id="meterFill"></div></div><div class="meter-label"><span>0 ₫</span><span>30 triệu ₫</span></div></div></div><div class="summary-divider"></div><div class="validation" id="validation"><div class="state-icon" aria-hidden="true"><svg class="icon"><use href="#icon-alert"/></svg></div><div><strong id="validationTitle">Đã kiểm tra · còn 2 mục chưa xác minh</strong><p id="validationDesc">Không thể khẳng định toàn bộ cấu hình tương thích khi dữ liệu kỹ thuật chưa đầy đủ.</p><div class="meta" id="provenance">Dữ liệu giá &amp; kho giả lập · bản mẫu 04/11/2026 · 14:30 GMT+7</div></div></div></div>
+  <details class="warning-disclosure" id="warningDisclosure"><summary><span id="warningCount">2 điểm cần lưu ý</span><span class="warning-action">Xem chi tiết <svg class="icon" aria-hidden="true"><use href="#icon-chevron"/></svg></span></summary><div class="warning-list" id="warningList"></div></details><div class="section-row"><h3>Linh kiện trong bản dựng <span id="partsCount">(8)</span></h3><p>Cần đổi linh kiện? Nhắn trong Chat</p></div><div class="parts" id="parts"></div>
+  <div class="verification-note"><strong>Lưu ý về dữ liệu mẫu.</strong> Giá và tình trạng kho chỉ phục vụ bản thiết kế; minh họa linh kiện theo loại, không phải ảnh đúng model. Không dùng làm căn cứ mua hàng.</div>
+  <div class="foot-actions"><p>Lựa chọn linh kiện thực tế có thể thay đổi sau khi xác minh.</p><button type="button" class="btn" disabled title="Tích hợp giỏ hàng chưa có">Đưa vào giỏ hàng · Sắp có</button></div></div>
+  <div class="empty" id="emptyBuilder" hidden><div class="empty-symbol"><svg class="icon" style="width:26px;height:26px"><use href="#icon-box"/></svg></div><h3>Chưa có cấu hình được lưu</h3><p>Hãy mô tả mục đích sử dụng, ngân sách và linh kiện bạn đang có. RigPilot sẽ giúp bạn chọn một cấu hình phù hợp.</p><button type="button" class="btn btn-primary" id="emptyGoChat">Bắt đầu trong Chat</button></div>
+  </div>
+ </section>
+</main>
+</div>
+<div class="overlay" id="historyOverlay" hidden><aside class="drawer" role="dialog" aria-modal="true" aria-labelledby="historyTitle" id="historyDialog"><div class="drawer-head"><div><div class="eyebrow">Các phiên bản</div><h2 id="historyTitle">Lịch sử cấu hình</h2><p>Chọn phiên bản để xem; khôi phục sẽ tạo bản mới.</p></div><button type="button" class="btn icon-button" id="closeHistory" aria-label="Đóng lịch sử"><svg class="icon" aria-hidden="true"><use href="#icon-close"/></svg></button></div><div class="drawer-body" id="historyItems"></div><div class="drawer-foot">Không có so sánh trực tiếp giữa các phiên bản ở bản này.</div></aside></div>
+<div class="overlay dialog-layer" id="restoreOverlay" hidden><div class="confirm" role="alertdialog" aria-modal="true" aria-labelledby="restoreTitle" aria-describedby="restoreDescription"><h2 id="restoreTitle">Khôi phục cấu hình?</h2><p id="restoreDescription">Phiên bản được chọn sẽ được sao chép thành một phiên bản mới. Các bản cũ không bị xóa.</p><div class="confirm-actions"><button type="button" class="btn" id="cancelRestore">Hủy</button><button type="button" class="btn btn-primary" id="confirmRestore">Tạo phiên bản mới</button></div></div></div>
+<div id="toast" class="flash" role="status" aria-live="polite"></div>
+<script>
+(()=>{
+'use strict';
+const $=id=>document.getElementById(id);
+const fmt=n=>new Intl.NumberFormat('vi-VN').format(n)+' ₫';
+const originalParts=[
+ {type:'CPU',name:'AMD Ryzen 5 7600',spec:'6 nhân / 12 luồng · Socket AM5',price:4950000,stock:'Còn hàng · kho mẫu'},
+ {type:'GPU',name:'GeForce RTX 4070 SUPER 12GB',spec:'12GB GDDR6X · cần xác minh kích thước',price:13490000,stock:'Còn hàng · kho mẫu',caution:'Độ dài card chưa đối chiếu với vỏ'},
+ {type:'MAIN',name:'B650M Wi-Fi DDR5',spec:'AM5 · Micro-ATX · DDR5',price:3190000,stock:'Còn hàng · kho mẫu'},
+ {type:'RAM',name:'32GB DDR5 6000',spec:'2 × 16GB · Dual channel',price:1650000,stock:'Còn hàng · kho mẫu'},
+ {type:'SSD',name:'SSD NVMe 1TB',spec:'PCIe 4.0 · M.2',price:1490000,stock:'Còn hàng · kho mẫu'},
+ {type:'PSU',name:'Nguồn 750W 80+ Gold',spec:'ATX · cần kiểm tra đầu cắm theo model',price:1790000,stock:'Còn hàng · kho mẫu'},
+ {type:'CASE',name:'Case Mid Tower Airflow',spec:'Cần xác minh GPU clearance',price:1390000,stock:'Còn hàng · kho mẫu',caution:'GPU clearance chưa được kiểm chứng'},
+ {type:'COOL',name:'Tản nhiệt khí 120mm',spec:'Tương thích socket dự kiến · kiểm tra độ cao',price:890000,stock:'Chưa rõ · kho mẫu',caution:'Chưa xác nhận tồn kho'}
+];
+const history=[{v:4,detail:'Cấu hình gaming 1440p · ưu tiên vận hành êm',date:'04/11/2026 · 14:30 GMT+7',parts:structuredClone(originalParts)},{v:3,detail:'Giữ ngân sách 30 triệu · cấu hình trước tinh chỉnh',date:'04/11/2026 · 13:10 GMT+7',parts:structuredClone(originalParts).map(p=>p.type==='GPU'?{...p,name:'GPU 12GB — model minh họa v3',price:12990000}:p)},{v:2,detail:'Bản đầu tiên · cấu hình gaming 1440p',date:'03/11/2026 · 20:15 GMT+7',parts:structuredClone(originalParts).map(p=>p.type==='CPU'?{...p,name:'Ryzen 5 — model minh họa v2',price:4450000}:p)}];
+let activeVersion=4,previewVersion=null,restoreTarget=null,scenario='ready',mobileTab='chat',lastFocus=null,lastRestoreFocus=null,toastTimer=null;
+const events={ready:[['done','Diễn giải nhu cầu và ngân sách'],['done','Đọc dữ liệu danh mục minh họa'],['done','Đánh giá quy tắc cấu hình mẫu'],['done','Lưu bản v4 kèm cảnh báo']],running:[['done','Ghi nhận thay đổi ngân sách'],['running','Đối chiếu các lựa chọn (mô phỏng)'],['pending','Kiểm tra tương thích'],['pending','Lưu bản mới']],failed:[['done','Ghi nhận yêu cầu'],['failed','Đọc dữ liệu linh kiện thất bại'],['skipped','Bỏ qua cập nhật cấu hình']],stale:[['done','Đọc danh mục minh họa'],['failed','Giá GPU chưa có dữ liệu'],['skipped','Không khẳng định giới hạn ngân sách']],stockout:[['done','Tra cứu hàng hóa minh họa'],['done','Phát hiện GPU hết hàng'],['pending','Chờ xác nhận thay thế']],empty:[]};
+function icon(name){return `<svg class="icon" aria-hidden="true"><use href="#icon-${name}"></use></svg>`}
+function setTab(tab,focusTab=false){mobileTab=tab;const chat=tab==='chat';$('tabChat').setAttribute('aria-selected',chat?'true':'false');$('tabBuild').setAttribute('aria-selected',chat?'false':'true');$('chatPanel').classList.toggle('mobile-hidden',!chat);$('buildPanel').classList.toggle('mobile-hidden',chat);if(focusTab)$(chat?'tabChat':'tabBuild').focus()}
+function updateMobile(){if(window.matchMedia('(max-width:780px)').matches)setTab(mobileTab);else{$('chatPanel').classList.remove('mobile-hidden');$('buildPanel').classList.remove('mobile-hidden')}}
+function announce(msg){$('toast').textContent=msg;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').textContent='',4300)}
+function getShownVersion(){return previewVersion??activeVersion}
+function getShownBuild(){return history.find(h=>h.v===getShownVersion())||history[0]}
+function hardwareArt(type){
+ // Vector category illustrations; intentionally not presented as SKU photographs.
+ const shape={
+  CPU:`<rect x="10" y="9" width="44" height="46" rx="5" fill="#25384b"/><rect x="17" y="16" width="30" height="32" rx="3" fill="#536f85"/><rect x="22" y="21" width="20" height="22" rx="2" fill="#d0dce1"/><path d="M16 4v5m10-5v5m10-5v5m10-5v5M16 55v5m10-5v5m10-5v5m10-5v5M4 16h6m-6 10h6m-6 10h6m-6 10h6m50-30h6m-6 10h6m-6 10h6m-6 10h6" stroke="#7e99a8" stroke-width="3"/>`,
+  GPU:`<rect x="5" y="16" width="55" height="32" rx="4" fill="#273849"/><rect x="9" y="20" width="47" height="24" rx="3" fill="#3f5369"/><circle cx="23" cy="32" r="9" fill="#172735" stroke="#a7bac6" stroke-width="1.3"/><circle cx="43" cy="32" r="9" fill="#172735" stroke="#a7bac6" stroke-width="1.3"/><g stroke="#91a7b8" stroke-width="1.6"><path d="M23 25v14m-7-7h14m-12-5 10 10m-10 0 10-10M43 25v14m-7-7h14m-12-5 10 10m-10 0 10-10"/></g><path d="M13 48h32l-3 4H16z" fill="#c3a36b"/>`,
+  MAIN:`<rect x="13" y="5" width="39" height="54" rx="3" fill="#283a4b"/><rect x="20" y="12" width="19" height="22" rx="2" fill="#9cb1bd"/><rect x="24" y="16" width="11" height="14" fill="#33485a"/><rect x="43" y="12" width="5" height="28" fill="#7a90a3"/><rect x="20" y="40" width="20" height="5" fill="#657e91"/><rect x="20" y="49" width="23" height="3" fill="#90a9b5"/><path d="M14 20H9m5 10H9m5 10H9" stroke="#8ba6b7" stroke-width="2"/>`,
+  RAM:`<g transform="rotate(-7 32 32)"><rect x="5" y="20" width="54" height="24" rx="2" fill="#285151"/><rect x="10" y="24" width="10" height="13" rx="1" fill="#172e35"/><rect x="23" y="24" width="10" height="13" rx="1" fill="#172e35"/><rect x="36" y="24" width="10" height="13" rx="1" fill="#172e35"/><path d="M12 44v5m7-5v5m8-5v5m8-5v5m8-5v5m8-5v5" stroke="#bfaa70" stroke-width="3"/></g>`,
+  SSD:`<rect x="5" y="22" width="54" height="21" rx="4" fill="#213e3f"/><rect x="13" y="26" width="19" height="13" rx="2" fill="#728d8a"/><rect x="36" y="28" width="13" height="9" rx="1" fill="#496a6a"/><circle cx="54" cy="32" r="2" fill="#c5d3cd"/><path d="M9 43h7m4 0h7m4 0h7m4 0h7" stroke="#b6a16f" stroke-width="2"/>`,
+  PSU:`<rect x="10" y="13" width="45" height="40" rx="4" fill="#2b3641"/><circle cx="31" cy="32" r="16" fill="#152532" stroke="#7e929d" stroke-width="2"/><circle cx="31" cy="32" r="4" fill="#91a9b7"/><path d="M31 18v28M17 32h28m-23-10 20 20m0-20L22 42" stroke="#607889" stroke-width="1.5"/><rect x="51" y="19" width="6" height="9" fill="#394e60"/>`,
+  CASE:`<path d="M19 5h31l2 54H17z" fill="#273745"/><path d="M23 9h23l2 46H21z" fill="#3f5466"/><circle cx="34" cy="20" r="7" fill="#1c2a39" stroke="#7b94a5" stroke-width="1.5"/><circle cx="34" cy="38" r="7" fill="#1c2a39" stroke="#7b94a5" stroke-width="1.5"/><circle cx="34" cy="20" r="2" fill="#839eac"/><circle cx="34" cy="38" r="2" fill="#839eac"/><path d="M19 57h30" stroke="#78909d" stroke-width="2"/>`,
+  COOL:`<rect x="14" y="9" width="38" height="46" rx="3" fill="#8a9ba3"/><path d="M18 14h30m-30 5h30m-30 5h30m-30 5h30m-30 5h30m-30 5h30m-30 5h30m-30 5h30" stroke="#d9e0e2" stroke-width="2"/><circle cx="33" cy="32" r="15" fill="#263745" stroke="#a5b7c0" stroke-width="2"/><path d="M33 19q11 0 8 10Q34 34 33 32q-11 0-8-10Q30 19 33 19m13 14q0 11-10 8Q31 34 33 33q0-11 10-8Q46 30 46 33M33 46q-11 0-8-10Q32 31 33 33q11 0 8 10Q36 46 33 46" fill="#718a9a"/><circle cx="33" cy="32" r="4" fill="#d2dce0"/>`
+ };
+ return `<svg class="hardware-art" viewBox="0 0 64 64" aria-hidden="true">${shape[type]||shape.CPU}</svg>`;
+}
+function displayParts(parts,s){$('parts').innerHTML=parts.map(p=>{const priceUnknown=s==='stale'&&p.type==='GPU',out=s==='stockout'&&p.type==='GPU';return `<article class="part" data-type="${p.type}"><div class="part-image" aria-hidden="true">${hardwareArt(p.type)}</div><div><div class="part-kind">${p.type}</div><div class="part-name">${p.name}</div><div class="part-spec">${p.spec}</div><div class="part-extra"><span class="${out?'bad':p.stock==='Chưa rõ'?'caution':''}">${out?'Hết hàng (mô phỏng)':p.stock}</span>${p.caution?`<span class="caution">${p.caution}</span>`:''}</div></div><div class="part-right"><div class="part-price">${priceUnknown?'Chưa có giá':fmt(p.price)}</div><div class="part-source">${priceUnknown?'Không thể tính tổng':'Giá giả lập'}</div></div></article>`}).join('');$('partsCount').textContent=`(${parts.length})`}
+function displayWarnings(s){let cards=[{title:'Cần đối chiếu kích thước',desc:'Độ dài GPU và khoảng trống của case chưa có bằng chứng tương thích.'},{title:'Tồn kho chưa xác định',desc:'Tồn kho tản nhiệt CPU chưa được xác nhận.'}];if(s==='stale')cards.unshift({title:'Không có giá GPU',desc:'Không thể chứng minh cấu hình nằm trong ngân sách khi thiếu giá.',danger:true});if(s==='stockout')cards.unshift({title:'GPU hết hàng',desc:'Không tự thay bằng GPU khác; cần khách hàng cho phép trước.',danger:true});$('warningCount').textContent=`${cards.length} điểm cần lưu ý`;$('warningDisclosure').hidden=cards.length===0;$('warningList').innerHTML=cards.map(c=>`<div class="warn-card ${c.danger?'is-danger':''}"><strong>${icon('alert')}${c.title}</strong><p>${c.desc}</p></div>`).join('')}
+function displayBuilder(){const empty=scenario==='empty'&&previewVersion===null;$('builderMain').hidden=empty;$('emptyBuilder').hidden=!empty;$('versionPill').textContent=empty?'Chưa có phiên bản':`Bản v${getShownVersion()}`;$('versionPill').classList.toggle('preview',previewVersion!==null);$('previewBanner').hidden=previewVersion===null;$('previewTitle').textContent=`Đang xem phiên bản v${previewVersion} (chỉ đọc)`;$('builderSub').textContent=previewVersion!==null?'Đang xem bản lưu trước · chỉ đọc': '8 linh kiện · chỉ xem, thay đổi qua Chat';if(empty)return;
+ const parts=getShownBuild().parts,s=previewVersion!==null?'ready':scenario,total=parts.reduce((sum,p)=>sum+p.price,0),hasUnknown=s==='stale',budget=30000000;
+ $('budget').innerHTML=hasUnknown?'Chưa thể tính tổng':`${new Intl.NumberFormat('vi-VN').format(total)} <small>₫</small>`;$('budgetFoot').innerHTML=hasUnknown?'Thiếu giá GPU · không kết luận trong ngân sách':`Ngân sách <strong>${fmt(budget)}</strong> · còn ${fmt(budget-total)}`;$('meterPct').textContent=hasUnknown?'Chưa rõ':Math.round(total/budget*100)+'%';$('meterFill').style.width=hasUnknown?'0%':Math.min(100,total/budget*100)+'%';
+ const titles={ready:'Đã kiểm tra · còn 2 điểm chưa xác minh',running:'Đang xử lý · giữ nguyên bản đã lưu',failed:'Cập nhật thất bại · bản cũ được giữ nguyên',stale:'Chưa đủ dữ liệu để kiểm tra ngân sách',stockout:'Phát hiện linh kiện hết hàng · chờ đồng ý',empty:''};
+ const desc={ready:'Kiểm tra mẫu hoàn tất, nhưng chưa đủ chứng cứ để khẳng định toàn bộ cấu hình tương thích.',running:'Dữ liệu đang hiển thị là phiên bản đã lưu trước đó, không phải cấu hình AI đang tạo.',failed:'Không có phiên bản mới được xuất bản. Có thể yêu cầu thử lại trong Chat.',stale:'Thiếu giá GPU nên dự toán không được xem là đã xác nhận.',stockout:'Chưa thay thế linh kiện. Hãy hỏi khách hàng trước khi lựa chọn phương án khác.'};
+ $('validationTitle').textContent=previewVersion!==null?'Bản lưu cũ · có cảnh báo chưa xác minh':titles[s];$('validationDesc').textContent=previewVersion!==null?'Các trạng thái này thuộc phiên bản đã lưu, không phải kiểm tra lại theo thời gian thực.':desc[s];$('validation').classList.toggle('is-danger',s==='failed'||s==='stockout');$('validation').classList.toggle('is-neutral',s==='running');$('provenance').textContent=`Giá & tồn kho giả lập · thời điểm bản lưu: ${getShownBuild().date} · không phải dữ liệu hiện hành`;displayWarnings(s);displayParts(parts,s);
+}
+function displayReply(){let msg='';switch(scenario){case 'ready':msg='<p>Với <strong>Cyberpunk là ưu tiên chính</strong>, em đã dựng một phương án dùng Ryzen 5 7600 và RTX 4070 SUPER trên nền tảng AM5.</p><p>Chi phí dự kiến <strong>28,84 / 30 triệu</strong> theo giá mẫu. Còn hai điểm cần đối chiếu: <strong>khoảng trống lắp GPU</strong> và <strong>tồn kho tản nhiệt</strong>. Em chưa có bằng chứng để cam kết FPS hay xác nhận PC tương thích hoàn toàn.</p>';break;case 'running':msg='<p>Đang xây dựng đề xuất theo yêu cầu mới. <strong>PC Builder vẫn hiển thị bản đã lưu v'+activeVersion+'</strong> cho đến khi kiểm tra và lưu hoàn tất.</p><div class="chat-note neutral">Các bước bên dưới chỉ là mô phỏng, không phải log agent thật.</div><button type="button" class="btn btn-soft" id="completeDemo">Hoàn tất mô phỏng</button>';break;case 'failed':msg='<p>Không thể hoàn tất yêu cầu vì không đọc được dữ liệu mô phỏng. <strong>Phiên bản đã lưu không bị thay đổi.</strong></p><div class="chat-note danger">Lần cập nhật thất bại. Bạn có thể thử lại; chưa có cấu hình mới nào được xuất bản.</div><button type="button" class="btn btn-soft" id="retryDemo">Thử lại mô phỏng</button>';break;case 'stale':msg='<p>Giá GPU hiện chưa có dữ liệu. Em <strong>không thể xác nhận cấu hình có nằm trong ngân sách</strong> cho đến khi có giá phù hợp.</p><div class="chat-note">Cần bổ sung dữ liệu giá và thời điểm cập nhật.</div>';break;case 'stockout':msg='<p>GPU được đề xuất đang <strong>hết hàng trong dữ liệu mẫu</strong>. Em sẽ không tự động đổi sang mẫu khác.</p><div class="chat-note">Bạn có đồng ý để em tìm GPU thay thế không? (Nút bên dưới chỉ mô phỏng phản hồi.)</div><button type="button" class="btn btn-soft" id="consentDemo">Đồng ý tìm lựa chọn khác</button>';break;case 'empty':msg='<p>Chưa có cấu hình nào được lưu trong phiên này. Bạn có thể bắt đầu bằng mục đích sử dụng, ngân sách, và linh kiện muốn giữ lại.</p>';break}
+ if(scenario==='ready'&&activeVersion>4)msg=`<p>Đã tạo <strong>phiên bản v${activeVersion}</strong> trong dữ liệu mô phỏng. Bản cũ vẫn có trong lịch sử, và cảnh báo xác minh được giữ nguyên.</p>`;
+ $('sampleHistory').hidden=scenario==='empty';$('threadLabel').textContent=scenario==='empty'?'Phiên hội thoại mới · chưa có nội dung':'Hội thoại mẫu · 04.11.2026';$('assistantReply').innerHTML=msg;const eventList=events[scenario];$('executionBlock').hidden=eventList.length===0;$('executionLabel').textContent={ready:'Cấu hình đã lưu · xem quá trình mẫu',running:'Đang xét lại cấu hình · mô phỏng',failed:'Không thể cập nhật · xem lý do',stale:'Thiếu giá linh kiện · xem chi tiết',stockout:'Đang chờ bạn xác nhận'}[scenario]||'';$('executionDetails').innerHTML=eventList.map(([status,label])=>`<div class="event-row"><span class="status-dot ${status==='pending'?'':status}" aria-hidden="true"></span><span><b>${{done:'Hoàn tất',running:'Đang chạy',failed:'Thất bại',skipped:'Bỏ qua',pending:'Chưa chạy'}[status]}:</b> ${label}</span></div>`).join('')+'<p class="event-hint">Các sự kiện ở đây là dữ liệu minh họa, không phản ánh quá trình chạy AI thực tế.</p>';
+ $('executionToggle').setAttribute('aria-expanded','false');$('executionDetails').hidden=true;
+ $('completeDemo')?.addEventListener('click',()=>{scenario='ready';$('scenario').value='ready';publishSample()});$('retryDemo')?.addEventListener('click',()=>setScenario('running'));$('consentDemo')?.addEventListener('click',()=>announce('Đã ghi nhận phản hồi mô phỏng. Chưa có thay thế linh kiện thật.'));
+}
+function publishSample(){if(previewVersion!==null)previewVersion=null;activeVersion=Math.max(...history.map(h=>h.v))+1;history.unshift({v:activeVersion,detail:'Bản mới được tạo bởi kịch bản mô phỏng',date:'04/11/2026 · Mô phỏng',parts:structuredClone(history[0].parts)});render();announce(`Đã xuất bản v${activeVersion} trong prototype (dữ liệu mô phỏng).`);if(window.matchMedia('(max-width:780px)').matches){setTab('chat');const b=$('assistantReply');const a=document.createElement('button');a.type='button';a.className='btn btn-soft context-action';a.textContent=`Cấu hình v${activeVersion} đã cập nhật — Xem PC Build`;a.addEventListener('click',()=>setTab('build',true));b.appendChild(a)}}
+function setScenario(v){scenario=v;previewVersion=null;$('scenario').value=v;render()}
+function render(){displayBuilder();displayReply();renderHistory();}
+function renderHistory(){if(scenario==='empty'&&previewVersion===null){$('historyItems').innerHTML='<div class="empty"><h3>Chưa có phiên bản</h3><p>Lịch sử chỉ hiển thị cấu hình thuộc hội thoại hiện tại. Phiên mới không kế thừa dữ liệu của phiên cũ.</p></div>';return}$('historyItems').innerHTML=history.map(h=>`<div class="timeline-item"><div class="timeline-rail"><span class="timeline-dot"></span></div><div class="timeline-detail"><div class="timeline-title"><span>Phiên bản v${h.v}</span>${h.v===activeVersion?'<span class="pill">Đang dùng</span>':''}</div><div class="timeline-meta">${h.date}</div><p class="timeline-desc">${h.detail}</p><div class="timeline-actions"><button type="button" class="btn" data-view="${h.v}">Xem bản này</button>${h.v===activeVersion?'':`<button type="button" class="btn btn-soft" data-restore="${h.v}">Khôi phục</button>`}</div></div></div>`).join('');}
+function focusable(dialog){return [...dialog.querySelectorAll('button:not([disabled]),[href],input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])')].filter(el=>el.getClientRects().length)}
+function activeDialog(){return !$('restoreOverlay').hidden?$('restoreOverlay').querySelector('[role="alertdialog"]'):!$('historyOverlay').hidden?$('historyDialog'):null}
+function openHistory(){lastFocus=document.activeElement;$('historyOverlay').hidden=false;$('app').inert=true;renderHistory();$('closeHistory').focus()}
+function closeHistory(){if(!$('restoreOverlay').hidden)closeRestore();$('historyOverlay').hidden=true;$('app').inert=false;(lastFocus||$('openHistory')).focus()}
+function openRestore(v,btn){restoreTarget=v;lastRestoreFocus=btn||document.activeElement;$('restoreDescription').textContent=`Khôi phục bản v${v} sẽ tạo một phiên bản mới từ cấu hình đã lưu. Phiên bản v${activeVersion} và toàn bộ lịch sử vẫn được giữ lại. Các cảnh báo của bản được khôi phục vẫn hiển thị.`;$('restoreOverlay').hidden=false;$('app').inert=true;$('cancelRestore').focus()}
+function closeRestore(){$('restoreOverlay').hidden=true;if($('historyOverlay').hidden)$('app').inert=false;restoreTarget=null;if(lastRestoreFocus?.isConnected)lastRestoreFocus.focus();else $('closeHistory').focus()}
+function confirmRestore(){const source=history.find(x=>x.v===restoreTarget);if(!source)return;activeVersion=Math.max(...history.map(x=>x.v))+1;history.unshift({v:activeVersion,detail:`Khôi phục từ phiên bản v${source.v}`,date:'04/11/2026 · Mô phỏng',parts:structuredClone(source.parts)});scenario='ready';previewVersion=null;$('scenario').value='ready';$('restoreOverlay').hidden=true;restoreTarget=null;if($('historyOverlay').hidden)$('app').inert=false;else closeHistory();render();(window.matchMedia('(max-width:780px)').matches && mobileTab==='chat' ? $('openHistory') : $('buildHistory')).focus();announce(`Đã khôi phục v${source.v} thành v${activeVersion} (mô phỏng).`)}
+$('openHistory').addEventListener('click',openHistory);$('buildHistory').addEventListener('click',openHistory);$('closeHistory').addEventListener('click',closeHistory);$('historyOverlay').addEventListener('mousedown',e=>{if(e.target===$('historyOverlay'))closeHistory()});$('historyItems').addEventListener('click',e=>{const v=e.target.closest('[data-view]');const r=e.target.closest('[data-restore]');if(v){previewVersion=Number(v.dataset.view);scenario='ready';$('scenario').value='ready';displayBuilder();closeHistory();if(window.matchMedia('(max-width:780px)').matches)setTab('build',true);announce(`Đang xem v${previewVersion}. Cấu hình hiện tại chưa thay đổi.`)}if(r)openRestore(Number(r.dataset.restore),r)});$('cancelRestore').addEventListener('click',closeRestore);$('confirmRestore').addEventListener('click',confirmRestore);$('restoreOverlay').addEventListener('mousedown',e=>{if(e.target===$('restoreOverlay'))closeRestore()});$('returnActive').addEventListener('click',()=>{previewVersion=null;render();announce('Đã quay lại cấu hình đang dùng.')});$('restorePreview').addEventListener('click',e=>{if(previewVersion!==null)openRestore(previewVersion,e.currentTarget)});
+window.addEventListener('keydown',e=>{const dialog=activeDialog();if(!dialog)return;if(e.key==='Escape'){e.preventDefault();if(!$('restoreOverlay').hidden)closeRestore();else closeHistory();return}if(e.key==='Tab'){const nodes=focusable(dialog);if(!nodes.length){e.preventDefault();return}const first=nodes[0],last=nodes[nodes.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}else if(!dialog.contains(document.activeElement)){e.preventDefault();first.focus()}}});
+$('scenario').addEventListener('change',e=>setScenario(e.target.value));$('newSession').addEventListener('click',()=>{setScenario('empty');setTab('chat');announce('Đã mở trạng thái phiên mới trong prototype. Không có dữ liệu nào được ghi thật.')});$('emptyGoChat').addEventListener('click',()=>setTab('chat',true));$('tabChat').addEventListener('click',()=>setTab('chat'));$('tabBuild').addEventListener('click',()=>setTab('build'));for(const t of ['Chat','Build'])$( 'tab'+t).addEventListener('keydown',e=>{if(['ArrowRight','ArrowLeft','Home','End'].includes(e.key)){e.preventDefault();setTab(e.key==='Home'?'chat':e.key==='End'?'build':mobileTab==='chat'?'build':'chat',true)}});
+$('chatForm').addEventListener('submit',e=>{e.preventDefault();const v=$('chatPrompt').value.trim();if(!v){$('chatPrompt').focus();return}announce('Đây là concept: yêu cầu đã nhập chỉ dùng để minh họa, không gửi tới AI.');$('chatPrompt').value=''});$('chatPrompt').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();$('chatForm').requestSubmit()}});$('executionToggle').addEventListener('click',()=>{const open=$('executionDetails').hidden;$('executionDetails').hidden=!open;$('executionToggle').setAttribute('aria-expanded',String(open))});window.addEventListener('resize',updateMobile);updateMobile();render();
+})();
+</script>
+</body>
+</html>

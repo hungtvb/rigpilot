@@ -116,37 +116,23 @@ Initial data set should be **small and scenario-complete**, not an exhaustive ma
 Essential pending UI checks: responsive breakpoints, keyboard/AT navigation, focus management for drawer/tab controls, loading/empty/error states, product-image fallback and color contrast.
 
 
-### Prototype v0.4 — visual and interaction review (PROPOSED)
+### UI mockup v0.5 — APPROVED (design-only sign-off, 2026-11-05)
 
-**Phase:** Mockup design only. This section is a **review proposal**, not a new accepted business rule, product implementation requirement or assertion that the simulated flows are real. Reviewed against the existing standalone v0.4 desktop (1440px) and mobile (375px Chat / PC Build) screenshots. No customer usability study or WCAG audit has been performed.
+**Stakeholder decision:** The stakeholder explicitly signed off the RigPilot **standalone UI mockup v0.5** on 2026-11-05 ("chốt"). **Scope: UI/branding and representative UX interaction intent only.** This does not approve application code, an implementation plan, real AI behavior, backend correctness or merging a PR. See D-062 in the [Decision Log](../../DECISIONS.md).
 
-**Keep unchanged:** accepted two-pane desktop layout (Chat / read-only PC Builder), two mobile tabs, compact component list, budget summary, summary + inline warning concept, History Drawer, and mock state transitions. Do not redesign the shell or add a marketing hero.
+**Approved visual reference:** `rigpilot-ui-concept-v0.5.html` (standalone conversation design artifact, **not** a product source file or currently tracked in this repository). SHA-256: `dda9e123fa20741d30cfd7ee210ad36cfcc9ddbcfa142f1d498be517d8b08aa9`. Companion representative screenshots: `rigpilot-v05-1440.png`, `rigpilot-v05-375.png`, `rigpilot-v05-mobile-builder.png`. The file name and checksum identify the reviewed mockup; these paths refer to conversation design artifacts, not repository URLs.
 
-| Priority | Visual / interaction finding | Mockup-level refinement |
-|---|---|---|
-| P1 | **Brand expression is still generic.** The logo and indigo palette are coherent, but the uppercase tagline and some generic SaaS copy do little to convey a PC-building assistant. | Refine only the identity microcopy and typography hierarchy; avoid extra ornamental cards, gradients or gaming decoration. |
-| P1 | **Warning information competes with the components.** The summary card and repeated notices above the parts list are both visually prominent. | Preserve accepted **summary + inline** information, but make one overview line clearly primary and move detail emphasis beside affected components or behind disclosure, rather than repeating equally heavy blocks. |
-| P2 | **Mobile header actions are ambiguous without labels.** The narrow screenshot uses icon-only History and New Session controls and a truncated state selector. | Provide recognizable accessible names/visible context (for example in tooltips or a compact action menu) and maintain touch-target hierarchy. No new navigation model. |
-| P2 | **Category illustrations are visually generic.** They currently act as hardware-type placeholders, not true catalog photographs. | Keep placeholders valid in the mockup and identify them as illustrative. Real exact-model product photography and provenance are production-data concerns, not a mockup sign-off gate. |
+**Approved presentation and mock interaction contract:**
+- Preserve the desktop Chat-left / read-only PC Builder-right layout (mockup proportion ~39% / 61%), single header, and mobile **Chat / PC Build** tabs. Do not introduce a marketing hero, component editing in Builder or history comparison.
+- Retain the restrained Modern SaaS + Premium Hardware direction, with a darker mineral-blue brand mark, less uppercase template-like copy, minimal unnecessary cards/badges and clear typography for hardware names and VND totals.
+- Keep a concise **whole-build status** and a visually quieter disclosure for detailed warnings (e.g. "2 điểm cần lưu ý"); retain inline warnings alongside relevant components. A collapsed disclosure in the mockup does not authorize hiding known blocking risks in the actual product.
+- On small screens show recognizable labels for **Lịch sử** and **Phiên mới**. The prototype-only sample-scenario selector may be visible for desktop design review but is **not** part of the customer product contract.
+- Preserve compact component rows with category illustrations as acceptable **mock placeholders**; real product images and exact-model sourcing are future content/implementation concerns. Keep all sample content visibly illustrative when presenting the mockup.
+- Use scripted examples for Chat answers, History preview/restore, warning/failure states, stock and prices solely to communicate intended appearance and interaction. They are not evidence of functioning engines, APIs or persistence.
 
-**Mockup design acceptance (review by looking at representative states; NOT functional E2E tests):**
-1. Desktop 1440px: the customer immediately locates Chat, PC Builder, total/budget and the meaningful warning summary; long models and prices remain legible.
-2. Mobile 375px: Chat / PC Build tabs and history/new-chat affordances are discoverable, the composer does not cover important controls, and a long answer can be visually reviewed without confusing the tab state.
-3. Mock state examples (saved build, unknown compatibility, stockout, failure and previous-version preview) visually distinguish the intended states. **Sample prices, inventory, execution steps and chat replies may be scripted.**
-4. Typography, color, icon style, borders, density and hardware imagery feel like one RigPilot visual system, not a collage of generic AI/SaaS widgets.
-5. The meaning of Chat-based refinements, History preview and Restore is understandable from the depicted interactions or annotations; **the prototype need not call any API, optimizer, LLM, catalog or persistence layer**.
+**Observed prototype-only QA, not product acceptance:** The attached-to-conversation design review reports local Chromium/Playwright checks at 320, 375, 768, 1024 and 1440 px, including representative overflow, disclosure, mobile tabs/labels, history and sample state changes. Those assertions and screenshots support the mockup review only. No real customer usability research, full accessibility audit, cross-browser acceptance, live LLM, compatibility, inventory or backend E2E results are claimed.
 
-**Not mockup blockers:** real benchmark sourcing, SKU database completeness, compatibility calculation, stockout approval implementation, state/checkpoint persistence, real execution-event correctness, AI response quality, backend authentication or measured performance. Those remain owned by approved Product/AI design and later implementation/evaluation. Visual treatment should still **avoid claiming** sample outputs are live or certified.
-
-**Design gate:** review the small visual refinements above; then stakeholder can sign off the **UI mockup** separately from functional completeness. Keep this section `PROPOSED` until explicit approval; do not silently modify `docs/DECISIONS.md`, merge, start an implementation plan or code the app.
-
-**Design follow-up — standalone prototype v0.5 (2026-11-05; pending sign-off):**
-- **Brand microcopy addressed in mockup:** header tagline changed to natural Vietnamese PC-building language, Chat title explains the task, while the original two-pane layout remains.
-- **Warning density addressed in mockup:** keep one prominent assessed-build summary; secondary warnings collapse into “điểm cần lưu ý” with inline notices on affected components. This is a visual disclosure, not proof the checks run.
-- **Mobile affordances addressed in mockup:** History and New Session show icons **and** short labels, while the mockup-only scenario selector is hidden on mobile. Chat / PC Build tabs remain unchanged.
-- **Imagery intentionally illustrative:** hardware-type SVGs are placeholders; accurate catalog images and models are not prerequisites for a mockup sign-off.
-- **Observed mockup checks, local only:** standalone HTML loaded in Chromium/Playwright; widths 320, 375, 768, 1024, 1440px showed no document-level horizontal overflow or uncaught JavaScript page errors in the scripted checks. Also exercised warning disclosure, mobile tabs, history/restore sample flows, and sample stockout/failure transitions. These are **prototype interaction checks**, not WCAG certification, real usability testing or backend E2E.
-- **Open gate:** visual acceptance belongs to the stakeholder. No new design decision, implementation approval, or PR merge is inferred from “continue”.
+**What remains open:** Implementation decisions and tests, responsive/keyboard/screen-reader production behavior, exact product image provenance, real data and AI evaluation stay separate from **UI mockup sign-off**. The stakeholder must explicitly approve each future implementation plan. The original Product/AI design requirements and decisions D-032–D-041 are unchanged.
 
 ## 7. Evolution strategy: choose what to reuse
 

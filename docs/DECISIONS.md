@@ -1,6 +1,6 @@
 # RigPilot — Decision Log
 
-**Updated:** 2026-11-04  
+**Updated:** 2026-11-05  
 **Source:** stakeholder brainstorming for RigPilot Agentic AI  
 **Status:** decisions below are **ACCEPTED at product and AI-design direction level**. They are **not** a claim of implemented or tested functionality.
 
@@ -66,6 +66,7 @@
 | D-039 | Version history uses a **timeline History Drawer**; preview and restore versions, but **no side-by-side version comparison** in initial scope. |
 | D-040 | Execution progress is based on **actual execution events**, shown as one compact Chat status line with expandable details; never fake graph progress. |
 | D-041 | **Publish the PC Builder update only after processing and validation complete**. On failure keep the prior saved version, show an error; validation may complete with explicit warnings. |
+| D-062 | **UI Mockup v0.5 sign-off (2026-11-05):** Stakeholder approved the standalone **design-only** visual mockup, preserving desktop Chat-left / read-only PC Builder-right layout, mobile Chat / PC Build tabs, compact part list, restrained branding, quieter warning disclosure with inline notices, and labeled mobile header actions. Scripted data/AI/History interactions are permitted as design illustrations. **Not** a sign-off for application functionality, real product data, code, an implementation plan, QA/E2E, or PR merge. The versioned design reference and checksum are in the Product & UX Design spec. |
 
 ## Recommendation architecture direction
 
@@ -102,7 +103,7 @@
 - **Architecture detail:** controlled single-orchestrator direction is approved in the AI design; exact graph nodes, interfaces, optimizer calibration and model IDs remain implementation-plan decisions, not code-level sign-off.
 - **Storage/auth detail:** SQLite and ChromaDB are selected; schema, session/security implementation, local deployment mechanism and secret handling are still design-level proposals.
 - **Data contracts:** exact hardware coverage, provenance and benchmark schema, freshness and import strategy.
-- **UX detail:** design tokens, error details, keyboard/accessibility QA, status copy, exact mobile history drawer behavior.
+- **UX implementation detail:** translating the signed-off v0.5 mockup to production tokens and components, error details, keyboard/accessibility QA, real execution/status copy and exact mobile history drawer behavior remain implementation/evaluation work.
 - **Integration:** `Proceed to Cart` contract, any eventual cart service/CTA states.
 - **Evidence:** acceptance scenarios, deterministic or provider-backed test strategy, performance target and business baseline.
 

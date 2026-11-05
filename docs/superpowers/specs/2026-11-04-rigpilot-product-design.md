@@ -115,6 +115,25 @@ Initial data set should be **small and scenario-complete**, not an exhaustive ma
 
 Essential pending UI checks: responsive breakpoints, keyboard/AT navigation, focus management for drawer/tab controls, loading/empty/error states, product-image fallback and color contrast.
 
+
+### UI mockup v0.5 — APPROVED (design-only sign-off, 2026-11-05)
+
+**Stakeholder decision:** The stakeholder explicitly signed off the RigPilot **standalone UI mockup v0.5** on 2026-11-05 ("chốt"). **Scope: UI/branding and representative UX interaction intent only.** This does not approve application code, an implementation plan, real AI behavior, backend correctness or merging a PR. See D-062 in the [Decision Log](../../DECISIONS.md).
+
+**Approved visual reference:** `rigpilot-ui-concept-v0.5.html` (standalone conversation design artifact, **not** a product source file or currently tracked in this repository). SHA-256: `dda9e123fa20741d30cfd7ee210ad36cfcc9ddbcfa142f1d498be517d8b08aa9`. Companion representative screenshots: `rigpilot-v05-1440.png`, `rigpilot-v05-375.png`, `rigpilot-v05-mobile-builder.png`. The file name and checksum identify the reviewed mockup; these paths refer to conversation design artifacts, not repository URLs.
+
+**Approved presentation and mock interaction contract:**
+- Preserve the desktop Chat-left / read-only PC Builder-right layout (mockup proportion ~39% / 61%), single header, and mobile **Chat / PC Build** tabs. Do not introduce a marketing hero, component editing in Builder or history comparison.
+- Retain the restrained Modern SaaS + Premium Hardware direction, with a darker mineral-blue brand mark, less uppercase template-like copy, minimal unnecessary cards/badges and clear typography for hardware names and VND totals.
+- Keep a concise **whole-build status** and a visually quieter disclosure for detailed warnings (e.g. "2 điểm cần lưu ý"); retain inline warnings alongside relevant components. A collapsed disclosure in the mockup does not authorize hiding known blocking risks in the actual product.
+- On small screens show recognizable labels for **Lịch sử** and **Phiên mới**. The prototype-only sample-scenario selector may be visible for desktop design review but is **not** part of the customer product contract.
+- Preserve compact component rows with category illustrations as acceptable **mock placeholders**; real product images and exact-model sourcing are future content/implementation concerns. Keep all sample content visibly illustrative when presenting the mockup.
+- Use scripted examples for Chat answers, History preview/restore, warning/failure states, stock and prices solely to communicate intended appearance and interaction. They are not evidence of functioning engines, APIs or persistence.
+
+**Observed prototype-only QA, not product acceptance:** The attached-to-conversation design review reports local Chromium/Playwright checks at 320, 375, 768, 1024 and 1440 px, including representative overflow, disclosure, mobile tabs/labels, history and sample state changes. Those assertions and screenshots support the mockup review only. No real customer usability research, full accessibility audit, cross-browser acceptance, live LLM, compatibility, inventory or backend E2E results are claimed.
+
+**What remains open:** Implementation decisions and tests, responsive/keyboard/screen-reader production behavior, exact product image provenance, real data and AI evaluation stay separate from **UI mockup sign-off**. The stakeholder must explicitly approve each future implementation plan. The original Product/AI design requirements and decisions D-032–D-041 are unchanged.
+
 ## 7. Evolution strategy: choose what to reuse
 
 **Selected:** **Selective Reuse** of stakeholder-owned ShopMate.

@@ -120,7 +120,7 @@ Essential pending UI checks: responsive breakpoints, keyboard/AT navigation, foc
 
 **Stakeholder decision:** The stakeholder explicitly signed off the RigPilot **standalone UI mockup v0.5** on 2026-11-05 ("chốt"). **Scope: UI/branding and representative UX interaction intent only.** This does not approve application code, an implementation plan, real AI behavior, backend correctness or merging a PR. See D-062 in the [Decision Log](../../DECISIONS.md).
 
-**Approved visual reference:** `rigpilot-ui-concept-v0.5.html` (standalone conversation design artifact, **not** a product source file or currently tracked in this repository). SHA-256: `dda9e123fa20741d30cfd7ee210ad36cfcc9ddbcfa142f1d498be517d8b08aa9`. Companion representative screenshots: `rigpilot-v05-1440.png`, `rigpilot-v05-375.png`, `rigpilot-v05-mobile-builder.png`. The file name and checksum identify the reviewed mockup; these paths refer to conversation design artifacts, not repository URLs.
+**Approved visual reference:** [rigpilot-ui-concept-v0.5.html](../../design/rigpilot-ui-concept-v0.5.html) (standalone HTML mockup, checked into this docs branch for reproducible handoff; **not** live product UI source). SHA-256: `dda9e123fa20741d30cfd7ee210ad36cfcc9ddbcfa142f1d498be517d8b08aa9`. Companion screenshots `rigpilot-v05-1440.png`, `rigpilot-v05-375.png` and `rigpilot-v05-mobile-builder.png` remain conversation artifacts; they are illustrative, not required application assets.
 
 **Approved presentation and mock interaction contract:**
 - Preserve the desktop Chat-left / read-only PC Builder-right layout (mockup proportion ~39% / 61%), single header, and mobile **Chat / PC Build** tabs. Do not introduce a marketing hero, component editing in Builder or history comparison.

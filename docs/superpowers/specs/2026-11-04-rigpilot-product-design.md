@@ -140,6 +140,14 @@ Essential pending UI checks: responsive breakpoints, keyboard/AT navigation, foc
 
 **Design gate:** review the small visual refinements above; then stakeholder can sign off the **UI mockup** separately from functional completeness. Keep this section `PROPOSED` until explicit approval; do not silently modify `docs/DECISIONS.md`, merge, start an implementation plan or code the app.
 
+**Design follow-up — standalone prototype v0.5 (2026-11-05; pending sign-off):**
+- **Brand microcopy addressed in mockup:** header tagline changed to natural Vietnamese PC-building language, Chat title explains the task, while the original two-pane layout remains.
+- **Warning density addressed in mockup:** keep one prominent assessed-build summary; secondary warnings collapse into “điểm cần lưu ý” with inline notices on affected components. This is a visual disclosure, not proof the checks run.
+- **Mobile affordances addressed in mockup:** History and New Session show icons **and** short labels, while the mockup-only scenario selector is hidden on mobile. Chat / PC Build tabs remain unchanged.
+- **Imagery intentionally illustrative:** hardware-type SVGs are placeholders; accurate catalog images and models are not prerequisites for a mockup sign-off.
+- **Observed mockup checks, local only:** standalone HTML loaded in Chromium/Playwright; widths 320, 375, 768, 1024, 1440px showed no document-level horizontal overflow or uncaught JavaScript page errors in the scripted checks. Also exercised warning disclosure, mobile tabs, history/restore sample flows, and sample stockout/failure transitions. These are **prototype interaction checks**, not WCAG certification, real usability testing or backend E2E.
+- **Open gate:** visual acceptance belongs to the stakeholder. No new design decision, implementation approval, or PR merge is inferred from “continue”.
+
 ## 7. Evolution strategy: choose what to reuse
 
 **Selected:** **Selective Reuse** of stakeholder-owned ShopMate.

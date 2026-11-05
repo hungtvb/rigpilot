@@ -115,6 +115,33 @@ Initial data set should be **small and scenario-complete**, not an exhaustive ma
 
 Essential pending UI checks: responsive breakpoints, keyboard/AT navigation, focus management for drawer/tab controls, loading/empty/error states, product-image fallback and color contrast.
 
+
+### UX review of standalone prototype v0.4 — PROPOSED (awaiting stakeholder design sign-off)
+
+**Status and evidence:** These are review proposals based on the standalone HTML concept and supplied desktop/mobile screenshots, not a customer usability study, implemented UI, or acceptance-test PASS. The existing accepted Chat + read-only PC Builder layout, desktop/mobile navigation, history semantics and prior decisions remain unchanged. Adding this section does **not** approve a new implementation plan or authorize product code.
+
+**Goal:** A first-time PC buyer should understand *how the recommendation meets their stated needs, what remains uncertain, and what to do next*, rather than just seeing a parts list and a plausible-looking green status.
+
+| Priority | Design refinement (proposal, not an accepted decision) | Customer-visible expectation |
+|---|---|---|
+| P1 | **Requirements-to-recommendation explanation.** Summarize the customer's top workload, budget, noise/upgrade constraints and which were met, partially met or unverified. Explain the decisive CPU/GPU trade-off in plain language. | The user can connect each important selection to their own request without reading raw benchmark tables or believing unsupported FPS claims. |
+| P1 | **Actionable warnings.** For each significant compatibility/stock/budget/requirement warning, show the affected part, reason, missing evidence or required approval, and a safe next step **through Chat**. Preserve whole-build summary plus inline warning placement (D-038). | "GPU clearance not confirmed — need the exact case/GPU dimensions; ask RigPilot to check" is more useful than "Check dimensions". Do not introduce direct Builder editing or an automatic substitution button. |
+| P1 | **Scope-safe verification language.** Differentiate "checks completed" from "fully compatible PC"; retain explicit `COMPATIBLE`, `UNVERIFIED` and `INCOMPATIBLE` findings and evidence gaps. Publishing an assessed, warned version does not certify build operability. | A green/complete processing indication must never silently override unresolved clearance, BIOS, power or source uncertainty. |
+| P1 | **Precise product identity.** Show the manufacturer/model/SKU where known; otherwise explicitly display "Model chưa xác định" and the relevant unverified specifications. A category illustration must not pretend to be a verified photo of the exact product. | A customer cannot mistake a generic RTX-series label or hardware sketch for an orderable, proven-compatible SKU. |
+| P2 | **Balanced summary and contextual next steps.** Keep total cost prominent but pair it with a brief fit/trade-off summary; offer at most one or two relevant Chat refinements (e.g. quieter cooling, upgrade path) rather than generic suggestion chips. | The experience supports a decision instead of emphasizing budget consumption or decorative AI controls. |
+| P2 | **Mobile conversation continuity.** On completion, expose the new Chat answer and `Xem PC Build` action without forcing a tab change. Follow the newest answer only if the customer was already near the bottom; do not hijack scrolling, focus or reading position while they inspect earlier messages. | The customer can finish reading and deliberately switch to PC Build at 375px, including with keyboard/assistive technology. |
+
+**Design acceptance walkthroughs to review before sign-off (not executed test results):**
+
+1. **Mixed requirements:** Ask for 1440p Cyberpunk, low noise, easy upgrades and a fixed budget. The answer distinguishes evidenced fit from unknowns for *each* important requirement, clearly explains the principal trade-off and does not invent FPS.
+2. **Unknown model and physical fit:** Reuse a vaguely identified owned GPU. The Builder labels model/clearance/power unknown, excludes the owned part from purchase total, and identifies exactly what information would remove the warning.
+3. **Known incompatibility or stockout:** Preserve the customer's explicit part and its blocking status; show an approval/clarification request, never a deceptively successful green build or unconsented replacement.
+4. **Budget and provenance:** An unknown or stale offer visibly says so. A simulated VND offer is labeled simulated and dated; the UI never treats missing price as proven within budget.
+5. **Processing vs saved version:** During an AI run, keep the previous version visible and show only real event status. A failed run never yields a new build; a completed-with-warnings run still labels the warnings.
+6. **Mobile and history:** At 375/768px, reading an older message does not trigger scroll hijack; a new answer is discoverable, the Chat/PC Build tab change is explicit, and History preview/restore remains distinguishable and keyboard-accessible.
+
+**Still to verify:** customer comprehension, visible copy, long product names/large text, contrast, screen-reader reading order, focus return, mobile touch targets, responsive overflow and real-data source labels. Prototype-only visual/interaction checks are not evidence of actual customer comprehension. **Review gate:** stakeholder should review these proposals and any revised v0.4 design artifacts before marking them accepted in `docs/DECISIONS.md`; remain in Design Phase meanwhile.
+
 ## 7. Evolution strategy: choose what to reuse
 
 **Selected:** **Selective Reuse** of stakeholder-owned ShopMate.

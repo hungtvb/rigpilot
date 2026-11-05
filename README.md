@@ -7,6 +7,7 @@ Conversational PC-build advisor for a simulated PC parts store. Local-first with
 ## Read first
 
 - [Product & UX design — approved](docs/superpowers/specs/2026-11-04-rigpilot-product-design.md)
+- [Shared visual design tokens — v0.5 mockup](DESIGN.md)
 - [AI architecture & evaluation — approved](docs/superpowers/specs/2026-11-04-rigpilot-ai-architecture-design.md)
 - [Accepted stakeholder decision log](docs/DECISIONS.md)
 - [Contributor and Superpowers workflow rules](AGENTS.md)

@@ -116,31 +116,29 @@ Initial data set should be **small and scenario-complete**, not an exhaustive ma
 Essential pending UI checks: responsive breakpoints, keyboard/AT navigation, focus management for drawer/tab controls, loading/empty/error states, product-image fallback and color contrast.
 
 
-### UX review of standalone prototype v0.4 — PROPOSED (awaiting stakeholder design sign-off)
+### Prototype v0.4 — visual and interaction review (PROPOSED)
 
-**Status and evidence:** These are review proposals based on the standalone HTML concept and supplied desktop/mobile screenshots, not a customer usability study, implemented UI, or acceptance-test PASS. The existing accepted Chat + read-only PC Builder layout, desktop/mobile navigation, history semantics and prior decisions remain unchanged. Adding this section does **not** approve a new implementation plan or authorize product code.
+**Phase:** Mockup design only. This section is a **review proposal**, not a new accepted business rule, product implementation requirement or assertion that the simulated flows are real. Reviewed against the existing standalone v0.4 desktop (1440px) and mobile (375px Chat / PC Build) screenshots. No customer usability study or WCAG audit has been performed.
 
-**Goal:** A first-time PC buyer should understand *how the recommendation meets their stated needs, what remains uncertain, and what to do next*, rather than just seeing a parts list and a plausible-looking green status.
+**Keep unchanged:** accepted two-pane desktop layout (Chat / read-only PC Builder), two mobile tabs, compact component list, budget summary, summary + inline warning concept, History Drawer, and mock state transitions. Do not redesign the shell or add a marketing hero.
 
-| Priority | Design refinement (proposal, not an accepted decision) | Customer-visible expectation |
+| Priority | Visual / interaction finding | Mockup-level refinement |
 |---|---|---|
-| P1 | **Requirements-to-recommendation explanation.** Summarize the customer's top workload, budget, noise/upgrade constraints and which were met, partially met or unverified. Explain the decisive CPU/GPU trade-off in plain language. | The user can connect each important selection to their own request without reading raw benchmark tables or believing unsupported FPS claims. |
-| P1 | **Actionable warnings.** For each significant compatibility/stock/budget/requirement warning, show the affected part, reason, missing evidence or required approval, and a safe next step **through Chat**. Preserve whole-build summary plus inline warning placement (D-038). | "GPU clearance not confirmed — need the exact case/GPU dimensions; ask RigPilot to check" is more useful than "Check dimensions". Do not introduce direct Builder editing or an automatic substitution button. |
-| P1 | **Scope-safe verification language.** Differentiate "checks completed" from "fully compatible PC"; retain explicit `COMPATIBLE`, `UNVERIFIED` and `INCOMPATIBLE` findings and evidence gaps. Publishing an assessed, warned version does not certify build operability. | A green/complete processing indication must never silently override unresolved clearance, BIOS, power or source uncertainty. |
-| P1 | **Precise product identity.** Show the manufacturer/model/SKU where known; otherwise explicitly display "Model chưa xác định" and the relevant unverified specifications. A category illustration must not pretend to be a verified photo of the exact product. | A customer cannot mistake a generic RTX-series label or hardware sketch for an orderable, proven-compatible SKU. |
-| P2 | **Balanced summary and contextual next steps.** Keep total cost prominent but pair it with a brief fit/trade-off summary; offer at most one or two relevant Chat refinements (e.g. quieter cooling, upgrade path) rather than generic suggestion chips. | The experience supports a decision instead of emphasizing budget consumption or decorative AI controls. |
-| P2 | **Mobile conversation continuity.** On completion, expose the new Chat answer and `Xem PC Build` action without forcing a tab change. Follow the newest answer only if the customer was already near the bottom; do not hijack scrolling, focus or reading position while they inspect earlier messages. | The customer can finish reading and deliberately switch to PC Build at 375px, including with keyboard/assistive technology. |
+| P1 | **Brand expression is still generic.** The logo and indigo palette are coherent, but the uppercase tagline and some generic SaaS copy do little to convey a PC-building assistant. | Refine only the identity microcopy and typography hierarchy; avoid extra ornamental cards, gradients or gaming decoration. |
+| P1 | **Warning information competes with the components.** The summary card and repeated notices above the parts list are both visually prominent. | Preserve accepted **summary + inline** information, but make one overview line clearly primary and move detail emphasis beside affected components or behind disclosure, rather than repeating equally heavy blocks. |
+| P2 | **Mobile header actions are ambiguous without labels.** The narrow screenshot uses icon-only History and New Session controls and a truncated state selector. | Provide recognizable accessible names/visible context (for example in tooltips or a compact action menu) and maintain touch-target hierarchy. No new navigation model. |
+| P2 | **Category illustrations are visually generic.** They currently act as hardware-type placeholders, not true catalog photographs. | Keep placeholders valid in the mockup and identify them as illustrative. Real exact-model product photography and provenance are production-data concerns, not a mockup sign-off gate. |
 
-**Design acceptance walkthroughs to review before sign-off (not executed test results):**
+**Mockup design acceptance (review by looking at representative states; NOT functional E2E tests):**
+1. Desktop 1440px: the customer immediately locates Chat, PC Builder, total/budget and the meaningful warning summary; long models and prices remain legible.
+2. Mobile 375px: Chat / PC Build tabs and history/new-chat affordances are discoverable, the composer does not cover important controls, and a long answer can be visually reviewed without confusing the tab state.
+3. Mock state examples (saved build, unknown compatibility, stockout, failure and previous-version preview) visually distinguish the intended states. **Sample prices, inventory, execution steps and chat replies may be scripted.**
+4. Typography, color, icon style, borders, density and hardware imagery feel like one RigPilot visual system, not a collage of generic AI/SaaS widgets.
+5. The meaning of Chat-based refinements, History preview and Restore is understandable from the depicted interactions or annotations; **the prototype need not call any API, optimizer, LLM, catalog or persistence layer**.
 
-1. **Mixed requirements:** Ask for 1440p Cyberpunk, low noise, easy upgrades and a fixed budget. The answer distinguishes evidenced fit from unknowns for *each* important requirement, clearly explains the principal trade-off and does not invent FPS.
-2. **Unknown model and physical fit:** Reuse a vaguely identified owned GPU. The Builder labels model/clearance/power unknown, excludes the owned part from purchase total, and identifies exactly what information would remove the warning.
-3. **Known incompatibility or stockout:** Preserve the customer's explicit part and its blocking status; show an approval/clarification request, never a deceptively successful green build or unconsented replacement.
-4. **Budget and provenance:** An unknown or stale offer visibly says so. A simulated VND offer is labeled simulated and dated; the UI never treats missing price as proven within budget.
-5. **Processing vs saved version:** During an AI run, keep the previous version visible and show only real event status. A failed run never yields a new build; a completed-with-warnings run still labels the warnings.
-6. **Mobile and history:** At 375/768px, reading an older message does not trigger scroll hijack; a new answer is discoverable, the Chat/PC Build tab change is explicit, and History preview/restore remains distinguishable and keyboard-accessible.
+**Not mockup blockers:** real benchmark sourcing, SKU database completeness, compatibility calculation, stockout approval implementation, state/checkpoint persistence, real execution-event correctness, AI response quality, backend authentication or measured performance. Those remain owned by approved Product/AI design and later implementation/evaluation. Visual treatment should still **avoid claiming** sample outputs are live or certified.
 
-**Still to verify:** customer comprehension, visible copy, long product names/large text, contrast, screen-reader reading order, focus return, mobile touch targets, responsive overflow and real-data source labels. Prototype-only visual/interaction checks are not evidence of actual customer comprehension. **Review gate:** stakeholder should review these proposals and any revised v0.4 design artifacts before marking them accepted in `docs/DECISIONS.md`; remain in Design Phase meanwhile.
+**Design gate:** review the small visual refinements above; then stakeholder can sign off the **UI mockup** separately from functional completeness. Keep this section `PROPOSED` until explicit approval; do not silently modify `docs/DECISIONS.md`, merge, start an implementation plan or code the app.
 
 ## 7. Evolution strategy: choose what to reuse
 
